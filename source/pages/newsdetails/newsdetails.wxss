@@ -1,0 +1,10 @@
+/* pages/newsdetails/newsdetails.wxss */
+.bottom_but{
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  position: fixed;
+  bottom: 0rpx;
+  background-color: #fff;
+  width: 100%;
+  justify-content: center;
+}

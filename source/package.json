@@ -1,0 +1,17 @@
+{
+  "name": "source",
+  "version": "1.0.0",
+  "description": "这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：",
+  "main": "app.js",
+  "dependencies": {
+    "@vant/weapp": "^1.10.5",
+    "mp-html": "^2.4.1",
+    "weui-miniprogram": "^1.2.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

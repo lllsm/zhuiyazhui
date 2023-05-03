@@ -1,0 +1,103 @@
+Page{
+  background-color: #f4f7fc;
+}
+
+.logo {
+  top:90rpx;
+  position: absolute;
+  z-index: 888888;
+  width: 200rpx;
+  height: 200rpx;
+  animation: sway 10s ease-in-out infinite;
+  opacity: .95;
+}
+@keyframes sway{
+  0% {transform: translate3d(0,20rpx,0) rotate(-15deg); }
+  17% {transform: translate3d(0,0rpx,0) rotate(25deg); }
+  34% {transform: translate3d(0,-20rpx,0) rotate(-20deg); }
+  50% {transform: translate3d(0,-10rpx,0) rotate(15deg); }
+  67% {transform: translate3d(0,10rpx,0) rotate(-25deg); }
+  84% {transform: translate3d(0,15rpx,0) rotate(15deg); }
+  100% {transform: translate3d(0,20rpx,0) rotate(-15deg); }
+}
+.grzx {
+  text-align: center;
+  padding: 40rpx;
+  background-color: #fbbd0890;
+  border-bottom-left-radius: 20rpx;
+  border-bottom-right-radius: 20rpx;
+  height: 280rpx;
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+}
+
+.grzx1 {
+  width: 200rpx;
+  padding: 10rpx 20rpx;
+  background-color: #ffffff90;
+  color: #969799;
+  font-size: 40rpx;
+  border-radius: 20rpx;
+}
+
+.randomBtn {
+  width: 100%;
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  font-size: 32rpx;
+  text-align: left;
+  background-color: #ffffff;
+  /* border-bottom: 1rpx solid #ffffff; */
+  border-radius: 0%;
+  color: #5a5a5a;
+}
+
+.menu {
+  margin: 20rpx;
+  /* background-color: #ffffff;
+  border-radius: 50rpx; */
+}
+
+.wdbg {
+  position: fixed;
+  top: 0px;
+  z-index: 1;
+  width: 100vw;
+  height: 400rpx;
+  background-size: 768rpx;
+  /* margin-left: 10rpx; */
+
+}
+
+.users {
+  position: fixed;
+  top: -20rpx;
+  left: 0;
+  width: 100%;
+  z-index: 999999;
+  height: 300rpx;
+  /* background: linear-gradient(90deg,#FFA8A8, #FFE985, #FAB2FF); */
+  overflow-x:hidden;
+  overflow-y:hidden;
+  color: #5a5a5a;
+}
+
+.div1{height: 40rpx;width: 100%;background: #ffffff;border-radius: 30px 30px 0px 0px;position: absolute;bottom: 0px;
+}
+.div2{height: 40rpx;width: 92%;background: #ffffffb0;border-radius: 10px 10px 0px 0px;position:absolute;bottom: 10rpx;left: 4%;right: 6%;}
+.div3{height: 40rpx;width: 88%;background: #ffffff59;border-radius: 10px 10px 0px 0px;position:absolute;bottom: 20rpx;left: 6%;right: 8%;}	
+
+.user {
+  top: 240rpx;
+  z-index: 9999998;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 60rpx 60rpx 60rpx 0rpx;
+  position: absolute;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+

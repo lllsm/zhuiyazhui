@@ -1,0 +1,122 @@
+/* pages/bot/bot.wxss */
+
+Page{
+  background-color: #f4f7fc;
+}
+.vtop{
+  position: fixed;
+  left: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0rpx 40rpx;
+  width: 100vw;  
+  border-radius: 0rpx 0rpx 20rpx 20rpx;
+  z-index: 1;
+  /* height: 10%; */
+  background: #FFFFFF;
+  /* overflow-x:hidden;
+  overflow-y:hidden */
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  padding: 12rpx;
+  background-color: #fff ;
+}
+.content_l{
+  border-radius: 40rpx 0rpx 40rpx 40rpx;
+}
+.content_s{
+  border-radius: 0rpx 40rpx 40rpx 40rpx;
+}
+.aa{
+  max-height:200rpx;
+  min-height: 90rpx;
+}
+.text_s {
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 10rpx 30rpx;   */
+  border-radius: 10rpx;
+  /* background-color: #999; */
+  padding-top: 20rpx;
+  padding-left:20rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  background-color: #FFFFFF;
+  height: 90rpx;
+  /* box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important; */
+}
+.dialogue_bg{
+  position: fixed;
+  bottom: 0rpx;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0rpx 40rpx;
+  width: 100vw;  
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+}
+.dialogue{
+  display: flex;
+  justify-content: space-between;
+}
+.button_mian{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg,#fbfa6a, #f1cd5b);
+  color:#55524f;
+  font-size: 20rpx;
+  width: 100rpx;
+  /* padding-top: 20rpx;
+  padding-bottom:20rpx; */
+}
+.icon-fs{
+  height: 80rpx;
+  width: 90rpx;
+}
+.loadings_bg{
+  position: fixed;
+  height: 100vh;
+  background-color: #00000070;
+  width: 100vw;
+  z-index: 99999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loadings{
+  background: #FFFFFF;
+  /* width: 250rpx;
+  height: 200rpx; */
+  padding: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40rpx;
+  color: #000000;
+}
+.under2{
+  position: fixed;
+  z-index: 2;
+  bottom: 20%;
+  right: 0;
+}
+.movable-area{
+  pointer-events:none;
+  /* 这个属性设置为none,让所有事件穿透过去 */
+  z-index: 1999999999900000;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  position: fixed;
+  /* top:80%; */
+  left: -70rpx;
+ }
+ .movable-view{
+  pointer-events:auto;
+  /* 重设为auto,覆盖父属性设置  宽高要跟图片大小一致*/
+  height: 160rpx;
+  width: 160rpx;
+  margin-top: 150%;
+  /* background: red; */
+ }

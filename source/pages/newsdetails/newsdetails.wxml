@@ -1,0 +1,34 @@
+<!--pages/newsdetails/newsdetails.wxml-->
+<view>
+
+  <view class="padding-20 flex-center ">
+    <view class="h5" style="color:#161616; font-weight: bold;">{{newsdetails.title}}</view>
+    <view class="flex-row flex-liangbian margin-top-40">
+      <view class="text-2 h6  type-text-1">{{newsdetails.title}}</view>
+      <view class="text-2 h6 type-text-1">阅读量：{{newsdetails.readnum}}</view>
+    </view>
+
+    <view class="">
+      <import src="../../wxParse/wxParse.wxml" />
+      <view class='nostyle text-3 h5'>
+        <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+      </view>
+    </view>
+  </view>
+
+
+
+
+<view class="margin-bottom-60"></view>
+
+</view>
+
+
+<view class="flex-row flex-center bottom_but flex-xiandeng">
+    <!-- <view style="width: 200rpx;height: auto;"> -->
+      <button wx:if="{{newsdetails.resource}}" data-data='{{newsdetails.resource}}' class="border-none clear-button radius-40 button_mian h6" style="width: 200rpx;height: 60rpx;" bindtap="bincopy" >复制下载地址</button>
+    <!-- </view> -->
+    <!-- <view style="width: 200rpx;height: auto;"> -->
+      <button class="border-none clear-button radius-40 button_mian h6" style="width: 200rpx;height: 60rpx;" open-type="share">分享</button>
+    <!-- </view> -->
+  </view>

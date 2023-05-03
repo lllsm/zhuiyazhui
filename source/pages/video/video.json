@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "popup": "/component/popup"
+  },
+  "navigationBarTitleText": "视频去水印"
+}

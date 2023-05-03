@@ -1,0 +1,29 @@
+<!--pages/video/video.wxml-->
+<view class="shuiying">
+  <view>
+    <view style="display: flex;justify-content: center;"> <textarea class="text_s border-box2" value="{{inpurl}}" bindinput="inp_url" placeholder="请粘贴需要提取的视频/图集链接"></textarea></view>
+    <view class="bint_s" style="display: flex;justify-content: space-around;">
+      <button class="bin_ok border-box2" bindtap="binok">确认</button>
+      <button class="bin_ok border-box2" bindtap="zantie">粘贴</button>
+    </view>
+    <view class="bint_s" style="display: flex;justify-content: space-around; margin-top: 20rpx;">
+      <button class="bin_ok border-box2" open-type="share">分享</button>
+      <button class="bin_ok border-box2" bindtap="huif">格式化</button>
+      <button class="bin_ok border-box2" bindtap="ouy">清空</button>
+    </view>
+  </view>
+  <view>
+    <view class="txt-gray margin-left-20 margin-top-30">通知：超低价出售视频去水印API源码</view>
+    <view class="txt-gray margin-left-20 margin-top-30">温馨提示：视频归平台及作者所有，本应用不存储任何的视频及图片！目前支持抖音，火山，微视，快手，豆瓣，美拍，秒怕，小咖秀！</view>
+    <view class="txt-gray margin-left-20 margin-top-30">如：复制抖音地址，点击粘贴，如有地址之外文字可点击“格式化”，自动格式化，再点击确认，即可！</view>
+  </view>
+</view>
+
+
+
+
+
+<view class="">
+  <popup id='popup' title='通知' content='检测到你已复制链接，是否直接解析！' btn_no='取消' btn_ok='解析' bind:error="_error" bind:success="_success">
+  </popup>
+</view>

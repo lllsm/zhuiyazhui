@@ -1,0 +1,136 @@
+/* pages/feedback/feedback.wxss */
+page {
+  background: #ffffff;
+}
+
+.yijian {
+  margin: 20rpx 30rpx;
+  /* width: 100vw; */
+  width: 690rpx;
+  height: 620rpx;
+
+  background: #F8F8F8;
+  border-radius: 10rpx;
+}
+
+.title-1 {
+  margin-top: 40rpx;
+  margin-right: 48rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.platext {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #999999;
+}
+
+
+.lxfs {
+  margin: 0rpx 30rpx;
+  height: 90rpx;
+  background: #F8F8F8;
+  border-radius: 10rpx;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.plalxfs {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #999999;
+}
+
+.inplxfs {
+  width: 100vw;
+}
+
+.pobottom {
+  margin: 0rpx 30rpx;
+  position: fixed;
+  bottom: 79rpx;
+  left: 0;
+  z-index: 10;
+}
+
+.tcbtns {
+  width: 690rpx;
+  height: 80rpx;
+  background: #7C6DFE;
+  border-radius: 40rpx;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.imglist {
+  margin: 20rpx 30rpx;
+  flex-shrink: 0;
+}
+
+.banquan {
+  font-size: 20rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #999999;
+  position: absolute;
+  left: 155rpx;
+  bottom: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 1001;
+  -moz-opacity: 0.7;
+  opacity: 0.70;
+  filter: alpha(opacity=70);
+}
+
+.lxkf-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lxkf-1 {
+  width: 590rpx;
+  background: #FFFFFF;
+  border-radius: 10rpx;
+  position: fixed;
+  top: 50vw;
+  left: 70rpx;
+  z-index: 1002;
+}
+
+.content {
+  padding: 60rpx 55rpx 96rpx 55rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #333333;
+}
+
+.fgx {
+  width: 590rpx;
+  height: 1rpx;
+  background: #EEEEEE;
+}
+.okstyle{
+  padding-bottom: 40rpx;
+  padding-top: 40rpx;
+  width: 590rpx;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}

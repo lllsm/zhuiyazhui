@@ -1,0 +1,78 @@
+{
+    "pages": [
+        "pages/bot/bot",
+        "pages/video/video",
+        "pages/home/home",
+        "pages/wode/wode",
+        "pages/about/about",
+        "pages/privacypolicy/privacypolicy",
+        "pages/myinfo/myinfo",
+        "pages/notice/notice",
+        "pages/newsdetails/newsdetails",
+        "pages/videos/videos",
+        "pages/userbg/userbg"
+    ],
+    "usingComponents": {
+      "van-button":"@vant/weapp/button/index",
+      "van-search": "@vant/weapp/search/index",
+      "van-popup": "@vant/weapp/popup/index",
+      "van-field": "@vant/weapp/field/index",
+      "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+      "van-nav-bar": "@vant/weapp/nav-bar/index",
+      "van-image": "@vant/weapp/image/index",
+      "van-divider": "@vant/weapp/divider/index",
+      "van-notice-bar": "@vant/weapp/notice-bar/index",
+      "van-switch": "@vant/weapp/switch/index",
+      "van-notify": "@vant/weapp/notify/index",
+      "van-dialog": "@vant/weapp/dialog/index",
+      "van-tab": "@vant/weapp/tab/index",
+      "van-tabs": "@vant/weapp/tabs/index",
+      "van-stepper": "@vant/weapp/stepper/index",
+      "van-empty": "@vant/weapp/empty/index",
+      "van-cell": "@vant/weapp/cell/index",
+      "van-cell-group": "@vant/weapp/cell-group/index"
+   },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于小程序位置接口的效果展示"
+        }
+    },
+    "window": {
+        "backgroundTextStyle": "light",
+        "enablePullDownRefresh": true,
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#999999",
+        "selectedColor": "#000",
+        "list": [
+            {
+                "pagePath": "pages/home/home",
+                "text": "首页",
+                "iconPath": "./images/icons/home2.png",
+                "selectedIconPath": "./images/icons/home.png"
+            },
+            {
+              "pagePath": "pages/bot/bot",
+              "text": "BotAi",
+              "iconPath": "./images/icons/bot.png",
+              "selectedIconPath": "./images/icons/bots.png"
+          },
+            {
+              "pagePath": "pages/video/video",
+              "text": "视频",
+              "iconPath": "./images/icons/videos.png",
+              "selectedIconPath": "./images/icons/video.png"
+          },
+            {
+                "pagePath": "pages/wode/wode",
+                "text": "我的",
+                "iconPath": "./images/icons/wode2.png",
+                "selectedIconPath": "./images/icons/wode.png"
+            }
+
+        ]
+    },
+    "sitemapLocation": "sitemap.json"
+}

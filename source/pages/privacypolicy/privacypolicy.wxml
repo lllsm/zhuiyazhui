@@ -1,0 +1,13 @@
+<!--pages/privacypolicy/privacypolicy.wxml-->
+<view>
+
+  <view class="padding-30" wx:if="{{options.type=='A'}}">
+    <text>{{instinfo.agreement}}</text>
+  </view>
+
+  <view class="padding-30" wx:if="{{options.type=='B'}}">
+    <text>{{instinfo.policy}}</text>
+  </view>
+
+
+</view>

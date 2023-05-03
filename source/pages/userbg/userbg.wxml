@@ -1,0 +1,36 @@
+<!--pages/userbg/userbg.wxml-->
+<view class="flex-liangbian flex-row">
+  <image class="" mode="aspectFit" src="../../images/icons/add.png" bindtap="addmsg" class="icon-50 under2"></image>
+</view>
+<van-popup lock-scroll="true" show="{{ isadd }}" round closeable position="bottom" close-icon="close" custom-style="height: 40%" bind:close="onClose">
+  <view class="margin-top-100 margin-left-30 margin-right-30">
+    <van-divider hairline dashed customStyle="border-color: #999;"></van-divider>
+    <view class="flex-row flex-wrap flex-center">
+      <view class="img_list margin-bottom-20" wx:if="{{imagebg}}">
+        <van-image class="margin-right-20" show-menu-by-longpress fit="cover" radius="20rpx" alt="heightFix" width="200rpx" height="200rpx" src="{{uploadpath}}{{imagebg}}" />
+        <image src="../../images/icons/close.png" class="close_img" catchtap="deleteimg"></image>
+      </view>
+
+      <image mode="aspectFit" src="../../images/icons/addimg2.png" bindtap="uploadimg" wx:if="{{imagebg=='' || imagebg==null}}" id='-1' class="icon-50 uploadicon"></image>
+    </view>
+    <van-divider hairline dashed customStyle="border-color: #999;"></van-divider>
+    <view class="clear-button margin-left-20 margin-right-20" style="position: fixed; bottom: 40rpx; width: 87%;">
+      <button class="border-none clear-button radius-40 button_mian" bindtap="img_submit">确 认</button>
+    </view>
+  </view>
+</van-popup>
+
+<view wx:if="{{userbglist.length==0}}">
+  <van-empty description="暂无数据" />
+</view>
+
+
+<view class="picture" >
+  <view wx:for="{{userbglist}}" class="item img_list" wx:for-index="idx">
+    <image src="../../images/icons/tj2.png" wx:if="{{item.state==2}}" class="tjimg" catchtap="previewImage"></image>
+    <image mode='widthFix' class="image" id="{{idx}}" data-id="{{item.id}}" catchtap="setImage"  catchlongtap="del"src="{{uploadpath}}{{item.class_image}}" />
+    <image src="../../images/icons/ck.png" class="ckimg" catchtap="previewImage"></image>
+  </view>
+</view>
+
+<van-notify id="van-notify" />

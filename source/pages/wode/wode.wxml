@@ -1,0 +1,53 @@
+<!-- <van-nav-bar title="我的" /> -->
+
+<!-- <view class="hb">
+  <image class="im" mode="heightFix" src="../../images/bj.jpg" />
+</view> -->
+<view class="users  padding-top-20 padding-bottom-20">
+  <view class="flex-row flex-center margin-top-80 margin-left-30">
+    <view>
+      <view wx:if='{{memberinfo}}' bindtap="navtoPage" style="color: #3d3b4f;" data-page='myinfo' data-param='nickName={{memberinfo.wxnickName ||"微信昵称"}}&mobile={{memberinfo.mobile}}'>
+        <view class="logo">
+          <van-image round width="150rpx" height="150rpx" src="{{uploadpath}}{{memberinfo.avatarUrl}}" />
+        </view>
+      </view>
+      <view wx:if='{{!memberinfo}}' bindtap="navtoPage" data-page='myinfo' style="color: #3d3b4f;" data-param='nickName={{memberinfo.wxnickName ||"微信昵称"}}&mobile={{memberinfo.mobile}}'>
+        <view class="logo"> 
+          <van-image round width="150rpx" height="150rpx" round use-error-slot show-error='加载失败'>
+          <text style="color: burlywood;" slot="error">加载失败</text>
+        </van-image>
+        </view>
+      </view>
+    </view>
+    <view class="margin-left-30 margin-top-10 " style="margin-left: 180rpx;">
+      <view>
+        <view bindtap="navtoPage" data-page='myinfo' style="color: #3d3b4f;" data-param='nickName={{memberinfo.wxnickName ||"微信昵称"}}&mobile={{memberinfo.mobile}}' class="h4" wx:if='{{memberinfo&&memberinfo.wxnickName!=null}}'>{{memberinfo.wxnickName}}</view>
+        <view class="" style="color: #3d3b4f;"  bindtap="navtoPage" data-page='myinfo' data-param='nickName={{memberinfo.wxnickName ||"微信昵称"}}&mobile={{memberinfo.mobile}}' wx:if='{{!memberinfo || memberinfo.wxnickName==null}}'>点击授权</view>
+      </view>
+      <view>
+        <button open-type="getPhoneNumber" style="color: #3d3b4f;" bindtap="navtoPage" data-page='myinfo' data-param='nickName={{memberinfo.wxnickName ||"微信昵称"}}&mobile={{memberinfo.mobile}}' class=" border-none clear-button" wx:if='{{memberinfo&&memberinfo.mobile!=null}}'>{{memberinfo.mobile}}</button>
+        <button open-type="getPhoneNumber" style="color: #3d3b4f;" bindtap="navtoPage" data-page='myinfo' data-param='nickName={{memberinfo.wxnickName ||"微信昵称"}}&mobile={{memberinfo.mobile}}' class=" border-none clear-button"  wx:if='{{!memberinfo || memberinfo.mobile==null}}'>点击完善资料</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- <view class="div3"></view>
+  <view class="div2"></view> -->
+  <!-- <view class="div1"></view> -->
+</view>
+<view class="user">
+  <view class="menu">
+    <view class="margin-bottom-10 border-box">
+      <button class="randomBtn clear-button" open-type="contact" bindcontact="handleContact">联系客服</button>
+    </view>
+    <view class="margin-bottom-10 border-box">
+      <button class="randomBtn clear-button" open-type="feedback">意见反馈</button>
+    </view>
+    <view class="margin-bottom-10 border-box">
+      <van-cell title="荷包蛋食谱" is-link value="厨房必备" catchtap="cookbook" />
+    </view>
+    <view class="margin-bottom-10 border-box">
+      <van-cell title="关于我们" is-link value="关于我们" catchtap="About" />
+    </view>
+  </view>
+</view>
