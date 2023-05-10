@@ -1,4 +1,4 @@
-
+const app = getApp();
 import { AppBase } from "../../appbase";
 import { ApiUtil } from "../../apis/apiutil.js";
 var WxParse = require('../../wxParse/wxParse');
@@ -27,26 +27,43 @@ class Content extends AppBase {
       margintop: top,
       funcrowheight: height
     })
-
-
-
     let tipslist = wx.getStorageSync("tips");
     this.Base.setMyData({ tipslist })
+
   }
 
   onMyShow() {
     var that = this;
-    let msglist = wx.getStorageSync("dialoguelist")
+    var msglist = wx.getStorageSync("dialoguelist")
     let msgdata = wx.getStorageSync("msglist")
     console.log(msglist)
-    console.log(this)
+    if(msglist.length>0){
+      msglist.forEach((item,index)=>{
+        console.log(index,'++++++++++++++++===')
+        let cont =  item.answer;
+        let content = ApiUtil.HtmlDecode(cont);
+         WxParse.wxParse('answerdata'+index, 'markdown',content, that, 10);
+         if(index===msglist.length-1){
+          var oo = WxParse.wxParseTemArray("listanswerdata",'answerdata',msglist.length,that)
+         console.log(oo,'---------------')
+        }
+      })
+    }
+    // let listanswerdatapp = oo;
+    // listanswerdatapp.forEach((item,index)=>{
+    //   msglist.HH =item;
+    // })
+
+    // that.Base.getMyData().msglist.forEach(function(item,index){
+    //    WxParse.wxParse('content', 'markdown',ApiUtil.HtmlDecode(item.answer), that, 10);
+    // })
     this.Base.setMyData({
       dialoguelist: msglist || [],
       msglist: msgdata || []
     })
     wx.hideLoading();
     that.Base.setMyData({
-      scrollTop:msglist.length * 10000 * 2 * 5000,
+      scrollTop: msglist.length * 10000 * 2 * 5000,
     })
     let query = wx.createSelectorQuery().in(this)
     query.select('.dialogue_bg').boundingClientRect(res => {
@@ -96,7 +113,7 @@ class Content extends AppBase {
   okbnt() {
     // this.requestData()
     var that = this;
-    let parentMessageId = this.Base.getMyData().parentMessageId ||wx.getStorageSync("parentMessageId") || "";
+    let parentMessageId = this.Base.getMyData().parentMessageId || wx.getStorageSync("parentMessageId") || "";
     var msgbot = {
       "prompt": that.Base.getMyData().messages,
       "options": { parentMessageId },
@@ -118,74 +135,79 @@ class Content extends AppBase {
       questiontime: this.getTime()
     })
     //     //建立 WebSocket 连接
-        var websocket = wx.connectSocket({
-          url: 'wss://gpt.cllsm.top:8443',
-          success: (res) => {
-            that.Base.setMyData({ loadings: true })
-            if (that.Base.getMyData().loadings) {
-              var intervalId = setInterval(function () {
-                console.log(that.getRandomInt(0, that.Base.getMyData().tipslist.length))
-                let tipslist = that.Base.getMyData().tipslist;
-                let tips = tipslist[Number(that.getRandomInt(0, that.Base.getMyData().tipslist.length) - 1)].value;
-                that.Base.setMyData({ tips })
-              }, 3000);
-              that.Base.setMyData({ intervalId })
+    var websocket = wx.connectSocket({
+      url: 'wss://gpt.cllsm.top:8443',
+      success: (res) => {
+        that.Base.setMyData({ loadings: true })
+        if (that.Base.getMyData().loadings) {
+          var intervalId = setInterval(function () {
+            console.log(that.getRandomInt(0, that.Base.getMyData().tipslist.length))
+            let tipslist = that.Base.getMyData().tipslist;
+            let tips = tipslist[Number(that.getRandomInt(0, that.Base.getMyData().tipslist.length) - 1)].value;
+            that.Base.setMyData({ tips })
+          }, 3000);
+          that.Base.setMyData({ intervalId })
+        }
+
+
+        console.log('WebSocket connected')
+        wx.onSocketOpen(() => {
+          console.log('WebSocket opened')
+          // 发送消息
+          wx.sendSocketMessage({
+            data: JSON.stringify(msgbot),
+            success: function () {
+              console.log('WebSocket message sent');
             }
-
-
-            console.log('WebSocket connected')
-            wx.onSocketOpen(() => {
-              console.log('WebSocket opened')
-              // 发送消息
-              wx.sendSocketMessage({
-                data: JSON.stringify(msgbot),
-                success: function () {
-                  console.log('WebSocket message sent');
-                }
-              });
-            })
-          }
-
-
+          });
         })
-        wx.onSocketMessage((res) => {
-          that.Base.setMyData({
-            answertime:this.getTime(),
-          })
-          this.Base.setMyData({ loadings: false })
-          this.Base.setMyData({ long: true })
-          clearInterval(that.Base.getMyData().intervalId);
-          var datas = JSON.parse(res.data)
-          if(datas.code==0){
-            let msg = datas.data.toString('utf-8')
-            const lines = msg.split('\n');
-            const lastLine = lines[lines.length - 1];
-            that.Base.setMyData({
-              scrollTop: 10000 * 2 * 5000,
-              prompt:JSON.parse(lastLine).text,
-              parentMessageId:JSON.parse(lastLine).id,
-            })
-            // that.onMyShow()
-          }else{
-            that.Base.setMyData({
-              scrollTop: 10000 * 2 * 5000,
-              prompt:datas.msg,
-            })
-            that.Base.toast("请求失败了")
-            // that.onMyShow()
-          }
-          dialogue.answer = that.Base.getMyData().prompt;
-          dialogue.answertime = this.getTime();
-        })
+      }
 
-        // 监听 WebSocket 错误事件
-        wx.onSocketError((res) => {
-          console.error('WebSocket 错误：', res);
-          that.Base.toast("请求失败了")
-          this.Base.setMyData({ loadings: false })
-          clearInterval(that.Base.getMyData().intervalId);
-          this.Base.toast("提交失败请稍后重试！");
-        });
+
+    })
+    wx.onSocketMessage((res) => {
+      that.Base.setMyData({
+        answertime: this.getTime(),
+      })
+      this.Base.setMyData({ loadings: false })
+      this.Base.setMyData({ long: true })
+      clearInterval(that.Base.getMyData().intervalId);
+      var datas = JSON.parse(res.data)
+      if (datas.code == 0) {
+        let msg = datas.data.toString()
+        const lines = msg.split('\n');
+        const lastLine = lines[lines.length - 1];
+        that.Base.setMyData({
+          scrollTop: 10000 * 2 * 5000,
+          prompt: JSON.parse(lastLine).text,
+          parentMessageId: JSON.parse(lastLine).id,
+        })
+        wx.setStorageSync("parentMessageId", that.Base.getMyData().parentMessageId)
+        // that.onMyShow()
+
+        let cont = JSON.parse(lastLine).text;
+        let content = ApiUtil.HtmlDecode(cont);
+         WxParse.wxParse('content', 'markdown',content, that, 10);
+      } else {
+        that.Base.setMyData({
+          scrollTop: 10000 * 2 * 5000,
+          prompt: datas.msg,
+        })
+        that.Base.toast("请求失败了")
+        // that.onMyShow()
+      }
+      dialogue.answer = that.Base.getMyData().prompt;
+      dialogue.answertime = this.getTime();
+    })
+
+    // 监听 WebSocket 错误事件
+    wx.onSocketError((res) => {
+      console.error('WebSocket 错误：', res);
+      that.Base.toast("请求失败了")
+      this.Base.setMyData({ loadings: false })
+      clearInterval(that.Base.getMyData().intervalId);
+      this.Base.toast("提交失败请稍后重试！");
+    });
 
     // 监听 WebSocket 连接关闭事件
     wx.onSocketClose(() => {
@@ -193,7 +215,7 @@ class Content extends AppBase {
       that.Base.toast("请求成功了")
       that.Base.getMyData().dialoguelist.push(dialogue)
       wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
-      that.Base.setMyData({ messages:""})
+      that.Base.setMyData({ messages: "" })
       this.Base.setMyData({ long: false })
       that.onMyShow();
     });
@@ -215,7 +237,7 @@ class Content extends AppBase {
       that.Base.setMyData({ intervalId })
     }
     var college = new CollegeApi();
-    college.aibot2({ msgbot:encodeURI(JSON.stringify(msgbot)) }, (data) => {
+    college.aibot2({ msgbot: encodeURI(JSON.stringify(msgbot)) }, (data) => {
       if (data.data) {
         that.Base.setMyData({ long: false })
         console.log(data.data)
@@ -245,8 +267,8 @@ class Content extends AppBase {
         dialogue.answer = data.data.text;
         dialogue.answertime = that.getTime();
 
-      that.Base.getMyData().dialoguelist.push(dialogue)
-      wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
+        that.Base.getMyData().dialoguelist.push(dialogue)
+        wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
 
         // wx.setStorageSync("msglist", that.Base.getMyData().msglist)
         that.Base.setMyData({
@@ -285,36 +307,36 @@ class Content extends AppBase {
 
 
   }
-   requestData() {
+  requestData() {
     var msgbot = {
       "prompt": '写一篇作文我的爸爸，500字',
-      "options": {  },
+      "options": {},
       "systemMessage": "You are 追鸭追, A large language model based on chatGPT3.5. Follow the user's instructions carefully. Respond using markdown."
     }
     wx.request({
       url: 'http://198.44.185.221:1002/api/chat-process', // 流媒体地址
-      data:msgbot,
-      method:"POST",
+      data: msgbot,
+      method: "POST",
       Range: 'bytes=300',
       header: {
         'content-type': 'application/json' // 默认值
       },
       responseType: 'arraybuffer', // 指定响应数据类型为 ArrayBuffer
       success: function (res) {
-          console.log(res.data)
-            // 将 ArrayBuffer 转换成文本
-          var text = new TextDecoder('utf-8').decode(res.data)
-          // 将文本转换成数组
-          console.log(text)
-          const lines = text.split('\n');
-          const lastLine = lines[lines.length - 1];
-          console.log(JSON.parse(lastLine))
-                // 获取响应流
-            // let msg = res.data.toString('utf-8')
-          // const str = '第一行\n第二行\n最后一行';
-          // const lines = msg.split('\n');
-          // const lastLine = lines[lines.length - 1];
-          // console.log(JSON.parse(lastLine))
+        console.log(res.data)
+        // 将 ArrayBuffer 转换成文本
+        var text = new TextDecoder('utf-8').decode(res.data)
+        // 将文本转换成数组
+        console.log(text)
+        const lines = text.split('\n');
+        const lastLine = lines[lines.length - 1];
+        console.log(JSON.parse(lastLine))
+        // 获取响应流
+        // let msg = res.data.toString('utf-8')
+        // const str = '第一行\n第二行\n最后一行';
+        // const lines = msg.split('\n');
+        // const lastLine = lines[lines.length - 1];
+        // console.log(JSON.parse(lastLine))
       }
     })
   }
@@ -332,7 +354,7 @@ class Content extends AppBase {
           that.Base.setMyData({
             dialoguelist: [],
             msglist: [],
-            parentMessageId:""
+            parentMessageId: ""
           })
           wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
           wx.setStorageSync("msglist", that.Base.getMyData().msglist)
@@ -380,6 +402,16 @@ class Content extends AppBase {
     }
     return -1;
   }
+  bincopy(e){
+    console.log(e)
+
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.data,
+      success (res) {
+        console.log(res);
+      }
+    })
+  }
 
 
 
@@ -402,4 +434,5 @@ body.About = content.About;
 body.getRandomInt = content.getRandomInt;
 body.lastIndexOf = content.lastIndexOf;
 body.requestData = content.requestData;
+body.bincopy = content.bincopy;
 Page(body)

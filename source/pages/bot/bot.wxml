@@ -1,13 +1,13 @@
 <!--pages/bot/bot.wxml-->
 <movable-area class="movable-area">
- <movable-view  animation="{{true}}" class="movable-view" direction='vertical' >
-  <image  mode="aspectFit" src="../../images/icons/sz.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
- </movable-view>
+  <movable-view animation="{{true}}" class="movable-view" direction='vertical'>
+    <image mode="aspectFit" src="../../images/icons/sz.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
+  </movable-view>
 </movable-area>
 
 <view wx:if="{{loadings}}" class="loadings_bg">
   <view class="loadings flex-column flex-centers">
-    <image  class="icon-60" src="https://college.cllsm.top/uploads/20230422/52c5b40baccb3b44f957d114264e07e1.gif" />
+    <image class="icon-60" src="https://college.cllsm.top/uploads/20230422/52c5b40baccb3b44f957d114264e07e1.gif" />
     <view class="h6 margin-top-20">{{"Tips:" + tips}}</view>
   </view>
 </view>
@@ -25,9 +25,11 @@
     <view></view>
   </view>
 
+
   <view style="margin-top:{{margintop+40}}px; margin-bottom: -30rpx; background-image: {{memberinfo.User_bg == null ? 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' : 'url('+ uploadpath+memberinfo.User_bg.class_image+')' }}; background-size: cover; background-position: center;overflow: hidden;">
     <scroll-view scroll-y class="message-box-list" style="height: 1300rpx;padding-bottom: 40rpx;" enable-passive scroll-top="{{scrollTop}}">
       <!-- 列表内容 -->
+
       <view class="margin-30" wx:for="{{dialoguelist}}" wx:key="index">
         <view class="" style="display: flex; justify-content: center;">
           <view class="txt-gray h6">{{item.questiontime}}</view>
@@ -50,7 +52,11 @@
 
           <view>
             <view class="flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s">
-              <text user-select class="txt-gray margin-left-20 margin-right-20">{{item.answer}}</text>
+              <text data-data="{{item.answer}}" bindtap="bincopy" user-select class="txt-gray margin-left-20 margin-right-20">{{item.answer}}</text>
+              <!-- <view class="flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s" data-data="{{item.answer}}" bindtap="bincopy">
+                <import src="../../wxParse/wxParse.wxml" />
+                <template is="wxParse" data="{{wxParseData:listanswerdata[index]}}" />
+              </view> -->
             </view>
 
           </view>
@@ -80,7 +86,13 @@
 
           <view>
             <view class="flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s">
-              <text user-select class="txt-gray margin-left-20 margin-right-20">{{prompt}}</text>
+              <text data-data="{{prompt}}" bindtap="bincopy" user-select class="txt-gray margin-left-20 margin-right-20">{{prompt}}</text>
+              <!-- <view class="">
+                <import src="../../wxParse/wxParse.wxml" />
+                <view class='flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s'>
+                  <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+                </view>
+              </view> -->
             </view>
 
           </view>
@@ -119,5 +131,3 @@
 <!-- <view class="flex-liangbian flex-row">
   <image class="" mode="aspectFit" src="../../images/icons/add.png" bindtap="addmsg" class="icon-50 under2"></image>
 </view> -->
-
-
