@@ -62,7 +62,7 @@ class Content extends AppBase {
     wx.navigateToMiniProgram(
       {
         appId: "wx5d9f496252c25e4e",
-        path: "/pages/index/index",
+        path: "/pages/home/home",
       }
     )
   }

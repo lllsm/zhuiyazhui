@@ -12,10 +12,10 @@ class Content extends AppBase {
     this.Base.Page = this;
     super.onLoad(options);
 
-    let list =  [{
+    let list = [{
       id: 0,
       value: '未知',
-    },{
+    }, {
       id: 1,
       value: '男',
     }, {
@@ -23,35 +23,35 @@ class Content extends AppBase {
       value: '女'
     }]
 
-  
+
     let nickName = this.Base.options.nickName;
     let mobile = this.Base.options.mobile;
     this.Base.setMyData({
-      gender:list,
-      avatarUrl:"",
+      gender: list,
+      avatarUrl: "",
       nickName,
       mobile,
     });
-    
+
   }
   onMyShow() {
-    let imglist =  JSON.parse(AppBase.InstInfo.data.banquan);
+    let imglist = JSON.parse(AppBase.InstInfo.data.banquan);
     let imgvalue = wx.getStorageSync("imgvalue");
     this.Base.setMyData({
       imgvalue,
       imglist
     });
   }
-  getUserProfile(e){
-    let uu =this.Base.getMyData().avatarUrl||this.Base.getMyData().memberinfo.avatarUrl;
-    if(uu==null || uu==undefined){
+  getUserProfile(e) {
+    let uu = this.Base.getMyData().avatarUrl || this.Base.getMyData().memberinfo.avatarUrl;
+    if (uu == null || uu == undefined) {
       this.Base.toast("请上传头像才能保存哦！");
       return;
     }
-      console.log(this.Base.getMyData().instinfo.switch==1)
-    if(this.Base.getMyData().mobile && this.Base.getMyData().instinfo.switch==0){
+    console.log(this.Base.getMyData().instinfo.switch == 1)
+    if (this.Base.getMyData().mobile && this.Base.getMyData().instinfo.switch == 0) {
       let ismobile = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/.test(this.Base.getMyData().mobile);
-      if(!ismobile){
+      if (!ismobile) {
         this.Base.toast("手机号码格式错误!")
         return
       }
@@ -62,30 +62,30 @@ class Content extends AppBase {
     var memberapi = new MemberApi();
     var that = this;
     wx.showModal({
-      title:'修改提示',
-      content:str,
+      title: '修改提示',
+      content: str,
       success: (res) => {
         console.log(res);
-          if(res.confirm){
-            memberapi.updateuser({
-              mobile:this.Base.getMyData().mobile||this.Base.getMyData().memberinfo.mobile,
-              openid:this.Base.getMyData().UserInfo.openid,
-              nickName:this.Base.getMyData().nickName||this.Base.getMyData().memberinfo.nickName,
-              avatarUrl:this.Base.getMyData().avatarUrl||this.Base.getMyData().memberinfo.avatarUrl,
-            }, (e) => {
-              if(e.code=="1"){
-                wx.switchTab({
-                  url: '/pages/wode/wode'
-                })
-                this.Base.toast("修改成功")
-              }else{
-                this.Base.toast("修改失败")
-              }
-            });
-          }
+        if (res.confirm) {
+          memberapi.updateuser({
+            mobile: this.Base.getMyData().mobile || this.Base.getMyData().memberinfo.mobile,
+            openid: this.Base.getMyData().UserInfo.openid,
+            nickName: this.Base.getMyData().nickName || this.Base.getMyData().memberinfo.nickName,
+            avatarUrl: this.Base.getMyData().avatarUrl || this.Base.getMyData().memberinfo.avatarUrl,
+          }, (e) => {
+            if (e.code == "1") {
+              wx.switchTab({
+                url: '/pages/wode/wode'
+              })
+              this.Base.toast("修改成功")
+            } else {
+              this.Base.toast("修改失败")
+            }
+          });
+        }
       },
       fail: (res) => {
-        
+
       },
     });
   }
@@ -101,40 +101,40 @@ class Content extends AppBase {
     //     }); 
     //   }, undefined);
     // }
-    const { avatarUrl } = e.detail 
+    const { avatarUrl } = e.detail
     this.Base.setMyData({
       avatarUrl
     })
-      console.log("进来了")
-      let uploadpath = this.Base.getMyData().uploadpath;
-      this.Base.uploadAvatarUrl("member",avatarUrl, (ret) => { 
-        console.log(ret)
-        that.Base.setMyData({
-          avatarUrl: ret
-        }); 
-      }, undefined);
+    console.log("进来了")
+    let uploadpath = this.Base.getMyData().uploadpath;
+    this.Base.uploadAvatarUrl("member", avatarUrl, (ret) => {
+      console.log(ret)
+      that.Base.setMyData({
+        avatarUrl: ret
+      });
+    }, undefined);
 
 
 
   }
-  bin_inp(e){
+  bin_inp(e) {
     console.log(e)
     this.Base.setMyData({
-      nickName:e.detail.value
+      nickName: e.detail.value
     })
   }
-  bin_inp_mb(e){
+  bin_inp_mb(e) {
     console.log(e)
     this.Base.setMyData({
-      mobile:e.detail.value
+      mobile: e.detail.value
     })
   }
   bindPickerChange(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-    let rr=this.Base.getMyData().imglist[e.detail.value];
-   console.log(rr)
-    wx.setStorageSync("imgvalue",rr)
-this.onMyShow()
+    let rr = this.Base.getMyData().imglist[e.detail.value];
+    console.log(rr)
+    wx.setStorageSync("imgvalue", rr)
+    this.onMyShow()
   }
 
 }

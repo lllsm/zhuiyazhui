@@ -10,7 +10,8 @@
         "pages/notice/notice",
         "pages/newsdetails/newsdetails",
         "pages/videos/videos",
-        "pages/userbg/userbg"
+        "pages/userbg/userbg",
+        "pages/discounts/discounts"
     ],
     "usingComponents": {
       "van-button":"@vant/weapp/button/index",
@@ -65,6 +66,12 @@
               "iconPath": "./images/icons/videos.png",
               "selectedIconPath": "./images/icons/video.png"
           },
+          {
+            "pagePath": "pages/discounts/discounts",
+            "text": "优惠",
+            "iconPath": "./images/icons/cp.png",
+            "selectedIconPath": "./images/icons/cp1.png"
+        },
             {
                 "pagePath": "pages/wode/wode",
                 "text": "我的",

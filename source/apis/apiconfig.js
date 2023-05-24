@@ -11,6 +11,9 @@ export class ApiConfig {
   static GetApiBotUrl() {
     return "https://api.gptbot.cc/v1";
   }
+  static Getjutuike(){
+    return "https://api.jutuike.com/union/";
+  }
   static GetUploadPath() {
     return "https://college.cllsm.top";
     // return "http://127.0.0.1";

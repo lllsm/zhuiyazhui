@@ -7,6 +7,7 @@ class Content extends AppBase {
   onLoad(options) {
     this.Base.Page = this;
     super.onLoad(options);
+    var that = this;
     let cont = wx.getStorageSync("content")||AppBase.instinfo.content||this.Base.getMyData().instinfo.content;
     let content = ApiUtil.HtmlDecode(cont);
     console.log(content)

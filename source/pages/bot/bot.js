@@ -3,6 +3,7 @@ import { AppBase } from "../../appbase";
 import { ApiUtil } from "../../apis/apiutil.js";
 var WxParse = require('../../wxParse/wxParse');
 import { CollegeApi } from "../../apis/college.api.js";
+import { MemberApi } from "../../apis/member.api.js";
 class Content extends AppBase {
   constructor() { super(); }
   onLoad(options) {
@@ -10,6 +11,7 @@ class Content extends AppBase {
     super.onLoad(options);
     wx.setBackgroundColor({ backgroundColor: '#ffffff' })
     this.Base.setMyData({
+      nickName: "",
       dialoguelist: [],
       messages: "",
       msglist: [],
@@ -20,7 +22,8 @@ class Content extends AppBase {
       parentMessageId: "",
       long: false,
       questiontime: "",
-      answertime: ""
+      answertime: "",
+      isupdate: false,
     })
     const { height, top } = wx.getMenuButtonBoundingClientRect();
     this.Base.setMyData({
@@ -36,34 +39,26 @@ class Content extends AppBase {
     var that = this;
     var msglist = wx.getStorageSync("dialoguelist")
     let msgdata = wx.getStorageSync("msglist")
-    console.log(msglist)
-    if(msglist.length>0){
-      msglist.forEach((item,index)=>{
-        console.log(index,'++++++++++++++++===')
-        let cont =  item.answer;
-        let content = ApiUtil.HtmlDecode(cont);
-         WxParse.wxParse('answerdata'+index, 'markdown',content, that, 10);
-         if(index===msglist.length-1){
-          var oo = WxParse.wxParseTemArray("listanswerdata",'answerdata',msglist.length,that)
-         console.log(oo,'---------------')
-        }
-      })
-    }
-    // let listanswerdatapp = oo;
-    // listanswerdatapp.forEach((item,index)=>{
-    //   msglist.HH =item;
-    // })
+    // if (msglist.length > 0) {
+    //   msglist.forEach((item, index) => {
+    //     console.log(index, '++++++++++++++++===')
+    //     let cont = item.answer;
+    //     let content = ApiUtil.HtmlDecode(cont);
+    //     WxParse.wxParse('answerdata' + index, 'markdown', content, that, 10);
+    //     if (index === msglist.length - 1) {
+    //       var oo = WxParse.wxParseTemArray("listanswerdata", 'answerdata', msglist.length, that)
+    //       console.log(oo, '---------------')
+    //     }
+    //   })
+    // }
 
-    // that.Base.getMyData().msglist.forEach(function(item,index){
-    //    WxParse.wxParse('content', 'markdown',ApiUtil.HtmlDecode(item.answer), that, 10);
-    // })
     this.Base.setMyData({
       dialoguelist: msglist || [],
       msglist: msgdata || []
     })
     wx.hideLoading();
     that.Base.setMyData({
-      scrollTop: msglist.length * 10000 * 2 * 5000,
+      scrollTop: 500 * 2 * 500000000,
     })
     let query = wx.createSelectorQuery().in(this)
     query.select('.dialogue_bg').boundingClientRect(res => {
@@ -111,115 +106,152 @@ class Content extends AppBase {
     }).exec();
   }
   okbnt() {
-    // this.requestData()
     var that = this;
-    let parentMessageId = this.Base.getMyData().parentMessageId || wx.getStorageSync("parentMessageId") || "";
-    var msgbot = {
-      "prompt": that.Base.getMyData().messages,
-      "options": { parentMessageId },
-    }
-    if (this.Base.getMyData().parentMessageId == "") {
-      msgbot.options = {};
-    }
     let msg = this.Base.getMyData().messages;
     if (msg == "") {
       this.Base.toast("要填内容哦");
       return
     }
-    let dialogue = {
-      question: msg,
-      answer: "",
-      questiontime: this.getTime()
-    };
-    that.Base.setMyData({
-      questiontime: this.getTime()
-    })
-    //     //建立 WebSocket 连接
-    var websocket = wx.connectSocket({
-      url: 'wss://gpt.cllsm.top:8443',
-      success: (res) => {
-        that.Base.setMyData({ loadings: true })
-        if (that.Base.getMyData().loadings) {
-          var intervalId = setInterval(function () {
-            console.log(that.getRandomInt(0, that.Base.getMyData().tipslist.length))
-            let tipslist = that.Base.getMyData().tipslist;
-            let tips = tipslist[Number(that.getRandomInt(0, that.Base.getMyData().tipslist.length) - 1)].value;
-            that.Base.setMyData({ tips })
-          }, 3000);
-          that.Base.setMyData({ intervalId })
-        }
+    this.showLoadings()
+    let parentMessageId = this.Base.getMyData().parentMessageId || wx.getStorageSync("parentMessageId") || "";
+    var msgbot = {
+      "prompt": that.Base.getMyData().messages,
+      "options": { parentMessageId },
+      "token": that.Base.getMyData().instinfo.wechataccount
+    }
+    if (this.Base.getMyData().parentMessageId == "") {
+      msgbot.options = {};
+    }
+    this.ismsg(msg)
+      .then((label) => {
+        if (label !== 100) {
+          that.msgseccheck(label)
+          that.Base.setMyData({
+            messages: ""
+          })
+          return
+        } else {
+          var dialogue = {
+            // question: that.replaceSensitiveWords(msg),
+            question: (msg),
+            answer: "",
+            questiontime: this.getTime()
+          };
+          that.Base.setMyData({
+            questiontime: this.getTime()
+          })
+          var weburl = "wss://gpt.cllsm.top:8443";
+          if (that.Base.getMyData().instinfo.state == '2') {
+            weburl = "wss://gpt.cllsm.top:5657";
+          }
 
-
-        console.log('WebSocket connected')
-        wx.onSocketOpen(() => {
-          console.log('WebSocket opened')
-          // 发送消息
-          wx.sendSocketMessage({
-            data: JSON.stringify(msgbot),
-            success: function () {
-              console.log('WebSocket message sent');
+          //     //建立 WebSocket 连接
+          var websocket = wx.connectSocket({
+            url: weburl,
+            success: (res) => {
+              console.log('WebSocket connected')
+              wx.onSocketOpen(() => {
+                console.log('WebSocket opened')
+                // 发送消息
+                wx.sendSocketMessage({
+                  data: JSON.stringify(msgbot),
+                  success: function () {
+                    console.log('WebSocket message sent');
+                  }
+                });
+              })
             }
+          })
+          // 监听 WebSocket 错误事件
+          wx.onSocketError((res) => {
+            console.error('WebSocket 错误：', res);
+            that.Base.toast("请求失败了");
+            that.hideLoadings();
           });
-        })
-      }
-
-
-    })
-    wx.onSocketMessage((res) => {
-      that.Base.setMyData({
-        answertime: this.getTime(),
+          wx.onSocketMessage((res) => {
+            // console.log(res.data)
+            that.hideLoadings()
+            this.Base.setMyData({ long: true })
+            var datas = JSON.parse(res.data)
+            that.Base.setMyData({
+              answertime: this.getTime(),
+            })
+            if (datas.code == 0) {
+              let msg = datas.data.toString()
+              if (that.Base.getMyData().instinfo.state == '2') {
+                if (msg == '    [error]请登录') {
+                  msg = "鸭鸭提醒：请求过于频繁，请过一会再来，鸭鸭等你，要注意休息哦！"
+                }
+                that.Base.setMyData({
+                  scrollTop: 500 * 2 * 500000000,
+                  // prompt:that.replaceSensitiveWords(msg),
+                  prompt:(msg),
+                })
+              } else {
+                let msg = datas.data.toString()
+                const lines = msg.split('\n');
+                const lastLine = lines[lines.length - 1];
+                that.Base.setMyData({
+                  scrollTop: 500 * 2 * 500000000,
+                  // prompt: that.replaceSensitiveWords(JSON.parse(lastLine).text),
+                  prompt: (JSON.parse(lastLine).text),
+                  parentMessageId: JSON.parse(lastLine).id,
+                })
+                wx.setStorageSync("parentMessageId", that.Base.getMyData().parentMessageId)
+              }
+              //处理markdown，有问题
+              // let cont = that.replaceSensitiveWords(JSON.parse(lastLine).text);
+              // let content = ApiUtil.HtmlDecode(cont);
+              // WxParse.wxParse('content', 'markdown', content, that, 10);
+            } else {
+              that.Base.setMyData({
+                scrollTop: 500 * 2 * 500000000,
+                prompt: datas.msg,
+              })
+              that.Base.toast("请求失败了")
+            }
+          })
+          // 监听 WebSocket 连接关闭事件
+          wx.onSocketClose(() => {
+            let prompt = that.Base.getMyData().prompt;
+            console.log('WebSocket 连接已关闭');
+            that.Base.toast("请求成功了")
+            this.ismsg(prompt)
+              .then((label) => {
+                if (label != 100) {
+                  that.msgseccheck(label)
+                  that.Base.setMyData({
+                    prompt: "你好，经扫描回答内容，该内容涉及国家法律法规禁止的内容，违反相关法律法规和平台规范，为维护绿色健康的平台生态，坚持正确价值导向"
+                  })
+                }
+                dialogue.answer = that.Base.getMyData().prompt;
+                dialogue.answertime = this.getTime();
+                that.Base.getMyData().dialoguelist.push(dialogue)
+                wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
+                this.Base.setMyData({ long: false })
+                var collegeapi = new CollegeApi();
+                collegeapi.addbotmsg({
+                  botmsg: that.Base.getMyData().prompt,
+                  usermsg: that.Base.getMyData().messages,
+                }, (res) => {
+                  that.Base.setMyData({ messages: "" })
+                })
+                that.onMyShow();
+              })
+              .catch((error) => {
+                console.log(error);
+                that.Base.toast("提交失败请稍后重试！");
+                // 在这里处理错误
+              });
+          });
+        }
       })
-      this.Base.setMyData({ loadings: false })
-      this.Base.setMyData({ long: true })
-      clearInterval(that.Base.getMyData().intervalId);
-      var datas = JSON.parse(res.data)
-      if (datas.code == 0) {
-        let msg = datas.data.toString()
-        const lines = msg.split('\n');
-        const lastLine = lines[lines.length - 1];
-        that.Base.setMyData({
-          scrollTop: 10000 * 2 * 5000,
-          prompt: JSON.parse(lastLine).text,
-          parentMessageId: JSON.parse(lastLine).id,
-        })
-        wx.setStorageSync("parentMessageId", that.Base.getMyData().parentMessageId)
-        // that.onMyShow()
-
-        let cont = JSON.parse(lastLine).text;
-        let content = ApiUtil.HtmlDecode(cont);
-         WxParse.wxParse('content', 'markdown',content, that, 10);
-      } else {
-        that.Base.setMyData({
-          scrollTop: 10000 * 2 * 5000,
-          prompt: datas.msg,
-        })
-        that.Base.toast("请求失败了")
-        // that.onMyShow()
-      }
-      dialogue.answer = that.Base.getMyData().prompt;
-      dialogue.answertime = this.getTime();
-    })
-
-    // 监听 WebSocket 错误事件
-    wx.onSocketError((res) => {
-      console.error('WebSocket 错误：', res);
-      that.Base.toast("请求失败了")
-      this.Base.setMyData({ loadings: false })
-      clearInterval(that.Base.getMyData().intervalId);
-      this.Base.toast("提交失败请稍后重试！");
-    });
-
-    // 监听 WebSocket 连接关闭事件
-    wx.onSocketClose(() => {
-      console.log('WebSocket 连接已关闭');
-      that.Base.toast("请求成功了")
-      that.Base.getMyData().dialoguelist.push(dialogue)
-      wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
-      that.Base.setMyData({ messages: "" })
-      this.Base.setMyData({ long: false })
-      that.onMyShow();
-    });
-
+      .catch((error) => {
+        console.log(error);
+        that.Base.setMyData({ loadings: true })
+        that.Base.toast("提交失败请稍后重试！");
+        // 在这里处理错误
+      });
 
     return
 
@@ -296,17 +328,9 @@ class Content extends AppBase {
     })
 
 
-
-
-
-
-
-
-
-
-
-
   }
+
+
   requestData() {
     var msgbot = {
       "prompt": '写一篇作文我的爸爸，500字',
@@ -323,14 +347,14 @@ class Content extends AppBase {
       },
       responseType: 'arraybuffer', // 指定响应数据类型为 ArrayBuffer
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         // 将 ArrayBuffer 转换成文本
         var text = new TextDecoder('utf-8').decode(res.data)
         // 将文本转换成数组
-        console.log(text)
+        // console.log(text)
         const lines = text.split('\n');
         const lastLine = lines[lines.length - 1];
-        console.log(JSON.parse(lastLine))
+        // console.log(JSON.parse(lastLine))
         // 获取响应流
         // let msg = res.data.toString('utf-8')
         // const str = '第一行\n第二行\n最后一行';
@@ -402,22 +426,261 @@ class Content extends AppBase {
     }
     return -1;
   }
-  bincopy(e){
+  bincopy(e) {
     console.log(e)
 
     wx.setClipboardData({
       data: e.currentTarget.dataset.data,
-      success (res) {
+      success(res) {
         console.log(res);
       }
     })
   }
+  getUserProfile(e) {
+    var that = this;
+    var avatarUrl = this.Base.getMyData().avatarUrl || this.Base.getMyData().memberinfo.avatarUrl;
+    var nickName = this.Base.getMyData().nickName;
+    var openid = this.Base.getMyData().UserInfo.openid;
+    if (avatarUrl == null || avatarUrl == undefined) {
+      this.Base.toast("请上传头像才能保存哦！");
+      return;
+    }
+    if (nickName == null || nickName == undefined || nickName == '') {
+      this.Base.toast("请检查昵称哦！");
+      return;
+    }
+    var str = `是否确认修改`;
+    var memberapi = new MemberApi();
 
+    wx.showModal({
+      title: '修改提示',
+      content: str,
+      success: (res) => {
+        console.log(res);
+        if (res.confirm) {
+          memberapi.updatenickname({
+            openid,
+            nickName,
+            avatarUrl
+          }, (e) => {
+            if (e.code == "1") {
+              that.onMyShow()
+              that.Base.toast("修改成功");
+            } else {
+              that.onMyShow()
+              that.Base.toast("请换一个昵称后，再次修改")
+            }
+          });
+        }
+      },
+      fail: (res) => {
+        that.onMyShow()
+      },
+    });
+    that.onMyShow()
+  }
+  msgseccheck(e) {
+    var that = this;
+    switch (e) {
+      case 100:
+        break;
+      case 10001:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含广告，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+      case 20001:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含时政，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+      case 20002:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含色情，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+      case 20003:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含辱骂，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+      case 20006:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含违法犯罪，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+      case 20008:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含欺诈，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+      case 20012:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含低俗，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+      case 20013:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含版权，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+      case 21000:
+        wx.showModal({
+          title: '提示',
+          content: '内容包含其他，为维护绿色健康的平台生态，坚持正确价值导向',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
+    }
+  }
+  ismsg(msg) {
+    var memberapi = new MemberApi();
+    var that = this;
+    return new Promise(function (resolve, reject) {
+      memberapi.msgseccheck({
+        content: msg,
+        version: 2,
+        scene: 1,
+        openid: that.Base.getMyData().UserInfo.openid,
+        type: 'B'
+      }, (msgseccheck) => {
+        if (!msgseccheck.data.result) { // error checking
+          reject(new Error("msgseccheck error"));
+          return;
+        }
+        resolve(msgseccheck.data.result.label);
+      })
+    });
+  }
+  bin_inp(e) {
+    console.log(e)
+    this.Base.setMyData({
+      nickName: e.detail.value
+    })
+  }
+  bindpic(e) {
+    var that = this;
+    console.log(e)
+    const { avatarUrl } = e.detail
+    this.Base.setMyData({
+      avatarUrl
+    })
+    let uploadpath = this.Base.getMyData().uploadpath;
+    this.Base.uploadAvatarUrl("member", avatarUrl, (ret) => {
+      console.log(ret)
+      that.Base.setMyData({
+        avatarUrl: ret
+      });
+    }, undefined);
+  }
 
-
-
-
-
+  replaceSensitiveWords(text) {
+    const sensitiveWords = this.Base.getMyData().sensitiveWords;
+    for (const word of sensitiveWords) {
+      let words = word.trim();
+      if (text.includes(words)) {
+        const regex = new RegExp(words, 'g');
+        text = text.replace(regex, '*'.repeat(words.length));
+      }
+    }
+    return text;
+  }
+  showLoadings() {
+    var that = this;
+    that.Base.setMyData({ loadings: true })
+    if (that.Base.getMyData().loadings) {
+      var intervalId = setInterval(function () {
+        let tipslist = that.Base.getMyData().tipslist;
+        let tips = tipslist[Number(that.getRandomInt(0, that.Base.getMyData().tipslist.length) - 1)].value;
+        that.Base.setMyData({ tips })
+      }, 3000);
+      that.Base.setMyData({ intervalId })
+    }
+  }
+  hideLoadings() {
+    var that = this;
+    this.Base.setMyData({ loadings: false })
+    clearInterval(that.Base.getMyData().intervalId);
+  }
 
 }
 var content = new Content();
@@ -435,4 +698,12 @@ body.getRandomInt = content.getRandomInt;
 body.lastIndexOf = content.lastIndexOf;
 body.requestData = content.requestData;
 body.bincopy = content.bincopy;
+body.getUserProfile = content.getUserProfile;
+body.msgseccheck = content.msgseccheck;
+body.ismsg = content.ismsg;
+body.bin_inp = content.bin_inp;
+body.bindpic = content.bindpic;
+body.replaceSensitiveWords = content.replaceSensitiveWords;
+body.showLoadings = content.showLoadings;
+body.hideLoadings = content.hideLoadings;
 Page(body)

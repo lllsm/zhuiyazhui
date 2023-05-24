@@ -44,7 +44,7 @@
       <button class="randomBtn clear-button" open-type="feedback">意见反馈</button>
     </view>
     <view class="margin-bottom-10 border-box">
-      <van-cell title="荷包蛋食谱" is-link value="厨房必备" catchtap="cookbook" />
+      <van-cell title="眼睛睁大大" is-link value="另一个世界" catchtap="cookbook" />
     </view>
     <view class="margin-bottom-10 border-box">
       <van-cell title="关于我们" is-link value="关于我们" catchtap="About" />

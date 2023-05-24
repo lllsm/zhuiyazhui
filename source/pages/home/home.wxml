@@ -20,6 +20,7 @@
       <image src='{{uploadpath}}{{item.image}}' mode="aspectFill" class="" style="margin-right: 10rpx; width:100%;height:100%; border-radius: 30rpx; " bindtap="bin_indexbanner" data-item="{{item}}"></image>
     </swiper-item>
   </swiper>
+  <van-notice-bar mode="closeable" text="{{ instinfo.merchant}}" />
 
 
 

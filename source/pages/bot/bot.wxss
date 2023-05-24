@@ -83,6 +83,7 @@ Page{
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 .loadings{
   background: #FFFFFF;
@@ -94,6 +95,34 @@ Page{
   align-items: center;
   border-radius: 40rpx;
   color: #000000;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+
+}
+.upuser{
+  background: rgba(255, 255, 255, 0.5);
+  width: 70%;
+  padding: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40rpx;
+  color: #000000;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+  backdrop-filter: blur(7rpx);
+  /* box-shadow: 0 0 160rpx rgba(0, 0, 0, 0.2); */
+}
+.grxxitem{
+  width: 100%;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.touxiang {
+  border-radius: 50%;
+  overflow: hidden;
 }
 .under2{
   position: fixed;
@@ -120,3 +149,27 @@ Page{
   margin-top: 150%;
   /* background: red; */
  }
+ .tcbtns {
+   width: 300rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  color: #FFFFFF;
+  text-align: center;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  font-size: 32rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3rpx solid  rgba(255, 255, 255,1);
+}
+.van-notice-bar{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  border-radius: 40rpx;
+}
+.van-notice-bar--withicon {
+  backdrop-filter: blur(7rpx) !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+}

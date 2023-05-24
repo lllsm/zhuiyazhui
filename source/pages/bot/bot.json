@@ -2,6 +2,7 @@
   "navigationStyle": "custom",
   "backgroundTextStyle":"dark",
   "usingComponents": {
+    "van-loading": "@vant/weapp/loading/index"
   },
-  "navigationBarTitleText": "BotAi"
+  "navigationBarTitleText": "绿色版BotAi"
 }

@@ -7,6 +7,130 @@ var memberApi=new MemberApi();
 *******/
 import { ApiConfig } from 'apiconfig';
 export class CollegeApi{
+addbotmsg(json, callback, showLoading = true) {
+
+    if (showLoading)
+        ApiConfig.ShowLoading();
+
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+        url: ApiConfig.GetApiUrl() + 'College/addbotmsg',
+        data: json,
+        method: 'POST',
+        dataType: 'json',
+        header: header,
+        success: function (res) {
+            if (callback != null) {
+                callback(res.data);
+            }
+        },
+        fail: function (res) {
+            console.log(res);
+            callback(false);
+        },
+        complete: function (res) {
+            console.log(res);
+        
+            if (showLoading)
+                ApiConfig.CloseLoading();
+        }
+    })
+}
+activitylist(json, callback, showLoading = true) {
+
+    if (showLoading)
+        ApiConfig.ShowLoading();
+
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+        url: ApiConfig.Getjutuike() + 'act_list',
+        data: json,
+        method: 'POST',
+        dataType: 'json',
+        header: header,
+        success: function (res) {
+            if (callback != null) {
+                callback(res.data);
+            }
+        },
+        fail: function (res) {
+            console.log(res);
+            callback(false);
+        },
+        complete: function (res) {
+            console.log(res);
+        
+            if (showLoading)
+                ApiConfig.CloseLoading();
+        }
+    })
+}
+activitydetails(json, callback, showLoading = true) {
+
+  if (showLoading)
+      ApiConfig.ShowLoading();
+
+  var header = ApiConfig.GetHeader();
+  console.log(header);
+  console.log(json);
+  wx.request({
+      url: ApiConfig.Getjutuike() + 'act',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+          if (callback != null) {
+              callback(res.data);
+          }
+      },
+      fail: function (res) {
+          console.log(res);
+          callback(false);
+      },
+      complete: function (res) {
+          console.log(res);
+      
+          if (showLoading)
+              ApiConfig.CloseLoading();
+      }
+  })
+}
+activityorders(json, callback, showLoading = true) {
+
+  if (showLoading)
+      ApiConfig.ShowLoading();
+
+  var header = ApiConfig.GetHeader();
+  console.log(header);
+  console.log(json);
+  wx.request({
+      url: ApiConfig.Getjutuike() + 'orders',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+          if (callback != null) {
+              callback(res.data);
+          }
+      },
+      fail: function (res) {
+          console.log(res);
+          callback(false);
+      },
+      complete: function (res) {
+          console.log(res);
+      
+          if (showLoading)
+              ApiConfig.CloseLoading();
+      }
+  })
+}
 
   delimgbg(json, callback, showLoading = true) {
 

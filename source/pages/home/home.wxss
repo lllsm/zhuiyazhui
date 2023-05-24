@@ -88,3 +88,7 @@ Page{
 .button_s{
   width: 400rpx;
 }
+.van-notice-bar{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}

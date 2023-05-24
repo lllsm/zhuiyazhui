@@ -1,0 +1,18 @@
+<!--pages/discounts/discounts.wxml-->
+<view class="container">
+  <view class="box-bb">
+    <scroll-view class="innerbox-o" scroll-y="{{true}}" bindscrolltolower="ReachBottom">
+      <block>
+        <view class="title">以下内容其目的为用户提供便利，提升用户体验。</view>
+        <view class="title">—— 下单之前先领券 ——</view>
+        <view class="shengquan">
+          <view class="item-1" wx:for="{{activitylist}}" wx:key="index" data-item="{{item.act_id}}" bindtap="shengquan">
+            <image src="{{item.img}}" class="activity_img" />
+            <view class="text-1">{{item.desc}}</view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</view>
+

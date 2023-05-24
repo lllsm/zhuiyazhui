@@ -22,6 +22,7 @@ export class AppBase {
   static lastlat = 0;
   static lastlng = 0;
   static lastdistance = 0;
+  static memberinfo = null;
   static lastaddress = {
     address: {
       ad_info: {
@@ -106,6 +107,7 @@ export class AppBase {
        */
       onShareAppMessage: base.onShareAppMessage,
       onMyShow: base.onMyShow,
+      checkPermission: base.checkPermission,
       phonenoCallback: base.phonenoCallback,
       viewPhoto: base.viewPhoto,
       phoneCall: base.phoneCall,
@@ -126,7 +128,6 @@ export class AppBase {
       contactkefu: base.contactkefu,
       contactweixin: base.contactweixin,
       download: base.download,
-      checkPermission: base.checkPermission,
       recorderManager: base.recorderManager,
       backtotop: base.backtotop,
       xuanzechenshi: base.xuanzechenshi,
@@ -137,27 +138,25 @@ export class AppBase {
       tishi3: base.tishi3,
       clock: base.clock,
       close: base.close,
-      search:base.search,
+      search: base.search,
       BackPage: base.BackPage,
       toHome: base.toHome,
       goarticle: base.goarticle,
       addresscallback: base.addresscallback,
-
-      btnClick : base.btnClick,
-      btnClickTo : base.btnClickTo,
-      start : base.start,
-      fadeInDlg:base.fadeInDlg,
-      fadeOutDlg:base.fadeOutDlg,
-      preventTouchMove:base.preventTouchMove,
-      ketai:base.ketai,
-      ketai1:base.ketai1,
-      getUserProfile:base.getUserProfile
+      btnClick: base.btnClick,
+      btnClickTo: base.btnClickTo,
+      start: base.start,
+      fadeInDlg: base.fadeInDlg,
+      fadeOutDlg: base.fadeOutDlg,
+      preventTouchMove: base.preventTouchMove,
+      ketai: base.ketai,
+      ketai1: base.ketai1,
+      getUserProfile: base.getUserProfile
     }
   }
   log() {
     console.log("yeah!");
   }
-
   BackPage() {
     wx.navigateBack({
       delta: 1
@@ -168,8 +167,9 @@ export class AppBase {
       url: '/pages/home/home',
     })
   }
- 
+
   onLoad(options) {
+    let that = this;
     this.Base.options = options;
     console.log(options);
     console.log("onload");
@@ -179,10 +179,24 @@ export class AppBase {
       options: options,
     });
     ApiConfig.SetUnicode(this.Base.unicode);
+
+    // 获取敏感词库
+    wx.request({
+      url: 'https://college.cllsm.top/uploads/20230524/07d870aeb1f2689b50b5853e3e439f23.txt', // 替换为TXT文件的URL
+      success(res) {
+        that.Base.setMyData({
+          sensitiveWords: (res.data.split('\n')),
+        });
+      },
+      fail() {
+        console.log('获取敏感词失败');
+      }
+    });
   }
 
-  addresscallback(res){
-    console.log("addresscallback",res);
+
+  addresscallback(res) {
+    console.log("addresscallback", res);
   }
 
   gotoOpenUserInfoSetting() {
@@ -191,7 +205,7 @@ export class AppBase {
       title: '需要您授权才能正常使用小程序',
       content: '请点击“去设置”并启用“用户信息”，然后确定即可正常使用',
       confirmText: "去设置",
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           wx.openSetting({
 
@@ -209,7 +223,7 @@ export class AppBase {
   onReady() {
     console.log("onReady");
   }
-  
+
   onShow() {
     var that = this;
     var memberapi = new MemberApi();
@@ -223,19 +237,19 @@ export class AppBase {
       if (instinfo == null || instinfo == false) {
         return;
       }
-      AppBase.InstInfo = instinfo;
+      AppBase.InstInfo = instinfo.data;
       this.Base.setMyData({
         instinfo: instinfo.data
       });
       wx.setStorage({
-        key:"content",
-        data:instinfo.data.content
+        key: "content",
+        data: instinfo.data.content
       })
-      let tips =  JSON.parse(instinfo.data.banquan);
-      console.log(instinfo.data.banquan,"--------------------------")
+      let tips = JSON.parse(instinfo.data.banquan);
+      console.log(instinfo.data.banquan, "--------------------------")
       wx.setStorage({
-        key:"tips",
-        data:tips
+        key: "tips",
+        data: tips
       })
       if (this.Base.pagetitle == null) {
         this.Base.setPageTitle(instinfo);
@@ -244,7 +258,7 @@ export class AppBase {
       }
     }, false);
 
-    
+
     if (AppBase.UserInfo.openid == undefined) {
       // 登录
       console.log("onShow");
@@ -255,40 +269,40 @@ export class AppBase {
           console.log(res);
           // getUserInfo
           // getUserProfile
+          var memberapi = new MemberApi();
+          memberapi.getuserinfo({
+            type: 'B',
+            code: res.code,
+            grant_type: "authorization_code"
+          }, data => {
+            console.log("here");
+            console.log(data.data.openid);
+            AppBase.UserInfo.openid = data.data.openid;
+            AppBase.UserInfo.session_key = data.data.session_key;
+            console.log(AppBase.UserInfo);
+            // ApiConfig.SetToken(data.data.openid);
+            console.log("goto update info");
+            //this.loadtabtype();
+            wx.showLoading({
+              title: '加载中',
+            })
             var memberapi = new MemberApi();
-              memberapi.getuserinfo({
-                type:'A',
-                code: res.code,
-                grant_type: "authorization_code"
-              }, data => {
-                console.log("here");
-                console.log(data.data.openid);
-                AppBase.UserInfo.openid = data.data.openid;
-                AppBase.UserInfo.session_key = data.data.session_key;
-                console.log(AppBase.UserInfo);
-                // ApiConfig.SetToken(data.data.openid);
-                console.log("goto update info");
-                //this.loadtabtype();
-                wx.showLoading({
-                  title: '加载中',
-                })
-                memberapi.login(AppBase.UserInfo, (data) => {
-                  console.log(data.data)
-                  ApiConfig.SetToken(data.data);
-                  console.log(AppBase.UserInfo);
-                  that.Base.setMyData({
-                    UserInfo: AppBase.UserInfo
-                  });
-                  wx.hideLoading();
-                  new Promise((resolve,reject) => {
-                      resolve("then是异步");
-                  }).then((res) => {
-                    that.checkPermission();
-                  }).then(()=>{
-                    that.onMyShow();
-                  })
-                });
+            memberapi.login(AppBase.UserInfo, (data) => {
+              ApiConfig.SetToken(data.data);
+              that.Base.setMyData({
+                UserInfo: AppBase.UserInfo
               });
+              that.checkPermission();
+              wx.hideLoading();
+              // new Promise((resolve,reject) => {
+              //     resolve("then是异步");
+              // }).then((res) => {
+              //   that.checkPermission();
+              // }).then(()=>{
+              //   that.onMyShow();
+              // })
+            });
+          });
         },
         // fail:userloginres=>{
         //   console.log("auth fail");
@@ -343,30 +357,31 @@ export class AppBase {
         });
       }
       //this.loadtabtype();
+      that.checkPermission();
       that.Base.setMyData({
         UserInfo: AppBase.UserInfo
       });
-      new Promise((resolve,reject) => {
-          resolve("then是异步");
-      }).then((res) => {
-        that.checkPermission();
-      }).then(()=>{
-        that.onMyShow();
-      })
+      // new Promise((resolve,reject) => {
+      //     resolve("then是异步");
+      // }).then((res) => {
+      //   that.checkPermission();
+      // }).then(()=>{
+      //   that.onMyShow();
+      // })
 
     }
-    // that.checkPermission();
   }
   checkPermission() {
     console.log('checkPermission')
     var memberapi = new MemberApi();
     var that = this;
     memberapi.Userinfo({}, (info) => {
-      this.Base.setMyData({
+      AppBase.memberinfo=info.data
+      that.Base.setMyData({
         memberinfo: info.data
       });
+      this.onMyShow();
     })
-    that.onMyShow();
   }
 
 
@@ -376,6 +391,14 @@ export class AppBase {
     // memberapi.update(AppBase.UserInfo, () => {});
   }
 
+
+  setMyData(obj) {
+    console.log(obj);
+    this.Page.setData(obj);
+  }
+  getMyData() {
+    return this.Page.data;
+  }
   onMyShow() {
     console.log("onMyShow");
     this.onShow();
@@ -413,13 +436,6 @@ export class AppBase {
     console.log("please use dataReturnCallback(callbackid, data)");
   }
 
-  setMyData(obj) {
-    console.log(obj);
-    this.Page.setData(obj);
-  }
-  getMyData() {
-    return this.Page.data;
-  }
   getPhoneNo(e) {
     var that = this;
 
@@ -432,7 +448,7 @@ export class AppBase {
       console.log(ret, '最最最');
 
       that.phonenoCallback(ret.return.phoneNumber, e, ret.code);
-      console.log(ret.return.phoneNumber,'phoneNumber')
+      console.log(ret.return.phoneNumber, 'phoneNumber')
 
     });
   }
@@ -513,17 +529,17 @@ export class AppBase {
       header: {
         'token': ApiConfig.TOKEN
       },
-      success: function(res) {
+      success: function (res) {
         console.log(res);
         var data = JSON.parse(res.data)
 
-        if ( data.code == 1) {
-          var photo =data.data.url;
+        if (data.code == 1) {
+          var photo = data.data.url;
           callback(photo);
         } else {
           console.error(data.msg);
           wx.showToast({
-            title: data.msg|| "上传失败！",
+            title: data.msg || "上传失败！",
             icon: 'none',
             duration: 2000
           })
@@ -538,7 +554,7 @@ export class AppBase {
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       count: count,
-      success: function(res) {
+      success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         console.log(res.tempFilePaths);
         //that.setData({
@@ -558,16 +574,16 @@ export class AppBase {
             header: {
               'token': ApiConfig.TOKEN
             },
-            success: function(res) {
+            success: function (res) {
               var data = JSON.parse(res.data)
-              console.log(data,"999999999999999999");
-              if ( data.code == 1) {
-                var photo =data.data.url;
+              console.log(data, "999999999999999999");
+              if (data.code == 1) {
+                var photo = data.data.url;
                 callback(photo);
               } else {
                 console.error(data.msg);
                 wx.showToast({
-                  title: data.msg|| "上传失败！",
+                  title: data.msg || "上传失败！",
                   icon: 'none',
                   duration: 2000
                 })
@@ -587,7 +603,7 @@ export class AppBase {
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       count: 1,
-      success: function(res) {
+      success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         console.log(res.tempFilePaths);
         //that.setData({
@@ -607,16 +623,16 @@ export class AppBase {
             header: {
               'token': ApiConfig.TOKEN
             },
-            success: function(res) {
+            success: function (res) {
               var data = JSON.parse(res.data)
-              console.log(data,"999999999999999999");
-              if ( data.code == 1) {
-                var photo =data.data.url;
+              console.log(data, "999999999999999999");
+              if (data.code == 1) {
+                var photo = data.data.url;
                 callback(photo);
               } else {
                 console.error(data.msg);
                 wx.showToast({
-                  title: data.msg|| "上传失败！",
+                  title: data.msg || "上传失败！",
                   icon: 'none',
                   duration: 2000
                 })
@@ -630,7 +646,7 @@ export class AppBase {
       }
     })
   }
-  uploadAvatarUrl(modul,filePath ,callback, completecallback) {
+  uploadAvatarUrl(modul, filePath, callback, completecallback) {
     wx.uploadFile({
       url: ApiConfig.GetFileUploadAPI(), //仅为示例，非真实的接口地址
       filePath: filePath,
@@ -642,16 +658,16 @@ export class AppBase {
       header: {
         'token': ApiConfig.TOKEN
       },
-      success: function(res) {
+      success: function (res) {
         var data = JSON.parse(res.data)
-        console.log(data,"999999999999999999");
-        if ( data.code == 1) {
-          var photo =data.data.url;
+        console.log(data, "999999999999999999");
+        if (data.code == 1) {
+          var photo = data.data.url;
           callback(photo);
         } else {
           console.error(data.msg);
           wx.showToast({
-            title: data.msg|| "上传失败！",
+            title: data.msg || "上传失败！",
             icon: 'none',
             duration: 2000
           })
@@ -659,10 +675,10 @@ export class AppBase {
       }
     });
 
-        if (completecallback != undefined) {
-          completecallback();
-        }
-      }
+    if (completecallback != undefined) {
+      completecallback();
+    }
+  }
 
 
   uploadVideo(modul, callback, completecallback) {
@@ -670,7 +686,7 @@ export class AppBase {
       compressed: true, // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       maxDuration: 60,
-      success: function(res) {
+      success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         console.log(res.tempFilePaths);
         //that.setData({
@@ -692,7 +708,7 @@ export class AppBase {
             header: {
               'token': ApiConfig.TOKEN
             },
-            success: function(res) {
+            success: function (res) {
               console.log(res);
               var data = res.data
               if (data.substr(0, 7) == "success") {
@@ -723,7 +739,7 @@ export class AppBase {
       count: 1,
       sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
+      success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         console.log(res.tempFilePaths);
         //that.setData({
@@ -743,7 +759,7 @@ export class AppBase {
             header: {
               'token': ApiConfig.TOKEN
             },
-            success: function(res) {
+            success: function (res) {
               console.log(res);
               var data = res.data
               if (data.substr(0, 7) == "success") {
@@ -773,7 +789,7 @@ export class AppBase {
       sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
       maxDuration: 60,
-      success: function(res) {
+      success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         console.log(res.tempFilePaths);
         //that.setData({
@@ -793,7 +809,7 @@ export class AppBase {
             header: {
               'token': ApiConfig.TOKEN
             },
-            success: function(res) {
+            success: function (res) {
               console.log(res);
               var data = res.data
               if (data.substr(0, 7) == "success") {
@@ -914,17 +930,17 @@ export class AppBase {
   download(url, callback, open = false) {
     wx.downloadFile({
       url: url, //仅为示例，并非真实的资源
-      success: function(res) {
+      success: function (res) {
         // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
         if (res.statusCode === 200) {
           var tempFilePath = res.tempFilePath;
           console.log("tempFilePath", tempFilePath);
           wx.saveFile({
             tempFilePath: tempFilePath,
-            fail: function(savefail) {
+            fail: function (savefail) {
               console.log("savefail", savefail);
             },
-            success: function(res) {
+            success: function (res) {
               var savedFilePath = res.savedFilePath;
               console.log("savedFilePath", savedFilePath, res);
               if (open == true) {
@@ -980,7 +996,7 @@ export class AppBase {
       }
     })
   }
-  toast(msg) {  
+  toast(msg) {
     wx.showToast({
       title: msg,
       icon: "none"
@@ -994,123 +1010,123 @@ export class AppBase {
     })
   }
 
-  getUserInfo() {
-    var that = this;
-    var memberapi = new MemberApi();
-    var memberinfo = this.Base.getMyData().memberinfo
-    if (memberinfo == null) {
-      memberapi.Userinfo({}, (info) => {
-        this.Base.setMyData({
-          memberinfo: info.data
-        });
-      })
-    }
-    getUserInfo
-    getUserProfile
-    wx.getUserProfile({
-      desc: '用于完善会员资料',
-      success: userres => {
-        var openid = AppBase.UserInfo.openid;
-        var session_key = AppBase.UserInfo.session_key;
-        AppBase.UserInfo = userres.userInfo;
-        AppBase.UserInfo.openid = openid;
-        AppBase.UserInfo.session_key = session_key;
-        console.log("loginres4", userres);
-        
-        console.log(this.Base.getMyData().memberinfo, '11');
-        var memberinfo = this.Base.getMyData().memberinfo;
-        var json = null;
-          json = AppBase.UserInfo;
-        memberapi.update(json, () => {
-          console.log(AppBase.UserInfo);
-          that.Base.setMyData({
-            UserInfo: AppBase.UserInfo
-          });
+  // getUserInfo() {
+  //   var that = this;
+  //   var memberapi = new MemberApi();
+  //   var memberinfo = this.Base.getMyData().memberinfo
+  //   if (memberinfo == null) {
+  //     memberapi.Userinfo({}, (info) => {
+  //       this.Base.setMyData({
+  //         memberinfo: info.data
+  //       });
+  //     })
+  //   }
+  //   getUserInfo
+  //   getUserProfile
+  //   wx.getUserProfile({
+  //     desc: '用于完善会员资料',
+  //     success: userres => {
+  //       var openid = AppBase.UserInfo.openid;
+  //       var session_key = AppBase.UserInfo.session_key;
+  //       AppBase.UserInfo = userres.userInfo;
+  //       AppBase.UserInfo.openid = openid;
+  //       AppBase.UserInfo.session_key = session_key;
+  //       console.log("loginres4", userres);
 
-          memberapi.Userinfo({}, (info) => {
-            this.Base.setMyData({
-              memberinfo: info.data
-            });
-          })
-        });
+  //       console.log(this.Base.getMyData().memberinfo, '11');
+  //       var memberinfo = this.Base.getMyData().memberinfo;
+  //       var json = null;
+  //       json = AppBase.UserInfo;
+  //       memberapi.update(json, () => {
+  //         console.log(AppBase.UserInfo);
+  //         that.Base.setMyData({
+  //           UserInfo: AppBase.UserInfo
+  //         });
+
+  //         memberapi.Userinfo({}, (info) => {
+  //           this.Base.setMyData({
+  //             memberinfo: info.data
+  //           });
+  //         })
+  //       });
 
 
-        var api = new WechatApi();
-        // api.decrypteddata({
-        //   iv: userres.iv,
-        //   encryptedData: userres.encryptedData
-        // }, ret => {
-        //   AppBase.jump = true;
-        //   AppBase.UserInfo.unionid = ret.return.openId;
-        //   ApiConfig.SetToken(ret.return.openId);
-        //   console.log("loginres5", ret);
-        //   console.log("loginres6", AppBase.UserInfo);
-        //   var json = null;
-        //   json = AppBase.UserInfo;
-          
-        //   json.primary_id = memberinfo.id;
-        //   memberapi.update(json, () => {
-        //     console.log(AppBase.UserInfo);
-        //     that.Base.setMyData({
-        //       UserInfo: AppBase.UserInfo
-        //     });
+  //       var api = new WechatApi();
+  //       // api.decrypteddata({
+  //       //   iv: userres.iv,
+  //       //   encryptedData: userres.encryptedData
+  //       // }, ret => {
+  //       //   AppBase.jump = true;
+  //       //   AppBase.UserInfo.unionid = ret.return.openId;
+  //       //   ApiConfig.SetToken(ret.return.openId);
+  //       //   console.log("loginres5", ret);
+  //       //   console.log("loginres6", AppBase.UserInfo);
+  //       //   var json = null;
+  //       //   json = AppBase.UserInfo;
 
-        //     memberapi.Userinfo({}, (info) => {
-        //       this.Base.setMyData({
-        //         memberinfo: info
-        //       });
-        //     })
-        //   });
+  //       //   json.primary_id = memberinfo.id;
+  //       //   memberapi.update(json, () => {
+  //       //     console.log(AppBase.UserInfo);
+  //       //     that.Base.setMyData({
+  //       //       UserInfo: AppBase.UserInfo
+  //       //     });
 
-        // });
+  //       //     memberapi.Userinfo({}, (info) => {
+  //       //       this.Base.setMyData({
+  //       //         memberinfo: info
+  //       //       });
+  //       //     })
+  //       //   });
 
-      },
-      fail: userloginres => {
-        console.log("auth fail");
-        console.log(userloginres);
+  //       // });
 
-        if (that.Base.needauth == true) {
+  //     },
+  //     fail: userloginres => {
+  //       console.log("auth fail");
+  //       console.log(userloginres);
 
-        }
-        
-      }
-    })
-  }
+  //       if (that.Base.needauth == true) {
 
-  getUserProfile() {
-    var memberapi = new MemberApi();
-    wx.getUserProfile({
-      desc: '用于完善会员资料',
-      success: (res) => {
-        console.log('wx.getUserProfile success，获取的用户信息：', res);
+  //       }
 
-        this.setData({
-          userInfo: res.userInfo,
-        });
-        memberapi.updateuser({openid:AppBase.UserInfo.openid,avatarUrl:res.userInfo.avatarUrl,nickName:res.userInfo.nickName},(ret)=>{
-          memberapi.Userinfo({}, (info) => {
-            this.Base.setMyData({
-              memberinfo: info.data
-            });
-          })
-        })
-      },
+  //     }
+  //   })
+  // }
 
-      fail(err) {
-        console.log('wx.getUserProfile failed', err.errMsg);
+  // getUserProfile() {
+  //   var memberapi = new MemberApi();
+  //   wx.getUserProfile({
+  //     desc: '用于完善会员资料',
+  //     success: (res) => {
+  //       console.log('wx.getUserProfile success，获取的用户信息：', res);
 
-        wx.showModal({
-          title: '获取用户信息失败',
-          content: JSON.stringify(err),
-          showCancel: false,
-        });
-      },
+  //       this.setData({
+  //         userInfo: res.userInfo,
+  //       });
+  //       memberapi.updateuser({ openid: AppBase.UserInfo.openid, avatarUrl: res.userInfo.avatarUrl, nickName: res.userInfo.nickName }, (ret) => {
+  //         memberapi.Userinfo({}, (info) => {
+  //           this.Base.setMyData({
+  //             memberinfo: info.data
+  //           });
+  //         })
+  //       })
+  //     },
 
-      complete() {
-        console.log('wx.getUserProfile completed');
-      },
-    });
-  }
+  //     fail(err) {
+  //       console.log('wx.getUserProfile failed', err.errMsg);
+
+  //       wx.showModal({
+  //         title: '获取用户信息失败',
+  //         content: JSON.stringify(err),
+  //         showCancel: false,
+  //       });
+  //     },
+
+  //     complete() {
+  //       console.log('wx.getUserProfile completed');
+  //     },
+  //   });
+  // }
 
   topage(e) {
     var name = e.currentTarget.dataset.name;
@@ -1126,8 +1142,8 @@ export class AppBase {
 
 
   btnClickTo() {
-    this.Base.setMyData({popup:true});
-    
+    this.Base.setMyData({ popup: true });
+
     var animation = wx.createAnimation({
       transformOrigin: "50% 50%",
       duration: 400,
@@ -1139,10 +1155,10 @@ export class AppBase {
     this.setData({
       animation: animation.export()
     })
-   
+
   }
-  btnClick () {
-    this.Base.setMyData({popup:false}); 
+  btnClick() {
+    this.Base.setMyData({ popup: false });
     var animation = wx.createAnimation({
       transformOrigin: "50% 50%",
       duration: 400,
@@ -1153,29 +1169,29 @@ export class AppBase {
     animation.translateY(1000).step()
     this.setData({
       animation: animation.export(),
-      
+
     })
-    
-    
+
+
   }
-  start(){
-    var  animation = wx.createAnimation({
+  start() {
+    var animation = wx.createAnimation({
       transformOrigin: "0% 0%",
       duration: 0,
       timingFunction: "linear",
       delay: 0
-    }) 
+    })
     animation.translateY(1000).step()
     this.setData({
       animation: animation.export(),
     })
   }
-  fadeInDlg(){ 
+  fadeInDlg() {
     var animation = wx.createAnimation({
-      duration:0,
-      timingFunction:'step-start',
+      duration: 0,
+      timingFunction: 'step-start',
     })
-    animation.opacity(0).scale(0.8,0.8).step();
+    animation.opacity(0).scale(0.8, 0.8).step();
     this.setData({
       animationData: animation.export()
     })
@@ -1183,9 +1199,9 @@ export class AppBase {
       duration: 500,
       timingFunction: 'ease',
     })
-    animation.opacity(1).scale(1,1).step()
+    animation.opacity(1).scale(1, 1).step()
     this.setData({
-      animationData:animation.export()
+      animationData: animation.export()
     })
 
     var animationBg = wx.createAnimation({
@@ -1194,23 +1210,23 @@ export class AppBase {
     })
     animationBg.opacity(0).step()
     animationBg = wx.createAnimation({
-      duration:500,
-      timingFunction:'ease',
+      duration: 500,
+      timingFunction: 'ease',
     })
     animationBg.opacity(0.5).step()
     this.setData({
-      animationBgData:animationBg.export()
+      animationBgData: animationBg.export()
     })
   }
-  fadeOutDlg(){
+  fadeOutDlg() {
     var _this = this
     var animation = wx.createAnimation({
-      duration:200,
-      timingFunction:'ease',
+      duration: 200,
+      timingFunction: 'ease',
     })
     animation.opacity(0).scale(0.8, 0.8).step();
     this.setData({
-      animationData:animation.export()
+      animationData: animation.export()
     })
 
     var animationBg = wx.createAnimation({
@@ -1222,92 +1238,92 @@ export class AppBase {
       animationBgData: animationBg.export()
     })
 
- 
+
   }
   preventTouchMove() {
     //阻止触摸
   }
 
-   withData(param){
+  withData(param) {
     return param < 10 ? '0' + param : '' + param;
-     }
-     getLoopArray(start,end){
-       var start = start || 0;
-     var end = end || 1;
-     var array = [];
-      for (var i = start; i <= end; i++) {
-        array.push(withData(i));
   }
-      return array;
-   }
-    getMonthDay(year,month){
-      var flag = year % 400 == 0 || (year % 4 == 0 && year % 100 != 0), array = null;
-   
-     switch (month) {
+  getLoopArray(start, end) {
+    var start = start || 0;
+    var end = end || 1;
+    var array = [];
+    for (var i = start; i <= end; i++) {
+      array.push(withData(i));
+    }
+    return array;
+  }
+  getMonthDay(year, month) {
+    var flag = year % 400 == 0 || (year % 4 == 0 && year % 100 != 0), array = null;
+
+    switch (month) {
       case '01':
-       case '03':
-       case '05':
-        case '07':
-        case '08':
-        case '10':
-       case '12':
-          array = getLoopArray(1, 31)
-          break;
-       case '04':
-    case '06':
+      case '03':
+      case '05':
+      case '07':
+      case '08':
+      case '10':
+      case '12':
+        array = getLoopArray(1, 31)
+        break;
+      case '04':
+      case '06':
       case '09':
-    case '11':
-       array = getLoopArray(1, 30)
-      break;
-     case '02':
-     array = flag ? getLoopArray(1, 29) : getLoopArray(1, 28)
-       break;
-     default:
-     array = '月份格式不正确，请重新输入！'
-   }
-  return array;
- }
-  getNewDateArry(){
-   // 当前时间的处理
-   var newDate = new Date();
-   var year = withData(newDate.getFullYear()),
+      case '11':
+        array = getLoopArray(1, 30)
+        break;
+      case '02':
+        array = flag ? getLoopArray(1, 29) : getLoopArray(1, 28)
+        break;
+      default:
+        array = '月份格式不正确，请重新输入！'
+    }
+    return array;
+  }
+  getNewDateArry() {
+    // 当前时间的处理
+    var newDate = new Date();
+    var year = withData(newDate.getFullYear()),
       mont = withData(newDate.getMonth() + 1),
-       date = withData(newDate.getDate()),
-       hour = withData(newDate.getHours()),
-       minu = withData(newDate.getMinutes()),
-        seco = withData(newDate.getSeconds());
+      date = withData(newDate.getDate()),
+      hour = withData(newDate.getHours()),
+      minu = withData(newDate.getMinutes()),
+      seco = withData(newDate.getSeconds());
 
-   return [year, mont, date, hour, minu, seco];
- }
-  dateTimePicker(startYear,endYear,date) {
-  // 返回默认显示的数组和联动数组的声明
-   var dateTime = [], dateTimeArray = [[],[],[],[],[],[]];
-   var start = startYear || 1978;
-   var end = endYear || 2100;
-   // 默认开始显示数据
+    return [year, mont, date, hour, minu, seco];
+  }
+  dateTimePicker(startYear, endYear, date) {
+    // 返回默认显示的数组和联动数组的声明
+    var dateTime = [], dateTimeArray = [[], [], [], [], [], []];
+    var start = startYear || 1978;
+    var end = endYear || 2100;
+    // 默认开始显示数据
     var defaultDate = date ? [...date.split(' ')[0].split('-'), ...date.split(' ')[1].split(':')] : getNewDateArry();
-   // 处理联动列表数据
-   /*年月日 时分秒*/ 
-   dateTimeArray[0] = getLoopArray(start,end);
-  dateTimeArray[1] = getLoopArray(1, 12);
-  dateTimeArray[2] = getMonthDay(defaultDate[0], defaultDate[1]);
-  dateTimeArray[3] = getLoopArray(0, 23);
-   dateTimeArray[4] = getLoopArray(0, 59);
-   dateTimeArray[5] = getLoopArray(0, 59);
+    // 处理联动列表数据
+    /*年月日 时分秒*/
+    dateTimeArray[0] = getLoopArray(start, end);
+    dateTimeArray[1] = getLoopArray(1, 12);
+    dateTimeArray[2] = getMonthDay(defaultDate[0], defaultDate[1]);
+    dateTimeArray[3] = getLoopArray(0, 23);
+    dateTimeArray[4] = getLoopArray(0, 59);
+    dateTimeArray[5] = getLoopArray(0, 59);
 
-   dateTimeArray.forEach((current,index) => {
-     dateTime.push(current.indexOf(defaultDate[index]));
-   });
- 
-   return {
-     dateTimeArray: dateTimeArray,
-     dateTime: dateTime
-   }
- }
-//  module.exports = {
-//    dateTimePicker: dateTimePicker,
-//   getMonthDay: getMonthDay
-//   }
+    dateTimeArray.forEach((current, index) => {
+      dateTime.push(current.indexOf(defaultDate[index]));
+    });
+
+    return {
+      dateTimeArray: dateTimeArray,
+      dateTime: dateTime
+    }
+  }
+  //  module.exports = {
+  //    dateTimePicker: dateTimePicker,
+  //   getMonthDay: getMonthDay
+  //   }
 
 
 }
