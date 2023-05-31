@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "backgroundTextStyle":"dark",
+  "usingComponents": {
+    "van-loading": "@vant/weapp/loading/index"
+  },
+  "navigationBarTitleText": "绿色版BotAi"
+}

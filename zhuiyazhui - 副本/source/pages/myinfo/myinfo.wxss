@@ -1,0 +1,45 @@
+/* pages/myinfo/myinfo.wxss */
+/* pages/information/information.wxss */
+.grxxitem {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 24rpx;
+  padding: 40rpx 20rpx;
+}
+
+.fxx {
+  margin: 0rpx 30rpx;
+  width: 690rpx;
+  height: 1rpx;
+  /* border: 1rpx solid #EEEEEE; */
+  background: #EEEEEE;
+}
+.grayright {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 18rpx;
+}
+.pobottom {
+  margin: 0rpx 30rpx;
+  position: fixed;
+  bottom: 40rpx;
+  left: 0;
+  z-index: 10;
+}
+.tcbtns {
+  width: 690rpx;
+  height: 80rpx;
+
+  border-radius: 40rpx;
+  color: #FFFFFF;
+  text-align: center;
+}
+.touxiang {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.inp{
+  text-align: right;
+}

@@ -1,0 +1,94 @@
+
+
+Page{
+  background-color: #f4f7fc;
+}
+.college_item{
+  background-color: #ffffff;
+  margin: 20rpx;
+  border-radius: 15rpx;
+}
+.contanit{
+  width: 100%;
+  height: 100%;
+  background: #ffffff
+}
+.vtop{
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  /* height: 10%; */
+  /* background: linear-gradient(90deg,#FFA8A8, #FFE985, #FAB2FF); */
+  /* overflow-x:hidden;
+  overflow-y:hidden */
+  background-color: #FFF;
+}
+.search{
+  position:absolute;
+  width: 55%;
+  background: #FFF ;
+  margin-left: 30rpx;
+  padding-left: 20rpx;
+  border-radius: 50rpx;
+}
+.input_search{
+  width: 100%;
+  height: 60rpx;
+}
+.van-image__img{
+  border-radius: 20rpx;
+}
+.custom-class .van-cell .van-cell--clickable{
+ background: #FFE985;
+}
+.van-notice-bar{
+  border-radius: 10rpx;
+  margin-top: 10rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.under2 {
+  position: fixed;
+  z-index: 10;
+  bottom: 5%;
+  right: 0;
+}
+.inp_key{
+  height: 180rpx;
+  overflow: hidden;
+}
+.pla_st{
+
+} 
+
+.notice{
+  /* width: 100%;
+  margin-left: 10rpx;
+  margin-right: 10rpx; */
+}
+.touxiang {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.inp{
+  text-align: right;
+}
+.grxxitem {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rpx;
+  margin-left: 30rpx;
+  margin-right: 24rpx;
+  padding: 20rpx 10rpx;
+}
+.button_s{
+  width: 400rpx;
+}
+.van-notice-bar{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}

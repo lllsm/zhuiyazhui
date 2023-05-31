@@ -1,0 +1,174 @@
+<!--pages/bot/bot.wxml-->
+<movable-area class="movable-area">
+  <movable-view animation="{{true}}" class="movable-view" direction='vertical'>
+    <image mode="aspectFit" src="../../images/icons/sz.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
+  </movable-view>
+</movable-area>
+
+<view wx:if="{{loadings}}" class="loadings_bg">
+  <view class="loadings flex-column flex-centers">
+    <image class="icon-60" src="https://college.cllsm.top/uploads/20230422/52c5b40baccb3b44f957d114264e07e1.gif" />
+    <view class="h6 margin-top-20">{{"Tips:" + tips}}</view>
+  </view>
+</view>
+
+
+<view wx:if="{{ (memberinfo.nickname == UserInfo.openid  ||  memberinfo.nickname == '微信昵称' || memberinfo.wxnickName == '微信昵称' || memberinfo.wxnickName == null) }}" class="loadings_bg">
+  <view class="upuser flex-column flex-centers">
+    <view style="font-weight: bold; margin-bottom: 30px; color: #fff;">完善资料</view>
+    <view class="flex-row flex-center grxxitem border-box2 flex-liangbian">
+      <view class="h5 txt-white">头像</view>
+      <view class="flex-row flex-center">
+        <button class="clear-button" open-type="chooseAvatar" bindchooseavatar="bindpic">
+          <image src="{{uploadpath}}{{avatarUrl || memberinfo.avatarUrl}}" bindtap="bindpic" wx:if='{{memberinfo.avatarUrl!=""}}' class="icon-60 touxiang"></image>
+        </button>
+        <!-- <image class="icon-60 touxiang" mode="aspectFill"  src='{{uploadpath}}resource/{{res.wdtouxiang}}'></image> -->
+        <button class="logo" class="clear-button" open-type="chooseAvatar" bindchooseavatar="bindpic" wx:if='{{( memberinfo.avatarUrl==null) && avatarUrl==null}}'>
+          <van-image round width="150rpx" height="150rpx" round use-error-slot show-error='加载失败'>
+            <text style="color: burlywood;" slot="error">加载失败</text>
+          </van-image>
+        </button>
+
+      </view>
+    </view>
+
+    <view class="flex-row flex-center grxxitem border-box flex-liangbian">
+      <view class="h5 txt-white">昵称</view>
+      <view class="flex-row flex-center">
+        <input value="{{nickName}}" type='nickname' placeholder="请输入昵称" placeholder-class="txt-white" bindconfirm="bin_inp" bindinput="bin_inp" bindfocus='bin_inp' class="h5 txt-white" style="text-align: right;" />
+        <!-- <image src="{{uploadpath}}resource/{{res.jiantou}}" class="grayright"></image> -->
+      </view>
+    </view>
+
+    <view class="border-none clear-button radius-40  tcbtns" bindtap="getUserProfile">完成完善</view>
+  </view>
+</view>
+<view style="position: fixed;top:{{margintop+70}}px;width: 100%;z-index: 9999;">
+  <van-notice-bar mode="closeable" text="{{ instinfo.merchant_secret}}" />
+</view>
+<view class="page_s" style="height: 100vh;">
+  <view>
+    <view class="vtop" style="height:{{funcrowheight+60}}px ;">
+      <view class="flex-row margin-left-30" style="height:{{funcrowheight}}px;margin-top:{{margintop}}px;">
+        <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50" src="../../images/icons/bots.png" />
+        <view class="flex-centers" style="text-align: center; width: 100vw; margin-left: {{-funcrowheight-10}}px;">
+          <view>BotAi</view>
+        </view>
+      </view>
+    </view>
+    <view></view>
+  </view>
+
+
+
+  <view style="position: fixed; width: 100%; height: 100%;  background-image: {{memberinfo.User_bg == null ? 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' : 'url('+ uploadpath+memberinfo.User_bg.class_image+')' }}; background-size: cover; background-position: center;overflow: hidden;">
+    <scroll-view scroll-y class="message-box-list" style="width: 100%;height: 1150rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
+
+      <!-- 列表内容 -->
+
+      <view class="margin-30 " wx:for="{{dialoguelist}}" wx:key="index">
+        <view class="" style="display: flex; justify-content: center;">
+          <view class="txt-gray h6">{{item.questiontime}}</view>
+        </view>
+        <view class="flex-row margin-top-30" style="display: flex; justify-content: flex-end;">
+          <view>
+            <view class="margin-left-20 flex-row margin-top-10 flex-centers padding-left-10 padding-right-10 content content_l"> <text user-select class="txt-gray margin-left-20 margin-right-20">{{item.question}}</text></view>
+          </view>
+          <view class="flex-shrink margin-left-10" data-src='{{uploadpath}}inst/{{instinfo.erweima}}' bindtap="navtoPage" data-page='myinfo' data-param='nickName={{memberinfo.wxnickName ||"微信昵称"}}&mobile={{memberinfo.mobile}}'>
+            <van-image round width="80rpx" height="80rpx" src="{{uploadpath}}{{memberinfo.avatarUrl}}" />
+          </view>
+        </view>
+        <view class="flex-centers margin-top-30">
+          <view class="txt-gray h6">{{item.answertime}}</view>
+        </view>
+        <view class="flex-row margin-top-20">
+          <view class="flex-shrink">
+            <image catchtap="About" class="icon-40 radius-50 margin-right-10" data-src='{{uploadpath}}inst/{{instinfo.erweima}}' mode="widthFix" src='{{uploadpath}}{{instinfo.logo}}'></image>
+          </view>
+
+          <view>
+            <view class="flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s">
+              <text data-data="{{item.answer}}" bindtap="bincopy" user-select class="txt-gray margin-left-20 margin-right-20">{{item.answer}}</text>
+              <!-- <view class="flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s" data-data="{{item.answer}}" bindtap="bincopy">
+                <import src="../../wxParse/wxParse.wxml" />
+                <template is="wxParse" data="{{wxParseData:listanswerdata[index]}}" />
+              </view> -->
+            </view>
+
+          </view>
+        </view>
+
+      </view>
+      <!-- 列表内容2 -->
+      <view class="margin-30" wx:if="{{long}}">
+        <view class="" style="display: flex; justify-content: center;">
+          <view class="txt-gray h6">{{questiontime}}</view>
+        </view>
+        <view class="flex-row margin-top-30" style="display: flex; justify-content: flex-end;">
+          <view>
+            <view class="margin-left-20 flex-row margin-top-10 flex-centers padding-left-10 padding-right-10 content content_l"> <text user-select class="txt-gray margin-left-20 margin-right-20">{{messages}}</text></view>
+          </view>
+          <view class="flex-shrink margin-left-10" data-src='{{uploadpath}}inst/{{instinfo.erweima}}' bindtap="navtoPage" data-page='myinfo' data-param='nickName={{memberinfo.wxnickName ||"微信昵称"}}&mobile={{memberinfo.mobile}}'>
+            <van-image round width="80rpx" height="80rpx" src="{{uploadpath}}{{memberinfo.avatarUrl}}" />
+          </view>
+        </view>
+        <view class="flex-centers margin-top-30">
+          <view class="txt-gray h6">{{answertime}}</view>
+        </view>
+        <view class="flex-row margin-top-20">
+          <view class="flex-shrink">
+            <image catchtap="About" class="icon-40 radius-50 margin-right-10" data-src='{{uploadpath}}inst/{{instinfo.erweima}}' mode="widthFix" src='{{uploadpath}}{{instinfo.logo}}'></image>
+          </view>
+
+          <view>
+            <view class="flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s">
+              <text data-data="{{prompt}}" bindtap="bincopy" user-select class="txt-gray margin-left-20 margin-right-20">{{prompt}}</text>
+              <!-- <view class="">
+                <import src="../../wxParse/wxParse.wxml" />
+                <view class='flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s'>
+                  <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+                </view>
+              </view> -->
+            </view>
+
+          </view>
+        </view>
+
+      </view>
+      <!-- <view wx:if="{{dialoguelist.length==0}}" class="margin-left-40">api提供方:gptbot.cc</view> -->
+      <view style="height: 210rpx;"></view>
+    </scroll-view>
+  </view>
+
+
+
+  <!-- <view style="color: red;">{{aa}}</view> -->
+  <view style="margin-top: {{dialogue_bgheight}}px;"></view>
+
+  <view class="dialogue_bg">
+    <view class="dialogue flex-row flex-centers flex-liangbian">
+
+      <view style="overflow: hidden;">
+        <image bindtap="bntcol" class="icon-25" src="../../images/icons/del.png" />
+      </view>
+      <view class="flex-center flex-row flex-centers aa ">
+        <textarea maxlength="-1" placeholder="请输入你要提问的内容！" class="text_s border-box2" bindinput="inpurl" value="{{messages}}"></textarea>
+      </view>
+      <view class="margin-right-10">
+
+        <view wx:if="{{long}}">
+          <van-loading size="24px" vertical></van-loading>
+        </view>
+        <view style="overflow: hidden;" wx:else>
+          <image bindtap="okbnt" class="icon-fs" src="../../images/icons/fs.png" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+
+<!-- <view class="flex-liangbian flex-row">
+  <image class="" mode="aspectFit" src="../../images/icons/add.png" bindtap="addmsg" class="icon-50 under2"></image>
+</view> -->

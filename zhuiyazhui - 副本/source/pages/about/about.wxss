@@ -1,0 +1,25 @@
+/* pages/about/about.wxss */
+.ztxx{
+  display: flex;
+  justify-content: center;
+}
+.fgx{
+ margin: 0rpx 30rpx;
+height: 1rpx;
+background: #EEEEEE;
+}
+.item-caidan{
+  margin: 40rpx 30rpx;
+}
+.banquan{
+font-size: 20rpx;
+font-family: PingFang SC;
+font-weight: 400;
+color: #999999;
+position: absolute;
+left: 155rpx;
+bottom: 20rpx;
+display: flex;
+justify-content: center;
+align-items: center;
+}

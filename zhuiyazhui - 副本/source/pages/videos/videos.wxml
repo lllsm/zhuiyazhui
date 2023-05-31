@@ -1,0 +1,39 @@
+<!--pages/videos/videos.wxml-->
+<!--pages/video/video.wxml-->
+<view wx:if="{{data}}">
+
+  <view class="title_s">
+    <image src="{{data.music.avatar || data.avatar}}" class="avi"></image>
+    <view style="margin-left: 20rpx; margin-top: 20rpx; margin-bottom: 20rpx;">
+      <view class="" style="color: #333;">{{data.title}}</view>
+      <view class="" style="color: #999; margin-top: 20rpx;">{{data.music.author || data.author}}</view>
+    </view>
+  </view>
+
+  <view class="video_s">
+    <video style="border-radius: 20rpx;   box-shadow: rgba(0, 0, 0, 0.35) 0px 10rpx 30rpx;" src="{{data.url}}"></video>
+  </view>
+
+
+
+
+  <view style="display: flex;justify-content: center;" class="margin-top-30">
+    <view class="margin-bottom-10 border-box">
+      <button bindtap="bin_downloadfile" class="randomBtn clear-button" data-url="{{data.url}}">下载视频</button>
+    </view>
+    <!-- <view class="margin-bottom-10 border-box">
+      <button bindtap="bin_downloadfile" class="randomBtn clear-button" data-url="{{data.music.url}}">下载背景音乐地址</button>
+    </view> -->
+  </view>
+  <view style="display: flex;justify-content: center;">
+    <view class="margin-bottom-10 border-box">
+    <button bindtap="bin_video" class="randomBtn clear-button" data-url="{{data.url}}">复制视频地址</button>
+    </view>
+    <view class="margin-bottom-10 border-box">
+      <button bindtap="bin_video" class="randomBtn clear-button" data-url="{{data.music.url}}">复制音乐地址</button>
+    </view>
+  </view>
+</view>
+<view wx:if="{{!data}}" style="display: flex;justify-content: center;align-items: center;margin-top: 50%;">
+  <text>{{msg}}</text>
+</view>

@@ -1,0 +1,31 @@
+<!--pages/about/about.wxml-->
+<view class="flex-center flex-column ztxx">
+  <view class="margin-top-40">
+    <image class="icon-100" data-src='{{uploadpath}}inst/{{instinfo.erweima}}' mode="widthFix" src='{{uploadpath}}{{instinfo.logo}}'></image>
+  </view>
+  <view class="txt-33 h4-5" style="font-weight: bold;">{{instinfo.name}}</view>
+  <!-- <view class="margin-top-57 txt-66 h6 padding-left-71 padding-right-71">{{instinfo.summary}}</view> -->
+</view>
+<view class="margin-top-80 border-box">
+  <view class="margin-bottom-10 border-box" catchtap="bincopy" data-data="{{instinfo.tel}}">
+    <van-cell title="客服企鹅" is-link value="{{instinfo.tel}}" />
+  </view>
+  <view class="fgx"></view>
+  <view class="margin-bottom-10 border-box" catchtap="bincopy" data-data="{{instinfo.instmobile}}"> 
+    <van-cell title="客服微信" is-link value="{{instinfo.instmobile}}" />
+  </view>
+  <view class="fgx"></view>
+
+  <view class="margin-bottom-10 border-box" bindtap="navtoPage" data-page="privacypolicy" data-param='type=A'>
+    <van-cell title="用户协议" is-link value=""/>
+  </view>
+  <view class="fgx"></view>
+
+  <view class="margin-bottom-10 border-box" bindtap="navtoPage" data-page="privacypolicy" data-param='type=B'>
+    <van-cell title="隐私政策" is-link value=""/>
+  </view>
+  <!-- <view class="fgx"></view> -->
+</view>
+
+
+<!-- <view class="txt-99 banquan">{{instinfo.banquan}}</view> -->

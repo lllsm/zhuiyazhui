@@ -1,0 +1,57 @@
+<!--pages/myinfo/myinfo.wxml-->
+<view class="flex-column flex-center">
+  <view class="flex-row flex-center grxxitem border-box2">
+    <view class="h5 text-2">头像</view>
+    <view class="flex-row flex-center">
+      <button class="clear-button" open-type="chooseAvatar" bindchooseavatar="bindpic">
+        <image src="{{uploadpath}}{{avatarUrl || memberinfo.avatarUrl}}" bindtap="bindpic" wx:if='{{memberinfo.avatarUrl!=""}}' class="icon-60 touxiang"></image>
+      </button>
+
+      <image class="icon-60 touxiang" mode="aspectFill" bindtap="bindpic" wx:if='{{memberinfo.avatarUrl==""}}' src='{{uploadpath}}resource/{{res.wdtouxiang}}'></image>
+    </view>
+  </view>
+
+  <view class="flex-row flex-center grxxitem border-box">
+    <view class="h5 text-2">昵称</view>
+    <view class="flex-row flex-center">
+      <input value="{{nickName}}" type='nickname' bindconfirm="bin_inp" bindinput="bin_inp" class="h5 text-3 inp" />
+      <!-- <image src="{{uploadpath}}resource/{{res.jiantou}}" class="grayright"></image> -->
+    </view>
+  </view>
+
+  <view class="flex-row flex-center grxxitem border-box" wx:if="{{instinfo.switch==0}}">
+    <view class="h5 text-2">手机号</view>
+    <view class="flex-row flex-center">
+      <input value="{{mobile}}" type='number' bindconfirm="bin_inp_mb" bindinput="bin_inp_mb" class="h5 text-3 inp" />
+      <!-- <view class='h6 margin-top-20 clear-button' wx:if='{{memberinfo.mobile!=""}}'>{{mobile}}</view> -->
+    </view>
+  </view>
+  <!-- <view class="flex-row flex-center grxxitem border-box">
+    <view class="h5 text-2">聊天背景</view>
+    <view class="flex-row flex-center">
+      <picker bindchange="bindPickerChange"  mode="selector" range-key="name" range="{{imglist}}">
+        <view class="picker">
+          {{imgvalue.name || '默认背景'}}
+        </view>
+      </picker>
+    </view>
+  </view> -->
+
+
+  <!-- <view class="flex-row flex-center grxxitem">
+    <view class="h5 text-2">性别</view>
+    <view class="flex-row flex-center" style="height: 40rpx; width: 300rpx;">
+      <picker bindchange="bindPickerChange" value="{{index_gender}}" range-key='value' range="{{gender}}">
+        <view class="picker">
+          {{gender[index_gender].value}}
+        </view>
+      </picker>
+
+    </view>
+  </view>
+  <view class="fxx"></view> -->
+</view>
+
+<view class="flex-row flex-column pobottom">
+  <button bindtap='getUserProfile' class="border-none clear-button radius-40 button_mian tcbtns">确认修改</button>
+</view>

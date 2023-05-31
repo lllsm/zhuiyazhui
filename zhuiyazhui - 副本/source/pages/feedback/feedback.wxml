@@ -1,0 +1,49 @@
+<!--pages/feedback/feedback.wxml-->
+<form catchsubmit="formSubmit">
+  <view>
+    <view class="flex-center flex-column">
+      <view class="title-1 margin-bottom-30 margin-left-30 ">
+        <view class="txt-33 h4-5">联系方式</view>
+      </view>
+      <view class="lxfs">
+        <input class="margin-left-20 inplxfs" type="number" name="lianxi" placeholder-class="plalxfs" placeholder='{{kaceprompt["lxsfprompt"]}}'  />
+      </view>
+    </view>
+
+
+    <view class="flex-center flex-column">
+      <view class="title-1 margin-left-30">
+        <view class="txt-33 h4-5">问题和意见</view>
+        <view class="txt-66 h5">{{number}}/{{maxNumber}}</view>
+      </view>
+      <view class="yijian">
+        <textarea class="margin-top-30 margin-left-30" name="yijian" bindinput='inputText' placeholder-class="platext" placeholder='{{kaceprompt["wtprompt"]}}' maxlength="{{maxNumber}}"></textarea>
+      </view>
+    </view>
+
+
+
+
+
+    <view class="flex-column pobottom">
+      <button class="tcbtns h4-5" formType="submit">提交</button>
+    </view>
+
+  </view>
+</form>
+
+<view class="" wx:if="{{flag}}">
+  <view class="bg"></view>
+  <view class="lxkf-1">
+    <view class="flex-center flex-column lxkf-2">
+      <view class="f-36 txt-33 margin-top-60">{{feedbacktanchuang['title']}}</view>
+      <view class="content">{{feedbacktanchuang['content']}}</view>
+      <view class="fgx"></view>
+      <view class="okstyle"  bindtap="binoff">
+      <text class="txt-1 h4-5">确定</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="txt-99 banquan">{{instinfo.banquan}}</view>

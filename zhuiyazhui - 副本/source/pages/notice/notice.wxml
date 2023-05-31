@@ -1,0 +1,9 @@
+<!--pages/notice/notice.wxml-->
+<view class="margin-20 padding-20 border-box2">
+  <view class="">
+    <import src="../../wxParse/wxParse.wxml" />
+    <view class='nostyle text-3 h5'>
+      <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+    </view>
+  </view>
+</view>
