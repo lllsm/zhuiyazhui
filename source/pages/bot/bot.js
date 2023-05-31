@@ -1,15 +1,27 @@
 const app = getApp();
-import { AppBase } from "../../appbase";
-import { ApiUtil } from "../../apis/apiutil.js";
+import {
+  AppBase
+} from "../../appbase";
+import {
+  ApiUtil
+} from "../../apis/apiutil.js";
 var WxParse = require('../../wxParse/wxParse');
-import { CollegeApi } from "../../apis/college.api.js";
-import { MemberApi } from "../../apis/member.api.js";
+import {
+  CollegeApi
+} from "../../apis/college.api.js";
+import {
+  MemberApi
+} from "../../apis/member.api.js";
 class Content extends AppBase {
-  constructor() { super(); }
+  constructor() {
+    super();
+  }
   onLoad(options) {
     this.Base.Page = this;
     super.onLoad(options);
-    wx.setBackgroundColor({ backgroundColor: '#ffffff' })
+    wx.setBackgroundColor({
+      backgroundColor: '#ffffff'
+    })
     this.Base.setMyData({
       nickName: "",
       dialoguelist: [],
@@ -24,14 +36,21 @@ class Content extends AppBase {
       questiontime: "",
       answertime: "",
       isupdate: false,
+      isusedata:wx.getStorageSync("isnickname")||false,
+      textareaHeight:90
     })
-    const { height, top } = wx.getMenuButtonBoundingClientRect();
+    const {
+      height,
+      top
+    } = wx.getMenuButtonBoundingClientRect();
     this.Base.setMyData({
       margintop: top,
       funcrowheight: height
     })
     let tipslist = wx.getStorageSync("tips");
-    this.Base.setMyData({ tipslist })
+    this.Base.setMyData({
+      tipslist
+    })
 
   }
 
@@ -66,7 +85,7 @@ class Content extends AppBase {
         dialogue_bgheight: res.height
       })
     })
-    query.exec(res => { })
+    query.exec(res => {})
 
 
     query.select('.page_s').boundingClientRect(res => {
@@ -75,13 +94,18 @@ class Content extends AppBase {
         aa: 730 - 75 - 32
       })
     })
-    query.exec(res => { })
+    query.exec(res => {})
 
 
     let imgvalue = wx.getStorageSync("imgvalue");
     this.Base.setMyData({
       imgvalue
     });
+
+    let isnickname = (AppBase.memberinfo.nickname == this.Base.getMyData().UserInfo.openid || AppBase.memberinfo.nickname == '微信昵称' || AppBase.memberinfo.wxnickName == '微信昵称' || AppBase.memberinfo.wxnickName == null);
+    console.log(isnickname)
+    wx.setStorageSync('isnickname', isnickname)
+
   }
   onShareTimeline() {
     let data = {};
@@ -116,7 +140,9 @@ class Content extends AppBase {
     let parentMessageId = this.Base.getMyData().parentMessageId || wx.getStorageSync("parentMessageId") || "";
     var msgbot = {
       "prompt": that.Base.getMyData().messages,
-      "options": { parentMessageId },
+      "options": {
+        parentMessageId
+      },
       "token": that.Base.getMyData().instinfo.wechataccount
     }
     if (this.Base.getMyData().parentMessageId == "") {
@@ -162,6 +188,9 @@ class Content extends AppBase {
               })
             }
           })
+          that.Base.setMyData({
+            websocket
+          })
           // 监听 WebSocket 错误事件
           wx.onSocketError((res) => {
             console.error('WebSocket 错误：', res);
@@ -171,7 +200,9 @@ class Content extends AppBase {
           wx.onSocketMessage((res) => {
             // console.log(res.data)
             that.hideLoadings()
-            this.Base.setMyData({ long: true })
+            this.Base.setMyData({
+              long: true
+            })
             var datas = JSON.parse(res.data)
             that.Base.setMyData({
               answertime: this.getTime(),
@@ -185,7 +216,7 @@ class Content extends AppBase {
                 that.Base.setMyData({
                   scrollTop: 500 * 2 * 500000000,
                   // prompt:that.replaceSensitiveWords(msg),
-                  prompt:(msg),
+                  prompt: (msg),
                 })
               } else {
                 let msg = datas.data.toString()
@@ -228,13 +259,17 @@ class Content extends AppBase {
                 dialogue.answertime = this.getTime();
                 that.Base.getMyData().dialoguelist.push(dialogue)
                 wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
-                this.Base.setMyData({ long: false })
+                this.Base.setMyData({
+                  long: false
+                })
                 var collegeapi = new CollegeApi();
                 collegeapi.addbotmsg({
                   botmsg: that.Base.getMyData().prompt,
                   usermsg: that.Base.getMyData().messages,
                 }, (res) => {
-                  that.Base.setMyData({ messages: "" })
+                  that.Base.setMyData({
+                    messages: ""
+                  })
                 })
                 that.onMyShow();
               })
@@ -248,7 +283,9 @@ class Content extends AppBase {
       })
       .catch((error) => {
         console.log(error);
-        that.Base.setMyData({ loadings: true })
+        that.Base.setMyData({
+          loadings: true
+        })
         that.Base.toast("提交失败请稍后重试！");
         // 在这里处理错误
       });
@@ -258,20 +295,30 @@ class Content extends AppBase {
 
 
 
-    that.Base.setMyData({ loadings: true })
+    that.Base.setMyData({
+      loadings: true
+    })
     if (that.Base.getMyData().loadings) {
       var intervalId = setInterval(function () {
         console.log(that.getRandomInt(0, that.Base.getMyData().tipslist.length))
         let tipslist = that.Base.getMyData().tipslist;
         let tips = tipslist[Number(that.getRandomInt(0, that.Base.getMyData().tipslist.length) - 1)].value;
-        that.Base.setMyData({ tips })
+        that.Base.setMyData({
+          tips
+        })
       }, 3000);
-      that.Base.setMyData({ intervalId })
+      that.Base.setMyData({
+        intervalId
+      })
     }
     var college = new CollegeApi();
-    college.aibot2({ msgbot: encodeURI(JSON.stringify(msgbot)) }, (data) => {
+    college.aibot2({
+      msgbot: encodeURI(JSON.stringify(msgbot))
+    }, (data) => {
       if (data.data) {
-        that.Base.setMyData({ long: false })
+        that.Base.setMyData({
+          long: false
+        })
         console.log(data.data)
         // const str = '第一行\n第二行\n最后一行';
         // const responseTextRepace = data.data.replace(/^\s*$(?:\r\n?|\n)/gm, '@').replace(/[DONE]/g, '').replace(/data:/g, '').slice(0, -1).replace(/[DONE]/g, '');
@@ -288,7 +335,9 @@ class Content extends AppBase {
         that.Base.setMyData({
           answertime: that.getTime()
         })
-        that.Base.setMyData({ loadings: false })
+        that.Base.setMyData({
+          loadings: false
+        })
         clearInterval(that.Base.getMyData().intervalId);
         that.Base.setMyData({
           scrollTop: 10000 * 2 * 5000,
@@ -320,7 +369,9 @@ class Content extends AppBase {
         // } else {
         // }
       } else {
-        that.Base.setMyData({ loadings: false })
+        that.Base.setMyData({
+          loadings: false
+        })
         clearInterval(that.Base.getMyData().intervalId);
         that.Base.toast("提交失败请稍后重试！");
       }
@@ -640,7 +691,9 @@ class Content extends AppBase {
   bindpic(e) {
     var that = this;
     console.log(e)
-    const { avatarUrl } = e.detail
+    const {
+      avatarUrl
+    } = e.detail
     this.Base.setMyData({
       avatarUrl
     })
@@ -666,20 +719,43 @@ class Content extends AppBase {
   }
   showLoadings() {
     var that = this;
-    that.Base.setMyData({ loadings: true })
+    that.Base.setMyData({
+      loadings: true
+    })
     if (that.Base.getMyData().loadings) {
       var intervalId = setInterval(function () {
         let tipslist = that.Base.getMyData().tipslist;
         let tips = tipslist[Number(that.getRandomInt(0, that.Base.getMyData().tipslist.length) - 1)].value;
-        that.Base.setMyData({ tips })
+        that.Base.setMyData({
+          tips
+        })
       }, 3000);
-      that.Base.setMyData({ intervalId })
+      that.Base.setMyData({
+        intervalId
+      })
     }
   }
   hideLoadings() {
     var that = this;
-    this.Base.setMyData({ loadings: false })
+    this.Base.setMyData({
+      loadings: false
+    })
     clearInterval(that.Base.getMyData().intervalId);
+  }
+  stop(){
+    //停止响应
+    this.Base.getMyData().websocket.close();
+  }
+  AddHeight(){
+    this.Base.setMyData({
+      textareaHeight:200
+    })
+
+  }
+  ReduceHeight(){
+    this.Base.setMyData({
+      textareaHeight:90
+    })
   }
 
 }
@@ -706,4 +782,7 @@ body.bindpic = content.bindpic;
 body.replaceSensitiveWords = content.replaceSensitiveWords;
 body.showLoadings = content.showLoadings;
 body.hideLoadings = content.hideLoadings;
+body.stop = content.stop;
+body.AddHeight = content.AddHeight;
+body.ReduceHeight = content.ReduceHeight;
 Page(body)

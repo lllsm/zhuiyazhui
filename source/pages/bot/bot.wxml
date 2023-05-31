@@ -13,7 +13,7 @@
 </view>
 
 
-<view wx:if="{{ (memberinfo.nickname == UserInfo.openid  ||  memberinfo.nickname == '微信昵称' || memberinfo.wxnickName == '微信昵称' || memberinfo.wxnickName == null) }}" class="loadings_bg">
+<view wx:if="{{ isusedata }}" class="loadings_bg">
   <view class="upuser flex-column flex-centers">
     <view style="font-weight: bold; margin-bottom: 30px; color: #fff;">完善资料</view>
     <view class="flex-row flex-center grxxitem border-box2 flex-liangbian">
@@ -43,6 +43,10 @@
     <view class="border-none clear-button radius-40  tcbtns" bindtap="getUserProfile">完成完善</view>
   </view>
 </view>
+
+
+<view wx:if="{{long}}" class="border-none clear-button radius-40  tcbtns stop" bindtap="stop">停止响应</view>
+
 <view style="position: fixed;top:{{margintop+70}}px;width: 100%;z-index: 9999;">
   <van-notice-bar mode="closeable" text="{{ instinfo.merchant_secret}}" />
 </view>
@@ -146,13 +150,13 @@
   <view style="margin-top: {{dialogue_bgheight}}px;"></view>
 
   <view class="dialogue_bg">
-    <view class="dialogue flex-row flex-centers flex-liangbian">
+    <view class="dialogue flex-row flex-centers flex-liangbian margin-bottom-10 margin-top-10" >
 
       <view style="overflow: hidden;">
         <image bindtap="bntcol" class="icon-25" src="../../images/icons/del.png" />
       </view>
       <view class="flex-center flex-row flex-centers aa ">
-        <textarea maxlength="-1" placeholder="请输入你要提问的内容！" class="text_s border-box2" bindinput="inpurl" value="{{messages}}"></textarea>
+        <textarea maxlength="-1" placeholder="请输入你要提问的内容"  class="text_s border-box2" 	auto-focus	  bindinput="inpurl"  bindblur="ReduceHeight"  value="{{messages}}"></textarea>
       </view>
       <view class="margin-right-10">
 

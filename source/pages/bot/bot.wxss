@@ -38,13 +38,16 @@ Page{
   border-radius: 10rpx;
   /* background-color: #999; */
   padding-top: 20rpx;
+  padding-bottom: 20rpx;
   padding-left:20rpx;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
   margin-left: 20rpx;
   margin-right: 20rpx;
   background-color: #FFFFFF;
-  height: 90rpx;
+  /* max-height:200rpx; */
+  /* min-height: 90rpx; */
+  height: 80rpx;
   /* box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important; */
 }
 .dialogue_bg{
@@ -172,4 +175,10 @@ Page{
 .van-notice-bar--withicon {
   backdrop-filter: blur(7rpx) !important;
   background: rgba(255, 255, 255, 0.5) !important;
+}
+.stop{
+  position: fixed;
+  bottom: 180rpx;
+  z-index: 100000;
+  left: 25%;
 }
