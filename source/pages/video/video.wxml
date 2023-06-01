@@ -1,4 +1,6 @@
 <!--pages/video/video.wxml-->
+<ad unit-id="adunit-c7c85d104b6e7b22"></ad>
+
 <view class="shuiying">
   <view>
     <view style="display: flex;justify-content: center;"> <textarea class="text_s border-box2" value="{{inpurl}}" bindinput="inp_url" placeholder="请粘贴需要提取的视频/图集链接"></textarea></view>

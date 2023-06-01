@@ -1,4 +1,8 @@
 const app = getApp();
+// 在页面中定义插屏广告
+let interstitialAd = null;
+// 在页面中定义激励视频广告
+let videoAd = null
 import {
   AppBase
 } from "../../appbase";
@@ -19,6 +23,7 @@ class Content extends AppBase {
   onLoad(options) {
     this.Base.Page = this;
     super.onLoad(options);
+    var that = this;
     wx.setBackgroundColor({
       backgroundColor: '#ffffff'
     })
@@ -36,8 +41,8 @@ class Content extends AppBase {
       questiontime: "",
       answertime: "",
       isupdate: false,
-      isusedata:wx.getStorageSync("isnickname")||false,
-      textareaHeight:90
+      isusedata: wx.getStorageSync("isnickname") || false,
+      textareaHeight: 90
     })
     const {
       height,
@@ -52,6 +57,55 @@ class Content extends AppBase {
       tipslist
     })
 
+
+    // 在页面onLoad回调事件中创建插屏广告实例
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-90c6231e75da2c65'
+      })
+      interstitialAd.onLoad(() => {})
+      interstitialAd.onError((err) => {})
+      interstitialAd.onClose(() => {})
+    }
+    // 在适合的场景显示插屏广告
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
+    // 在页面onLoad回调事件中创建激励视频广告实例
+    if (wx.createRewardedVideoAd) {
+      videoAd = wx.createRewardedVideoAd({
+        adUnitId: 'adunit-ca124a881e9783bf'
+      })
+      videoAd.onLoad(() => {
+        console.log('激励视频 广告加载成功')
+      })
+      videoAd.onError((err) => {
+        console.log('激励视频 广告加载失败')
+        rewardedVideoAd.load()
+        .then(() => rewardedVideoAd.show())
+        .catch(err => {
+          console.log('激励视频 广告显示失败')
+        })
+      })
+      videoAd.onClose((res) => {
+        if (res && res.isEnded) {
+          this.Base.toast("次数发放成功！")
+          var memberapi = new MemberApi();
+          memberapi.updatescore({},(updatescore)=>{
+            console.log(updatescore)
+            that.onMyShow()
+            that.onShow();
+          })
+          that.onMyShow()
+
+        } else {
+          this.Base.toast("播放中途退出，次数发放失败！")
+          // 播放中途退出，不下发游戏奖励
+        }
+      })
+    }
   }
 
   onMyShow() {
@@ -742,20 +796,34 @@ class Content extends AppBase {
     })
     clearInterval(that.Base.getMyData().intervalId);
   }
-  stop(){
+  stop() {
     //停止响应
     this.Base.getMyData().websocket.close();
   }
-  AddHeight(){
+  AddHeight() {
     this.Base.setMyData({
-      textareaHeight:200
+      textareaHeight: 200
     })
 
   }
-  ReduceHeight(){
+  ReduceHeight() {
     this.Base.setMyData({
-      textareaHeight:90
+      textareaHeight: 90
     })
+  }
+  showvideoAd() {
+
+    // 用户触发广告后，显示激励视频广告
+    if (videoAd) {
+      videoAd.show().catch(() => {
+        // 失败重试
+        videoAd.load()
+          .then(() => videoAd.show())
+          .catch(err => {
+            console.log('激励视频 广告显示失败')
+          })
+      })
+    }
   }
 
 }
@@ -785,4 +853,5 @@ body.hideLoadings = content.hideLoadings;
 body.stop = content.stop;
 body.AddHeight = content.AddHeight;
 body.ReduceHeight = content.ReduceHeight;
+body.showvideoAd = content.showvideoAd;
 Page(body)

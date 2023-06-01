@@ -1,4 +1,5 @@
 <!--pages/bot/bot.wxml-->
+
 <movable-area class="movable-area">
   <movable-view animation="{{true}}" class="movable-view" direction='vertical'>
     <image mode="aspectFit" src="../../images/icons/sz.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
@@ -103,6 +104,7 @@
         </view>
 
       </view>
+
       <!-- 列表内容2 -->
       <view class="margin-30" wx:if="{{long}}">
         <view class="" style="display: flex; justify-content: center;">
@@ -150,13 +152,20 @@
   <view style="margin-top: {{dialogue_bgheight}}px;"></view>
 
   <view class="dialogue_bg">
+
+    <view class="padding-top-30 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
+      <view>点击增加次数,当前次数</view>
+      <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
+    </view>
+
+
     <view class="dialogue flex-row flex-centers flex-liangbian margin-bottom-10 margin-top-10" >
 
       <view style="overflow: hidden;">
         <image bindtap="bntcol" class="icon-25" src="../../images/icons/del.png" />
       </view>
       <view class="flex-center flex-row flex-centers aa ">
-        <textarea maxlength="-1" placeholder="请输入你要提问的内容"  class="text_s border-box2" 	auto-focus	  bindinput="inpurl"  bindblur="ReduceHeight"  value="{{messages}}"></textarea>
+        <textarea maxlength="-1" placeholder="请输入你要提问的内容"  class="text_s border-box2" 		  bindinput="inpurl"  bindblur="ReduceHeight"  value="{{messages}}"></textarea>
       </view>
       <view class="margin-right-10">
 
