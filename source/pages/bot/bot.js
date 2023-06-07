@@ -16,6 +16,8 @@ import {
 import {
   MemberApi
 } from "../../apis/member.api.js";
+import { WechatApi } from '../../apis/wechat.api';
+
 class Content extends AppBase {
   constructor() {
     super();
@@ -63,9 +65,9 @@ class Content extends AppBase {
       interstitialAd = wx.createInterstitialAd({
         adUnitId: 'adunit-90c6231e75da2c65'
       })
-      interstitialAd.onLoad(() => {})
-      interstitialAd.onError((err) => {})
-      interstitialAd.onClose(() => {})
+      interstitialAd.onLoad(() => { })
+      interstitialAd.onError((err) => { })
+      interstitialAd.onClose(() => { })
     }
     // 在适合的场景显示插屏广告
     if (interstitialAd) {
@@ -84,16 +86,16 @@ class Content extends AppBase {
       videoAd.onError((err) => {
         console.log('激励视频 广告加载失败')
         rewardedVideoAd.load()
-        .then(() => rewardedVideoAd.show())
-        .catch(err => {
-          console.log('激励视频 广告显示失败')
-        })
+          .then(() => rewardedVideoAd.show())
+          .catch(err => {
+            console.log('激励视频 广告显示失败')
+          })
       })
       videoAd.onClose((res) => {
         if (res && res.isEnded) {
           this.Base.toast("次数发放成功！")
           var memberapi = new MemberApi();
-          memberapi.updatescore({},(updatescore)=>{
+          memberapi.updatescore({}, (updatescore) => {
             console.log(updatescore)
             that.onMyShow()
             that.onShow();
@@ -139,7 +141,7 @@ class Content extends AppBase {
         dialogue_bgheight: res.height
       })
     })
-    query.exec(res => {})
+    query.exec(res => { })
 
 
     query.select('.page_s').boundingClientRect(res => {
@@ -148,7 +150,7 @@ class Content extends AppBase {
         aa: 730 - 75 - 32
       })
     })
-    query.exec(res => {})
+    query.exec(res => { })
 
 
     let imgvalue = wx.getStorageSync("imgvalue");
@@ -185,6 +187,7 @@ class Content extends AppBase {
   }
   okbnt() {
     var that = this;
+    var wechatApi = new WechatApi();
     let msg = this.Base.getMyData().messages;
     if (msg == "") {
       this.Base.toast("要填内容哦");
@@ -211,128 +214,161 @@ class Content extends AppBase {
           })
           return
         } else {
-          var dialogue = {
-            // question: that.replaceSensitiveWords(msg),
-            question: (msg),
-            answer: "",
-            questiontime: this.getTime()
-          };
-          that.Base.setMyData({
-            questiontime: this.getTime()
-          })
-          var weburl = "wss://gpt.cllsm.top:8443";
-          if (that.Base.getMyData().instinfo.state == '2') {
-            weburl = "wss://gpt.cllsm.top:5657";
-          }
-
-          //     //建立 WebSocket 连接
-          var websocket = wx.connectSocket({
-            url: weburl,
-            success: (res) => {
-              console.log('WebSocket connected')
-              wx.onSocketOpen(() => {
-                console.log('WebSocket opened')
-                // 发送消息
-                wx.sendSocketMessage({
-                  data: JSON.stringify(msgbot),
-                  success: function () {
-                    console.log('WebSocket message sent');
+          that.checkscore()
+            .then((score) => {
+              console.log(score, "=============================")
+              if (score <= 0) {
+                console.log("积分不足")
+                that.hideLoadings()
+                wx.showModal({
+                  title: '提示',
+                  content: '您所剩的次数不足，请获取次数，当前次数' + score,
+                  showCancel: false,
+                  success(res) {
+                    if (res.confirm) {
+                      that.showvideoAd()
+                      console.log('用户点击确定')
+                    } else if (res.cancel) {
+                      console.log('用户点击取消')
+                    }
                   }
-                });
-              })
-            }
-          })
-          that.Base.setMyData({
-            websocket
-          })
-          // 监听 WebSocket 错误事件
-          wx.onSocketError((res) => {
-            console.error('WebSocket 错误：', res);
-            that.Base.toast("请求失败了");
-            that.hideLoadings();
-          });
-          wx.onSocketMessage((res) => {
-            // console.log(res.data)
-            that.hideLoadings()
-            this.Base.setMyData({
-              long: true
-            })
-            var datas = JSON.parse(res.data)
-            that.Base.setMyData({
-              answertime: this.getTime(),
-            })
-            if (datas.code == 0) {
-              let msg = datas.data.toString()
-              if (that.Base.getMyData().instinfo.state == '2') {
-                if (msg == '    [error]请登录') {
-                  msg = "鸭鸭提醒：请求过于频繁，请过一会再来，鸭鸭等你，要注意休息哦！"
-                }
-                that.Base.setMyData({
-                  scrollTop: 500 * 2 * 500000000,
-                  // prompt:that.replaceSensitiveWords(msg),
-                  prompt: (msg),
                 })
               } else {
-                let msg = datas.data.toString()
-                const lines = msg.split('\n');
-                const lastLine = lines[lines.length - 1];
+                var dialogue = {
+                  // question: that.replaceSensitiveWords(msg),
+                  question: (msg),
+                  answer: "",
+                  questiontime: this.getTime()
+                };
                 that.Base.setMyData({
-                  scrollTop: 500 * 2 * 500000000,
-                  // prompt: that.replaceSensitiveWords(JSON.parse(lastLine).text),
-                  prompt: (JSON.parse(lastLine).text),
-                  parentMessageId: JSON.parse(lastLine).id,
+                  questiontime: this.getTime()
                 })
-                wx.setStorageSync("parentMessageId", that.Base.getMyData().parentMessageId)
-              }
-              //处理markdown，有问题
-              // let cont = that.replaceSensitiveWords(JSON.parse(lastLine).text);
-              // let content = ApiUtil.HtmlDecode(cont);
-              // WxParse.wxParse('content', 'markdown', content, that, 10);
-            } else {
-              that.Base.setMyData({
-                scrollTop: 500 * 2 * 500000000,
-                prompt: datas.msg,
-              })
-              that.Base.toast("请求失败了")
-            }
-          })
-          // 监听 WebSocket 连接关闭事件
-          wx.onSocketClose(() => {
-            let prompt = that.Base.getMyData().prompt;
-            console.log('WebSocket 连接已关闭');
-            that.Base.toast("请求成功了")
-            this.ismsg(prompt)
-              .then((label) => {
-                if (label != 100) {
-                  that.msgseccheck(label)
-                  that.Base.setMyData({
-                    prompt: "你好，经扫描回答内容，该内容涉及国家法律法规禁止的内容，违反相关法律法规和平台规范，为维护绿色健康的平台生态，坚持正确价值导向"
-                  })
+                var weburl = "wss://gpt.cllsm.top:8443";
+                if (that.Base.getMyData().instinfo.state == '2') {
+                  weburl = "wss://gpt.cllsm.top:5657";
                 }
-                dialogue.answer = that.Base.getMyData().prompt;
-                dialogue.answertime = this.getTime();
-                that.Base.getMyData().dialoguelist.push(dialogue)
-                wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
-                this.Base.setMyData({
-                  long: false
+
+                //     //建立 WebSocket 连接
+                var websocket = wx.connectSocket({
+                  url: weburl,
+                  success: (res) => {
+                    console.log('WebSocket connected')
+                    wx.onSocketOpen(() => {
+                      console.log('WebSocket opened')
+                      // 发送消息
+                      wx.sendSocketMessage({
+                        data: JSON.stringify(msgbot),
+                        success: function () {
+                          console.log('WebSocket message sent');
+                        }
+                      });
+                    })
+                  }
                 })
-                var collegeapi = new CollegeApi();
-                collegeapi.addbotmsg({
-                  botmsg: that.Base.getMyData().prompt,
-                  usermsg: that.Base.getMyData().messages,
-                }, (res) => {
-                  that.Base.setMyData({
-                    messages: ""
+                that.Base.setMyData({
+                  websocket
+                })
+                // 监听 WebSocket 错误事件
+                wx.onSocketError((res) => {
+                  console.error('WebSocket 错误：', res);
+                  that.Base.toast("请求失败了");
+                  that.hideLoadings();
+                });
+                wx.onSocketMessage((res) => {
+                  // console.log(res.data)
+                  that.hideLoadings()
+                  this.Base.setMyData({
+                    long: true
                   })
+                  var datas = JSON.parse(res.data)
+                  that.Base.setMyData({
+                    answertime: this.getTime(),
+                  })
+                  if (datas.code == 0) {
+                    let msg = datas.data.toString()
+                    if (that.Base.getMyData().instinfo.state == '2') {
+                      if (msg == '    [error]请登录') {
+                        msg = "鸭鸭提醒：请求过于频繁，请过一会再来，鸭鸭等你，要注意休息哦！"
+                      }
+                      that.Base.setMyData({
+                        scrollTop: 500 * 2 * 500000000,
+                        // prompt:that.replaceSensitiveWords(msg),
+                        prompt: (msg),
+                      })
+                    } else {
+                      let msg = datas.data.toString()
+                      const lines = msg.split('\n');
+                      const lastLine = lines[lines.length - 1];
+                      that.Base.setMyData({
+                        scrollTop: 500 * 2 * 500000000,
+                        // prompt: that.replaceSensitiveWords(JSON.parse(lastLine).text),
+                        prompt: (JSON.parse(lastLine).text),
+                        parentMessageId: JSON.parse(lastLine).id,
+                      })
+                      wx.setStorageSync("parentMessageId", that.Base.getMyData().parentMessageId)
+                    }
+                    //处理markdown，有问题
+                    // let cont = that.replaceSensitiveWords(JSON.parse(lastLine).text);
+                    // let content = ApiUtil.HtmlDecode(cont);
+                    // WxParse.wxParse('content', 'markdown', content, that, 10);
+                  } else {
+                    that.Base.setMyData({
+                      scrollTop: 500 * 2 * 500000000,
+                      prompt: datas.msg,
+                    })
+                    that.Base.toast("请求失败了")
+                  }
                 })
-                that.onMyShow();
+                // 监听 WebSocket 连接关闭事件
+                wx.onSocketClose(() => {
+                  let prompt = that.Base.getMyData().prompt;
+                  console.log('WebSocket 连接已关闭');
+                  that.Base.toast("请求成功了")
+                  this.ismsg(prompt)
+                    .then((label) => {
+                      if (label != 100) {
+                        that.msgseccheck(label)
+                        that.Base.setMyData({
+                          prompt: "你好，经扫描回答内容，该内容涉及国家法律法规禁止的内容，违反相关法律法规和平台规范，为维护绿色健康的平台生态，坚持正确价值导向"
+                        })
+                      }
+                      dialogue.answer = that.Base.getMyData().prompt;
+                      dialogue.answertime = this.getTime();
+                      that.Base.getMyData().dialoguelist.push(dialogue)
+                      wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
+                      this.Base.setMyData({
+                        long: false
+                      })
+                      var collegeapi = new CollegeApi();
+                      collegeapi.addbotmsg({
+                        botmsg: that.Base.getMyData().prompt,
+                        usermsg: that.Base.getMyData().messages,
+                      }, (res) => {
+                        that.Base.setMyData({
+                          messages: ""
+                        })
+                      })
+                      wechatApi.reducescore({ openid: that.Base.getMyData().UserInfo.openid, }, (res) => { that.onShow(); console.log(res) })
+                      that.onMyShow();
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      that.Base.toast("提交失败请稍后重试！");
+                      // 在这里处理错误
+                    });
+                });
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              that.Base.setMyData({
+                loadings: true
               })
-              .catch((error) => {
-                console.log(error);
-                that.Base.toast("提交失败请稍后重试！");
-                // 在这里处理错误
-              });
-          });
+              that.hideLoadings()
+              that.Base.toast("提交失败请稍后重试！");
+              // 在这里处理错误
+            });
+
         }
       })
       .catch((error) => {
@@ -340,6 +376,7 @@ class Content extends AppBase {
         that.Base.setMyData({
           loadings: true
         })
+        that.hideLoadings()
         that.Base.toast("提交失败请稍后重试！");
         // 在这里处理错误
       });
@@ -736,6 +773,23 @@ class Content extends AppBase {
       })
     });
   }
+
+  checkscore() {
+    var wechatApi = new WechatApi();
+    var that = this;
+    return new Promise(function (resolve, reject) {
+      wechatApi.checkscore({
+        openid: that.Base.getMyData().UserInfo.openid,
+      }, (data) => {
+        if (data.code == 0) { // error checking
+          reject(new Error("msgseccheck error"));
+          return;
+        }
+        console.log(data.data, "------------------")
+        resolve(data.data);
+      })
+    });
+  }
   bin_inp(e) {
     console.log(e)
     this.Base.setMyData({
@@ -854,4 +908,5 @@ body.stop = content.stop;
 body.AddHeight = content.AddHeight;
 body.ReduceHeight = content.ReduceHeight;
 body.showvideoAd = content.showvideoAd;
+body.checkscore = content.checkscore;
 Page(body)

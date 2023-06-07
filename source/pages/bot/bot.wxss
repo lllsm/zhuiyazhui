@@ -130,7 +130,7 @@ Page{
 .under2{
   position: fixed;
   z-index: 2;
-  bottom: 20%;
+  bottom: 60%;
   right: 0;
 }
 .movable-area{
@@ -149,7 +149,7 @@ Page{
   /* 重设为auto,覆盖父属性设置  宽高要跟图片大小一致*/
   height: 160rpx;
   width: 160rpx;
-  margin-top: 150%;
+  margin-top: 120%;
   /* background: red; */
  }
  .tcbtns {
@@ -178,7 +178,7 @@ Page{
 }
 .stop{
   position: fixed;
-  bottom: 180rpx;
+  bottom: 260rpx;
   z-index: 100000;
   left: 25%;
 }
