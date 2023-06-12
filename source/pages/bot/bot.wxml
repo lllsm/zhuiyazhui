@@ -67,7 +67,7 @@
 
 
   <view style="position: fixed; width: 100%; height: 100%;  background-image: {{memberinfo.User_bg == null ? 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' : 'url('+ uploadpath+memberinfo.User_bg.class_image+')' }}; background-size: cover; background-position: center;overflow: hidden;">
-    <scroll-view scroll-y class="message-box-list" style="width: 100%;height: 1150rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
+    <scroll-view scroll-y class="message-box-list" style="width: 100%;height: 1300rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
 
       <!-- 列表内容 -->
 
@@ -160,31 +160,52 @@
   <view style="margin-top: {{dialogue_bgheight}}px;"></view>
 
   <view class="dialogue_bg">
-
-    <view class="padding-top-30 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
-      <view>点击增加次数,当前次数</view>
-      <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
-    </view>
-
-
-    <view class="dialogue flex-row flex-centers flex-liangbian margin-bottom-10 margin-top-10">
-
-      <view style="overflow: hidden;">
-        <image bindtap="bntcol" class="icon-25" src="../../images/icons/del.png" />
+    <view class="flex-row flex-centers">
+      <view class="switchover flex-row flex-centers" wx:if="{{switchover}}" bindtap="bntswitchover">
+        <image style="transform: scaleY(-1);" class="icon-44" src="../../images/icons/up.png" />
       </view>
-      <view class="flex-center flex-row flex-centers aa ">
-        <textarea maxlength="-1" placeholder="请输入你要提问的内容" class="text_s border-box2" bindinput="inpurl" bindblur="ReduceHeight" value="{{messages}}"></textarea>
-      </view>
-      <view class="margin-right-10">
-
-        <view wx:if="{{long}}">
-          <van-loading size="24px" vertical></van-loading>
-        </view>
-        <view style="overflow: hidden;" wx:else>
-          <image bindtap="okbnt" class="icon-fs" src="../../images/icons/fs.png" />
-        </view>
+      <view class="switchover flex-row flex-centers" wx:else bindtap="bntswitchover">
+        <image class="icon-44" src="../../images/icons/up.png" />
       </view>
     </view>
+
+
+    <van-transition name="fade-up" show="{{ switchover }}">
+      <view wx:if="{{switchover}}">
+        <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
+          <view>点击增加次数,当前次数</view>
+          <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
+        </view>
+        <view class="dialogue flex-row flex-centers flex-liangbian">
+          <view style="overflow: hidden;" class="flex-shrink">
+            <image bindtap="bntcol" class="icon-25 flex-shrink" src="../../images/icons/del.png" />
+          </view>
+          <view class="flex-center flex-row flex-centers " style="width: 100%;">
+            <input maxlength="-1" placeholder="请输入你要提问的内容" class="text_s border-box2" bindinput="inpurl" bindblur="ReduceHeight" value="{{messages}}"></input>
+          </view>
+          <view class="margin-right-10 flex-shrink">
+            <view wx:if="{{long}}">
+              <van-loading size="24px" vertical></van-loading>
+            </view>
+            <view style="overflow: hidden;" wx:else >
+              <image bindtap="okbnt" class="icon-fs flex-shrink" src="../../images/icons/fs.png" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </van-transition>
+    <van-transition name="fade-up" show="{{ !switchover }}">
+      <view wx:if="{{!switchover}}">
+        <view class="flex-center flex-row flex-liangbian inp_item">
+          <input maxlength="-1" placeholder="请输入你要提问的内容" class="input_s" bindinput="inpurl" bindblur="ReduceHeight" value="{{messages}}"></input>
+          <view bindtap="okbnt">
+            <image bindtap="okbnt" style="width: 60rpx; height: 55rpx;" src="../../images/icons/fasong.png" />
+          </view>
+        </view>
+      </view>
+    </van-transition>
+
+
   </view>
 
 </view>

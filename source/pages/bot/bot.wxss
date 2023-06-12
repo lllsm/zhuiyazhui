@@ -45,10 +45,6 @@ Page{
 .content_s{
   border-radius: 5rpx 40rpx 40rpx 40rpx;
 }
-.aa{
-  max-height:200rpx;
-  min-height: 90rpx;
-}
 .text_s {
   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 10rpx 30rpx;   */
   border-radius: 10rpx;
@@ -63,7 +59,8 @@ Page{
   background-color: #FFFFFF;
   /* max-height:200rpx; */
   /* min-height: 90rpx; */
-  height: 80rpx;
+  width: 90%;
+  /* height: 80rpx; */
   /* box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important; */
 }
 .dialogue_bg{
@@ -89,6 +86,19 @@ Page{
   /* padding-top: 20rpx;
   padding-bottom:20rpx; */
 }
+.button_mian6{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(90deg,#fbfa6a, #f1cd5b); */
+  color:#55524f;
+  font-size: 20rpx;
+  width: 100rpx;
+  box-shadow: 0 0px 20rpx rgba(231, 231, 231, 1);
+  border: 0px solid rgba(0,0,0,.2);
+  /* padding-top: 20rpx;
+  padding-bottom:20rpx; */
+}
 .icon-fs{
   height: 80rpx;
   width: 90rpx;
@@ -103,6 +113,13 @@ Page{
   justify-content: center;
   align-items: center;
 
+}
+.switchover{
+  height: 45rpx;
+  width: 200rpx;
+  background-color: rgba(255, 224, 72, 0.2);
+  backdrop-filter: blur(7rpx);
+  border-radius: 0rpx 0rpx 40rpx 40rpx;
 }
 .loadings{
   background: #FFFFFF;
@@ -203,4 +220,15 @@ Page{
   padding: 0;
   max-width: 300px;
   min-height: 20rpx;
+}
+.inp_item{
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  margin-left: 30rpx;
+  padding-right: 30rpx;
+}
+.input_s{
+  /* box-shadow: 0 0px 20rpx rgba(231, 231, 231, 1);
+  border-radius: 10rpx; */
+  width: 80%;
 }

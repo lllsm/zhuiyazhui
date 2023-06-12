@@ -45,7 +45,8 @@ class Content extends AppBase {
       answertime: "",
       isupdate: false,
       isusedata: wx.getStorageSync("isnickname") || false,
-      textareaHeight: 90
+      textareaHeight: 90,
+      switchover:true
     })
     const {
       height,
@@ -907,6 +908,11 @@ class Content extends AppBase {
       })
     }
   }
+  bntswitchover(){
+    this.Base.setMyData({
+      switchover: !this.Base.getMyData().switchover
+    })
+  }
 
 }
 var content = new Content();
@@ -938,4 +944,6 @@ body.ReduceHeight = content.ReduceHeight;
 body.showvideoAd = content.showvideoAd;
 body.checkscore = content.checkscore;
 body.bincopys = content.bincopys;
+body.bntswitchover = content.bntswitchover;
+
 Page(body)

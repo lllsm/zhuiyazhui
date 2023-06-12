@@ -29,6 +29,7 @@
   <view wx:for="{{userbglist}}" class="item img_list" wx:for-index="idx">
     <image src="../../images/icons/tj2.png" wx:if="{{item.state==2}}" class="tjimg" catchtap="previewImage"></image>
     <image mode='widthFix' class="image" id="{{idx}}" data-id="{{item.id}}" catchtap="setImage"  catchlongtap="del"src="{{uploadpath}}{{item.class_image}}" />
+    <image src="../../images/icons/picDown.png" class="downimg" data-src='{{uploadpath}}{{item.class_image}}' catchtap="picDown"></image>
     <image src="../../images/icons/ck.png" class="ckimg" catchtap="previewImage"></image>
   </view>
 </view>

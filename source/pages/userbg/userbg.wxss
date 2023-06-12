@@ -23,6 +23,14 @@
   right: 25rpx;
   z-index: 10;
 }
+.downimg{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  bottom: 5rpx;
+  right: 0rpx;
+  z-index: 10;
+}
 .tjimg{
   width: 70rpx;
   height: 60rpx;

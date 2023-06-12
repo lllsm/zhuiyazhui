@@ -140,6 +140,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/userbg/userbg",
+          "query": "undefined=undefined",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
