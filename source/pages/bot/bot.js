@@ -18,6 +18,7 @@ import {
 } from "../../apis/member.api.js";
 import { WechatApi } from '../../apis/wechat.api';
 
+
 class Content extends AppBase {
   constructor() {
     super();
@@ -114,18 +115,34 @@ class Content extends AppBase {
     var that = this;
     var msglist = wx.getStorageSync("dialoguelist")
     let msgdata = wx.getStorageSync("msglist")
-    // if (msglist.length > 0) {
-    //   msglist.forEach((item, index) => {
-    //     console.log(index, '++++++++++++++++===')
-    //     let cont = item.answer;
-    //     let content = ApiUtil.HtmlDecode(cont);
-    //     WxParse.wxParse('answerdata' + index, 'markdown', content, that, 10);
-    //     if (index === msglist.length - 1) {
-    //       var oo = WxParse.wxParseTemArray("listanswerdata", 'answerdata', msglist.length, that)
-    //       console.log(oo, '---------------')
-    //     }
-    //   })
-    // }
+    if (msglist.length > 0) {
+      for(var i =0;i < msglist.length;i++){
+
+        let cont = msglist[i].answer;
+        console.log(typeof cont)
+        if(typeof cont!='object'){
+          let obj = app.towxml(cont,'markdown',{
+            // theme:'dark',
+            events:{
+              tap:e => {
+                console.log('tap',e);
+                that.bincopys(cont)
+              },
+              change:e => {
+                console.log('todo',e);
+                that.bincopys(cont)
+              }
+            }
+          });
+          msglist[i].answer = obj;
+        }
+
+      }
+    }
+
+
+    
+
 
     this.Base.setMyData({
       dialoguelist: msglist || [],
@@ -161,6 +178,7 @@ class Content extends AppBase {
     let isnickname = (AppBase.memberinfo.nickname == this.Base.getMyData().UserInfo.openid || AppBase.memberinfo.nickname == '微信昵称' || AppBase.memberinfo.wxnickName == '微信昵称' || AppBase.memberinfo.wxnickName == null);
     console.log(isnickname)
     wx.setStorageSync('isnickname', isnickname)
+
 
   }
   onShareTimeline() {
@@ -572,7 +590,17 @@ class Content extends AppBase {
     console.log(e)
 
     wx.setClipboardData({
-      data: e.currentTarget.dataset.data,
+      data: e.currentTarget.dataset.data || e,
+      success(res) {
+        console.log(res);
+      }
+    })
+  }
+  bincopys(e) {
+    console.log(e)
+
+    wx.setClipboardData({
+      data:  e,
       success(res) {
         console.log(res);
       }
@@ -909,4 +937,5 @@ body.AddHeight = content.AddHeight;
 body.ReduceHeight = content.ReduceHeight;
 body.showvideoAd = content.showvideoAd;
 body.checkscore = content.checkscore;
+body.bincopys = content.bincopys;
 Page(body)

@@ -71,6 +71,8 @@
 
       <!-- 列表内容 -->
 
+
+
       <view class="margin-30 " wx:for="{{dialoguelist}}" wx:key="index">
         <view class="" style="display: flex; justify-content: center;">
           <view class="txt-gray h6">{{item.questiontime}}</view>
@@ -93,7 +95,13 @@
 
           <view>
             <view class="flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s">
-              <text data-data="{{item.answer}}" bindtap="bincopy" user-select class="txt-gray margin-left-20 margin-right-20">{{item.answer}}</text>
+              <!-- <text data-data="{{item.answer}}" bindtap="bincopy" user-select class="txt-gray margin-left-20 margin-right-20">{{item.answer}}</text> -->
+              <view data-data="{{item.answer}}" bindtap="bincopy" class="txt-gray margin-left-20 margin-right-20">
+                <view class="towxml_answer flex-shrink">
+                  <towxml nodes="{{item.answer}}" />
+                </view>
+              </view>
+
               <!-- <view class="flex-row flex-centers padding-left-10 padding-right-10 margin-top-10 content content_s" data-data="{{item.answer}}" bindtap="bincopy">
                 <import src="../../wxParse/wxParse.wxml" />
                 <template is="wxParse" data="{{wxParseData:listanswerdata[index]}}" />
@@ -159,13 +167,13 @@
     </view>
 
 
-    <view class="dialogue flex-row flex-centers flex-liangbian margin-bottom-10 margin-top-10" >
+    <view class="dialogue flex-row flex-centers flex-liangbian margin-bottom-10 margin-top-10">
 
       <view style="overflow: hidden;">
         <image bindtap="bntcol" class="icon-25" src="../../images/icons/del.png" />
       </view>
       <view class="flex-center flex-row flex-centers aa ">
-        <textarea maxlength="-1" placeholder="请输入你要提问的内容"  class="text_s border-box2" 		  bindinput="inpurl"  bindblur="ReduceHeight"  value="{{messages}}"></textarea>
+        <textarea maxlength="-1" placeholder="请输入你要提问的内容" class="text_s border-box2" bindinput="inpurl" bindblur="ReduceHeight" value="{{messages}}"></textarea>
       </view>
       <view class="margin-right-10">
 

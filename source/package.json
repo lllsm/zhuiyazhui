@@ -6,6 +6,7 @@
   "dependencies": {
     "@vant/weapp": "^1.10.5",
     "mp-html": "^2.4.1",
+    "towxml": "^3.0.6",
     "weui-miniprogram": "^1.2.3"
   },
   "scripts": {

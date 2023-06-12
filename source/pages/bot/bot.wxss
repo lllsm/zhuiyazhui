@@ -3,6 +3,22 @@
 Page{
   background-color: #f4f7fc;
 }
+/**pages/index.wxss**/
+
+/**基础风格样式**/
+
+@import'/towxml/style/main.wxss';
+
+/**如果页面有动态主题切换，则需要将使用到的样式全部引入**/
+
+/**主题配色（浅色样式）**/
+
+@import'/towxml/style/theme/light.wxss';
+
+/**主题配色（深色样式）**/
+
+@import'/towxml/style/theme/dark.wxss';
+
 .vtop{
   position: fixed;
   left: 0;
@@ -19,15 +35,15 @@ Page{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 100%;
+  /* max-width: 100%; */
   padding: 12rpx;
   background-color: #fff ;
 }
 .content_l{
-  border-radius: 40rpx 0rpx 40rpx 40rpx;
+  border-radius: 40rpx 5rpx 40rpx 40rpx;
 }
 .content_s{
-  border-radius: 0rpx 40rpx 40rpx 40rpx;
+  border-radius: 5rpx 40rpx 40rpx 40rpx;
 }
 .aa{
   max-height:200rpx;
@@ -181,4 +197,10 @@ Page{
   bottom: 260rpx;
   z-index: 100000;
   left: 25%;
+}
+.towxml_answer{
+  margin: 0;
+  padding: 0;
+  max-width: 300px;
+  min-height: 20rpx;
 }
