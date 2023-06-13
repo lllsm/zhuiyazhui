@@ -16,7 +16,9 @@ import {
 import {
   MemberApi
 } from "../../apis/member.api.js";
-import { WechatApi } from '../../apis/wechat.api';
+import {
+  WechatApi
+} from '../../apis/wechat.api';
 
 
 class Content extends AppBase {
@@ -46,7 +48,7 @@ class Content extends AppBase {
       isupdate: false,
       isusedata: wx.getStorageSync("isnickname") || false,
       textareaHeight: 90,
-      switchover:true
+      switchover: true
     })
     const {
       height,
@@ -67,9 +69,9 @@ class Content extends AppBase {
       interstitialAd = wx.createInterstitialAd({
         adUnitId: 'adunit-90c6231e75da2c65'
       })
-      interstitialAd.onLoad(() => { })
-      interstitialAd.onError((err) => { })
-      interstitialAd.onClose(() => { })
+      interstitialAd.onLoad(() => {})
+      interstitialAd.onError((err) => {})
+      interstitialAd.onClose(() => {})
     }
     // 在适合的场景显示插屏广告
     if (interstitialAd) {
@@ -117,20 +119,20 @@ class Content extends AppBase {
     var msglist = wx.getStorageSync("dialoguelist")
     let msgdata = wx.getStorageSync("msglist")
     if (msglist.length > 0) {
-      for(var i =0;i < msglist.length;i++){
+      for (var i = 0; i < msglist.length; i++) {
 
         let cont = msglist[i].answer;
         console.log(typeof cont)
-        if(typeof cont!='object'){
-          let obj = app.towxml(cont,'markdown',{
+        if (typeof cont != 'object') {
+          let obj = app.towxml(cont, 'markdown', {
             // theme:'dark',
-            events:{
-              tap:e => {
-                console.log('tap',e);
+            events: {
+              tap: e => {
+                console.log('tap', e);
                 that.bincopys(cont)
               },
-              change:e => {
-                console.log('todo',e);
+              change: e => {
+                console.log('todo', e);
                 that.bincopys(cont)
               }
             }
@@ -142,7 +144,7 @@ class Content extends AppBase {
     }
 
 
-    
+
 
 
     this.Base.setMyData({
@@ -159,7 +161,7 @@ class Content extends AppBase {
         dialogue_bgheight: res.height
       })
     })
-    query.exec(res => { })
+    query.exec(res => {})
 
 
     query.select('.page_s').boundingClientRect(res => {
@@ -168,7 +170,7 @@ class Content extends AppBase {
         aa: 730 - 75 - 32
       })
     })
-    query.exec(res => { })
+    query.exec(res => {})
 
 
     let imgvalue = wx.getStorageSync("imgvalue");
@@ -367,7 +369,12 @@ class Content extends AppBase {
                           messages: ""
                         })
                       })
-                      wechatApi.reducescore({ openid: that.Base.getMyData().UserInfo.openid, }, (res) => { that.onShow(); console.log(res) })
+                      wechatApi.reducescore({
+                        openid: that.Base.getMyData().UserInfo.openid,
+                      }, (res) => {
+                        that.onShow();
+                        console.log(res)
+                      })
                       that.onMyShow();
                     })
                     .catch((error) => {
@@ -601,7 +608,7 @@ class Content extends AppBase {
     console.log(e)
 
     wx.setClipboardData({
-      data:  e,
+      data: e,
       success(res) {
         console.log(res);
       }
@@ -908,11 +915,12 @@ class Content extends AppBase {
       })
     }
   }
-  bntswitchover(){
+  bntswitchover() {
     this.Base.setMyData({
       switchover: !this.Base.getMyData().switchover
     })
   }
+
 
 }
 var content = new Content();

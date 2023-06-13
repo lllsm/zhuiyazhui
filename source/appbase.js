@@ -233,7 +233,8 @@ export class AppBase {
     //     res
     //   });
     // });
-    memberapi.inst({}, (instinfo) => {
+    console.log(this.Base.unicode)
+    memberapi.inst({unicode:this.Base.unicode}, (instinfo) => {
       if (instinfo == null || instinfo == false) {
         return;
       }

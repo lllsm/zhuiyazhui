@@ -67,7 +67,7 @@
 
 
   <view style="position: fixed; width: 100%; height: 100%;  background-image: {{memberinfo.User_bg == null ? 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' : 'url('+ uploadpath+memberinfo.User_bg.class_image+')' }}; background-size: cover; background-position: center;overflow: hidden;">
-    <scroll-view scroll-y class="message-box-list" style="width: 100%;height: 1300rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
+    <scroll-view scroll-y class="message-box-list" id="scrollView" style="width: 100%;height: 1300rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
 
       <!-- 列表内容 -->
 
