@@ -46,7 +46,6 @@ class Content extends AppBase {
       questiontime: "",
       answertime: "",
       isupdate: false,
-      isusedata: wx.getStorageSync("isnickname") || false,
       textareaHeight: 90,
       switchover: true
     })
@@ -97,7 +96,7 @@ class Content extends AppBase {
       })
       videoAd.onClose((res) => {
         if (res && res.isEnded) {
-          this.Base.toast("次数发放成功！")
+          this.Base.toast("积分发放成功！")
           var memberapi = new MemberApi();
           memberapi.updatescore({}, (updatescore) => {
             console.log(updatescore)
@@ -107,7 +106,7 @@ class Content extends AppBase {
           that.onMyShow()
 
         } else {
-          this.Base.toast("播放中途退出，次数发放失败！")
+          this.Base.toast("播放中途退出，积分发放失败！")
           // 播放中途退出，不下发游戏奖励
         }
       })
@@ -118,6 +117,13 @@ class Content extends AppBase {
     var that = this;
     var msglist = wx.getStorageSync("dialoguelist")
     let msgdata = wx.getStorageSync("msglist")
+    // (memberinfo.nickname == UserInfo.openid || memberinfo.nickname == '微信昵称' || memberinfo.wxnickName == '微信昵称' ||memberinfo.wxnickName == null)
+    let isnickname = (AppBase.memberinfo.nickname == this.Base.getMyData().UserInfo.openid || AppBase.memberinfo.nickname == '微信昵称' || AppBase.memberinfo.wxnickName == '微信昵称' || AppBase.memberinfo.wxnickName == null);
+    console.log(isnickname)
+    wx.setStorageSync('isnickname', isnickname)
+    this.Base.setMyData({
+      isusedata: wx.getStorageSync("isnickname") || false,
+    })
     if (msglist.length > 0) {
       for (var i = 0; i < msglist.length; i++) {
 
@@ -177,12 +183,6 @@ class Content extends AppBase {
     this.Base.setMyData({
       imgvalue
     });
-
-    let isnickname = (AppBase.memberinfo.nickname == this.Base.getMyData().UserInfo.openid || AppBase.memberinfo.nickname == '微信昵称' || AppBase.memberinfo.wxnickName == '微信昵称' || AppBase.memberinfo.wxnickName == null);
-    console.log(isnickname)
-    wx.setStorageSync('isnickname', isnickname)
-
-
   }
   onShareTimeline() {
     let data = {};
@@ -243,7 +243,7 @@ class Content extends AppBase {
                 that.hideLoadings()
                 wx.showModal({
                   title: '提示',
-                  content: '您所剩的次数不足，请获取次数，当前次数' + score,
+                  content: '您所剩的积分不足，请获取积分，当前积分' + score,
                   showCancel: false,
                   success(res) {
                     if (res.confirm) {
@@ -644,8 +644,10 @@ class Content extends AppBase {
             if (e.code == "1") {
               that.onMyShow()
               that.Base.toast("修改成功");
+              that.onShow()
             } else {
               that.onMyShow()
+              that.onShow()
               that.Base.toast("请换一个昵称后，再次修改")
             }
           });

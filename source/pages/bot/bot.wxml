@@ -17,6 +17,7 @@
 <view wx:if="{{ isusedata }}" class="loadings_bg">
   <view class="upuser flex-column flex-centers">
     <view style="font-weight: bold; margin-bottom: 30px; color: #fff;">完善资料</view>
+    <view class="h6" style=" margin-bottom: 30px; color: #fff;">此次操作只有一次（完善成功加6积分）</view>
     <view class="flex-row flex-center grxxitem border-box2 flex-liangbian">
       <view class="h5 txt-white">头像</view>
       <view class="flex-row flex-center">
@@ -173,7 +174,7 @@
     <van-transition name="fade-up" show="{{ switchover }}">
       <view wx:if="{{switchover}}">
         <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
-          <view>点击增加次数,当前次数</view>
+          <view>点击增加积分,当前积分</view>
           <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
         </view>
         <view class="dialogue flex-row flex-centers flex-liangbian">
