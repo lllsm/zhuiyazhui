@@ -58,7 +58,7 @@
       <view class="flex-row margin-left-30" style="height:{{funcrowheight}}px;margin-top:{{margintop}}px;">
         <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50" src="../../images/icons/bots.png" />
         <view class="flex-centers" style="text-align: center; width: 100vw; margin-left: {{-funcrowheight-10}}px;">
-          <view>BotAi</view>
+          <view>BotAI</view>
         </view>
       </view>
     </view>
@@ -67,7 +67,7 @@
 
 
 
-  <view style="position: fixed; width: 100%; height: 100%;  background-image: {{memberinfo.User_bg == null ? 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' : 'url('+ uploadpath+memberinfo.User_bg.class_image+')' }}; background-size: cover; background-position: center;overflow: hidden;">
+  <view style="position: fixed; width: 100%; height: 100%;  background-image: {{memberinfo.bg_id != null ?  'url('+ uploadpath+memberinfo.bg_id+')'  : 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' }}; background-size: cover; background-position: center;overflow: hidden;">
     <scroll-view scroll-y class="message-box-list" id="scrollView" style="width: 100%;height: 1300rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
 
       <!-- 列表内容 -->

@@ -11,7 +11,8 @@
         "pages/newsdetails/newsdetails",
         "pages/videos/videos",
         "pages/userbg/userbg",
-        "pages/discounts/discounts"
+        "pages/discounts/discounts",
+        "pages/imglist/imglist"
     ],
     "usingComponents": {
       "van-button":"@vant/weapp/button/index",
@@ -56,15 +57,15 @@
             },
             {
               "pagePath": "pages/bot/bot",
-              "text": "BotAi",
+              "text": "BotAI",
               "iconPath": "./images/icons/bot.png",
               "selectedIconPath": "./images/icons/bots.png"
           },
             {
-              "pagePath": "pages/video/video",
-              "text": "视频",
-              "iconPath": "./images/icons/videos.png",
-              "selectedIconPath": "./images/icons/video.png"
+              "pagePath": "pages/imglist/imglist",
+              "text": "壁纸",
+              "iconPath": "./images/icons/img.png",
+              "selectedIconPath": "./images/icons/img2.png"
           },
           {
             "pagePath": "pages/discounts/discounts",
@@ -72,12 +73,12 @@
             "iconPath": "./images/icons/cp.png",
             "selectedIconPath": "./images/icons/cp1.png"
         },
-            {
-                "pagePath": "pages/wode/wode",
-                "text": "我的",
-                "iconPath": "./images/icons/wode2.png",
-                "selectedIconPath": "./images/icons/wode.png"
-            }
+        {
+            "pagePath": "pages/wode/wode",
+            "text": "我的",
+            "iconPath": "./images/icons/wode2.png",
+            "selectedIconPath": "./images/icons/wode.png"
+        }
 
         ]
     },

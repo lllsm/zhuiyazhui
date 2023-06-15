@@ -186,6 +186,11 @@ class Content extends AppBase {
       url: '/pages/newsdetails/newsdetails?id='+e.currentTarget.id,
      })
   }
+  btnvideo(){
+    wx.navigateTo({
+      url: '/pages/video/video',
+     })
+  }
 }
 var content = new Content();
 var body = content.generateBodyJson();
@@ -201,4 +206,5 @@ body.to_addclass = content.to_addclass;
 body.bin_indexbanner = content.bin_indexbanner;
 body.btn_newsdetails= content.btn_newsdetails;
 body.onShareTimeline = content.onShareTimeline;
+body.btnvideo = content.btnvideo;
 Page(body)

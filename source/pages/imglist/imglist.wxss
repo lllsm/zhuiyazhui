@@ -1,0 +1,61 @@
+/* pages/imglist/imglist.wxss */
+.under2{
+  position: fixed;
+  z-index: 2;
+  bottom: 20%;
+  right: 0;
+}
+.img_list{
+  position: relative;
+}
+.close_img{
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 5rpx;
+  right: 25rpx;
+  z-index: 10;
+}
+.ckimg{
+  width: 60rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 5rpx;
+  right: 25rpx;
+  z-index: 10;
+}
+.downimg{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  bottom: 5rpx;
+  right: 0rpx;
+  z-index: 10;
+}
+.tjimg{
+  width: 70rpx;
+  height: 60rpx;
+  position: absolute;
+  top: 5rpx;
+  left: 10rpx;
+  z-index: 10;
+}
+.van-button--plain.van-button--primary{
+   background: linear-gradient(90deg,#FFA8A8, #FFE985, #FAB2FF);
+  color:#55524f;
+}
+.picture{
+  column-gap: 10rpx;
+  column-count: 2;
+  padding: 10rpx 10rpx 10rpx 15rpx;
+}
+
+.item{
+  width: 99%;
+  break-inside: avoid;
+}
+
+.image{
+width: 100%;
+border-radius: 20rpx;
+}

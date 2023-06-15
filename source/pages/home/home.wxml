@@ -43,6 +43,18 @@
       <van-empty description="暂无数据" />
     </view>
   </view>
-  <ad unit-id="adunit-c7c85d104b6e7b22"></ad>
+
+  <view class="college_item" wx:if="{{instinfo.switch==0}}">
+    <van-cell is-link title="视频去水印" link-type="navigateTo" value="进入" url="/pages/video/video" />
+    <view class="flex-row padding-20 flex-center" bindtap="btnvideo" style="z-index: 9999999;">
+      <view class="margin-left-20 flex-center " style="width: 100%;">
+        <view class="h5 " style="color:#161616; font-weight: bold;">目前支持抖音，火山，微视，快手，豆瓣，美拍，秒怕，小咖秀！</view>
+        <view class="flex-row margin-top-40" style="width: 100%;">
+          <view class="text-2 h6  flex-wrap">复制抖音地址，点击粘贴，如有地址之外文字可点击“格式化”，自动格式化，再点击确认，即可！</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- <ad unit-id="adunit-c7c85d104b6e7b22"></ad> -->
 
 </view>

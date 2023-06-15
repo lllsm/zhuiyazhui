@@ -147,6 +147,13 @@
           "query": "undefined=undefined",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/imglist/imglist",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
