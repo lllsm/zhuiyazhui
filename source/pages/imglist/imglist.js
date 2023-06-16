@@ -16,6 +16,7 @@ class Content extends AppBase {
     this.Base.setMyData({
       checkstate: '',
       isadd: false,
+      showimg:false,
       imagelist: [],
       leftList: [],
       rightList: []
@@ -28,10 +29,10 @@ class Content extends AppBase {
       margintop: top,
       funcrowheight: height
     })
-    Notify({
-      type: 'success',
-      message: '长按可删除~'
-    });
+    // Notify({
+    //   type: 'success',
+    //   message: '长按可删除~'
+    // });
   }
   onMyShow() {
     var that = this;
@@ -280,6 +281,14 @@ class Content extends AppBase {
       }
     })
   }
+  showimg(){
+    this.Base.setMyData({
+      showimg:!this.Base.getMyData().showimg
+    })
+  }
+  input_search(){
+    this.Base.toast("敬请期待")
+  }
 
 
 }
@@ -298,4 +307,6 @@ body.previewImage = content.previewImage;
 body.del = content.del;
 body.setImage = content.setImage;
 body.picDown = content.picDown;
+body.showimg = content.showimg;
+body.input_search = content.input_search;
 Page(body)

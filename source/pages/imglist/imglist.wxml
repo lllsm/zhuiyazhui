@@ -2,6 +2,11 @@
 <view class="flex-liangbian flex-row">
   <image class="" mode="aspectFit" src="../../images/icons/add.png" bindtap="addmsg" class="icon-50 under2"></image>
 </view>
+<view class="flex-row flex-center" class="search">
+  <van-search value="{{ value }}" bind:change="input_search" bind:search="input_search" class="input_search"   placeholder="请输入搜索关键词" />
+  <image wx:if="{{showimg}}" bindtap="showimg"  mode="aspectFit" src="../../images/icons/show1.png"  class="icon-30 margin-right-20"></image>
+  <image wx:else  bindtap="showimg" mode="aspectFit" src="../../images/icons/show2.png"  class="icon-30 margin-right-20"></image>
+</view>
 <van-popup lock-scroll="true" show="{{ isadd }}" round closeable position="bottom" close-icon="close" custom-style="height: 40%" bind:close="onClose">
   <view class="margin-top-100 margin-left-30 margin-right-30">
     <van-divider hairline dashed customStyle="border-color: #999;"></van-divider>
@@ -30,35 +35,41 @@
 
 
 
-  <!-- <view class="flex-column">
+  <view class="flex-column" wx:if="{{showimg}}">
     <view class="flex-column border-box padding-30" wx:for="{{userbglist}}" wx:key="index">
       <view class="flex-shrink flex-row flex-center">
-        <van-image class="flex-shrink" fit="cover" radius="50rpx" alt="heightFix" width="80rpx" height="80rpx" src="{{uploadpath}}{{item.avatarUrl}}" />
+        <van-image lazy-load class="flex-shrink" fit="cover" radius="50rpx" alt="heightFix" width="80rpx" height="80rpx" src="{{uploadpath}}{{item.avatarUrl}}" />
         <view class="h5 type-text-1 margin-left-20" style="color:#161616; font-weight: bold;">{{item.wxnickName}}</view>
+      </view>
+      <view class="margin-bottom-20">
+        <text class="h5" style="color:#161616; font-weight: bold;">{{item.description}}</text>
       </view>
       <view>
         <view class="flex-row flex-wrap">
-          <view wx:for="{{item.class_images}}" wx:for-item="class_images" data-url="{{class_images}}" bindtap="previewImage">
-            <van-image class="margin-right-20" show-menu-by-longpress fit="cover" radius="20rpx" alt="heightFix" width="150rpx" height="150rpx" src="{{uploadpath}}{{class_images}}" />
+          <view class="img_list" wx:for="{{item.class_images}}" wx:for-item="class_images" data-url="{{class_images}}" wx:for-index="idxs" >
+            <image lazy-load class="margin-right-10 radius-5" id="{{idx}}" data-id="{{item.id}}" data-idx="{{index}}" data-idxs="{{idxs}}"  mode="heightFix" bindtap="previewImage"  src="{{uploadpath}}{{class_images}}" />
+            <image 	lazy-load src="../../images/icons/picDown.png" class="downimg2" data-src='{{uploadpath}}{{class_images}}' catchtap="picDown"></image>
           </view>
         </view>
       </view>
     </view>
-  </view> -->
+  </view>
 
 
-</view>
-
-
-<view class="picture">
+  <view class="picture" wx:else>
   <view wx:for="{{userbglist}}" wx:key="index">
     <view class="item img_list" wx:for="{{item.class_images}}" wx:for-item="img" wx:key="img" wx:for-index="idxs">
-      <image src="../../images/icons/tj2.png" wx:if="{{item.state==2}}" class="tjimg" catchtap="previewImage"></image>
-      <image mode='widthFix' class="image" id="{{idx}}" data-id="{{item.id}}" data-src='{{img}}' catchtap="setImage" src="{{uploadpath}}{{img}}" />
-      <image src="../../images/icons/picDown.png" class="downimg" data-src='{{uploadpath}}{{img}}' catchtap="picDown"></image>
-      <image src="../../images/icons/ck.png" id="{{idx}}" data-id="{{item.id}}" data-idx="{{index}}" data-idxs="{{idxs}}" class="ckimg" catchtap="previewImage"></image>
+      <image 	lazy-load src="../../images/icons/tj2.png" wx:if="{{item.state==2}}" class="tjimg" catchtap="previewImage"></image>
+      <image 	lazy-load mode='widthFix' class="image" id="{{idx}}" data-id="{{item.id}}" data-src='{{img}}' catchtap="setImage" src="{{uploadpath}}{{img}}" />
+      <image 	lazy-load src="../../images/icons/picDown.png" class="downimg" data-src='{{uploadpath}}{{img}}' catchtap="picDown"></image>
+      <image 	lazy-load src="../../images/icons/ck.png" id="{{idx}}" data-id="{{item.id}}" data-idx="{{index}}" data-idxs="{{idxs}}" class="ckimg" catchtap="previewImage"></image>
     </view>
   </view>
 </view>
+
+</view>
+
+
+
 
 <van-notify id="van-notify" />

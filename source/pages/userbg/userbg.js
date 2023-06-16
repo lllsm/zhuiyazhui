@@ -28,10 +28,10 @@ class Content extends AppBase {
       margintop: top,
       funcrowheight: height
     })
-    Notify({
-      type: 'success',
-      message: '长按可删除~'
-    });
+    // Notify({
+    //   type: 'success',
+    //   message: '长按可删除~'
+    // });
   }
   onMyShow() {
     var that = this;
