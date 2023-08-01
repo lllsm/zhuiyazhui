@@ -1,0 +1,10 @@
+{
+  "navigationStyle": "custom",
+  "backgroundTextStyle":"dark",
+  "usingComponents": {
+    "van-loading": "@vant/weapp/loading/index",
+    "towxml":"/towxml/towxml",
+    "van-transition": "@vant/weapp/transition/index"
+  },
+  "navigationBarTitleText": "绿色版BotAi"
+}

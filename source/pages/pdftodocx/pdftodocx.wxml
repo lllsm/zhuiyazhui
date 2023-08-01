@@ -1,0 +1,127 @@
+<!--pages/bot/bot.wxml-->
+
+<movable-area class="movable-area">
+  <movable-view animation="{{true}}" class="movable-view" direction='vertical'>
+    <image mode="aspectFit" src="../../images/icons/sz.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
+  </movable-view>
+</movable-area>
+
+<view wx:if="{{loadings}}" class="loadings_bg">
+  <view class="loadings flex-column flex-centers">
+    <image class="icon-60" src="https://college.cllsm.top/uploads/20230422/52c5b40baccb3b44f957d114264e07e1.gif" />
+    <view class="h6 margin-top-20">{{"Tips:" + tips}}</view>
+  </view>
+</view>
+
+
+<view wx:if="{{ isusedata }}" class="loadings_bg">
+  <view class="upuser flex-column flex-centers">
+    <view style="font-weight: bold; margin-bottom: 30px; color: #fff;">完善资料</view>
+    <view class="h6" style=" margin-bottom: 30px; color: #fff;">此次操作只有一次（完善成功加6积分）</view>
+    <view class="flex-row flex-center grxxitem border-box2 flex-liangbian">
+      <view class="h5 txt-white">头像</view>
+      <view class="flex-row flex-center">
+        <button class="clear-button" open-type="chooseAvatar" bindchooseavatar="bindpic">
+          <image src="{{uploadpath}}{{avatarUrl || memberinfo.avatarUrl}}" bindtap="bindpic" wx:if='{{memberinfo.avatarUrl!=""}}' class="icon-60 touxiang"></image>
+        </button>
+        <!-- <image class="icon-60 touxiang" mode="aspectFill"  src='{{uploadpath}}resource/{{res.wdtouxiang}}'></image> -->
+        <button class="logo" class="clear-button" open-type="chooseAvatar" bindchooseavatar="bindpic" wx:if='{{( memberinfo.avatarUrl==null) && avatarUrl==null}}'>
+          <van-image round width="150rpx" height="150rpx" round use-error-slot show-error='加载失败'>
+            <text style="color: burlywood;" slot="error">加载失败</text>
+          </van-image>
+        </button>
+
+      </view>
+    </view>
+
+    <view class="flex-row flex-center grxxitem border-box flex-liangbian">
+      <view class="h5 txt-white">昵称</view>
+      <view class="flex-row flex-center">
+        <input value="{{nickName}}" type='nickname' placeholder="请输入昵称" placeholder-class="txt-white" bindconfirm="bin_inp" bindinput="bin_inp" bindfocus='bin_inp' class="h5 txt-white" style="text-align: right;" />
+        <!-- <image src="{{uploadpath}}resource/{{res.jiantou}}" class="grayright"></image> -->
+      </view>
+    </view>
+
+    <view class="border-none clear-button radius-40  tcbtns" bindtap="getUserProfile">完成完善</view>
+  </view>
+</view>
+
+<view style="position: fixed;top:{{margintop+70}}px;width: 100%;z-index: 9999;">
+  <van-notice-bar mode="closeable" text="{{ instinfo.merchant_secret}}" />
+</view>
+<view class="page_s" style="height: 100vh;">
+  <view>
+    <view class="vtop" style="height:{{funcrowheight+60}}px ;">
+      <view class="flex-row margin-left-30" style="height:{{funcrowheight}}px;margin-top:{{margintop}}px;">
+        <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50" src="../../images/icons/bots.png" />
+        <view class="flex-centers" style="text-align: center; width: 100vw; margin-left: {{-funcrowheight-10}}px;">
+          <view class="flex-row flex-centers">
+            <view style="color: #f1cd5b;">Pdf</view>
+            <view style="color: rgba(0, 162, 231, 0.3)">{{' To '}}</view>
+            <view style="color: aquamarine;">Docx</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view></view>
+  </view>
+  <view style="position: fixed; width: 100%; height: 100%;  background-image: {{memberinfo.bg_id != null ?  'url('+ uploadpath+memberinfo.bg_id+')'  : 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' }}; background-size: cover; background-position: center;overflow: hidden;">
+    <scroll-view scroll-y class="message-box-list" id="scrollView" style="width: 100%;height: 1300rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
+      <view  class="loadings_bg">
+        <view class="upuser flex-column flex-centers">
+          <view class="flex-row flex-center grxxitem border-box2 flex-xiandeng">
+            <view class="flex-row flex-center">
+              <image src="https://college.cllsm.top/uploads/20230731/317acb6b257e40e2df5d44d8132287df.png"  class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230731/6b8f4ac9db5a6bc16156c1c9cffa70b3.png" bindtap="bindpic" wx:if='{{memberinfo.avatarUrl!=""}}' class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230731/e83d747be26aefbd5bedaa268cce3ca7.png"  class="icon-60" style='margin: 10rpx;'></image>
+
+            </view>
+          </view>
+          <view class="h6 upuser grxxitem border-box2 margin-top-30" bindtap='okbnt' style=" margin-bottom: 30px; color: #fff; ">点击选择文件，如文件过大的请耐心等待</view>
+
+        </view>
+      </view>
+      <!-- 列表内容 -->
+      <view style="height: 210rpx;"></view>
+    </scroll-view>
+  </view>
+
+  <view style="margin-top: {{dialogue_bgheight}}px;"></view>
+  <view class="dialogue_bg">
+    <view class="flex-row flex-centers">
+      <view class="switchover flex-row flex-centers" wx:if="{{switchover}}" bindtap="bntswitchover">
+        <image style="transform: scaleY(-1);" class="icon-44" src="../../images/icons/up.png" />
+      </view>
+      <view class="switchover flex-row flex-centers" wx:else bindtap="bntswitchover">
+        <image class="icon-44" src="../../images/icons/up.png" />
+      </view>
+    </view>
+
+    <van-transition name="fade-up" show="{{ switchover }}">
+      <view wx:if="{{switchover}}">
+        <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
+          <view style="color: rgba(0, 162, 231, 0.8)">当前积分</view>
+          <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
+        </view>
+        <view class="flex-row flex-column pobottom">
+          <button bindtap='okbnt' class="border-none clear-button radius-40 button_mian tcbtns">选择文件</button>
+        </view>
+      </view>
+    </van-transition>
+
+    <van-transition name="fade-up" show="{{ !switchover }}">
+      <view wx:if="{{!switchover}}">
+        <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
+          <view style="color: rgba(0, 162, 231, 0.8)">当前积分</view>
+          <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
+        </view>
+        <view class="flex-row flex-column pobottom">
+          <button bindtap='showvideoAd' class="border-none clear-button radius-40 button_mian tcbtns">点击增加积分</button>
+        </view>
+
+      </view>
+    </van-transition>
+
+  </view>
+
+</view>

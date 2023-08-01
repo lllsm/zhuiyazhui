@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/pdftodocx/pdftodocx",
         "pages/bot/bot",
         "pages/video/video",
         "pages/home/home",
@@ -56,8 +57,8 @@
                 "selectedIconPath": "./images/icons/home.png"
             },
             {
-              "pagePath": "pages/bot/bot",
-              "text": "BotAI",
+              "pagePath": "pages/pdftodocx/pdftodocx",
+              "text": "PdfToDocx",
               "iconPath": "./images/icons/bot.png",
               "selectedIconPath": "./images/icons/bots.png"
           },
