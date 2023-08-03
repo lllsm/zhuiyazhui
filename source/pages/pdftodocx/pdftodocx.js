@@ -68,9 +68,9 @@ class Content extends AppBase {
       interstitialAd = wx.createInterstitialAd({
         adUnitId: 'adunit-90c6231e75da2c65'
       })
-      interstitialAd.onLoad(() => { })
-      interstitialAd.onError((err) => { })
-      interstitialAd.onClose(() => { })
+      interstitialAd.onLoad(() => {})
+      interstitialAd.onError((err) => {})
+      interstitialAd.onClose(() => {})
     }
     // 在适合的场景显示插屏广告
     if (interstitialAd) {
@@ -111,6 +111,12 @@ class Content extends AppBase {
         }
       })
     }
+
+    let ee = decodeURIComponent(('data: 15d0b6f46f18ce9ec7af32d4ea28da594a51a13f1fdb85228cff7c3e662bcb628e7e9a075c1aeb97071ae0f879c078a1'))
+    console.log(ee,"--------------------7777777777-------------")
+
+
+
   }
 
   onMyShow() {
@@ -132,7 +138,7 @@ class Content extends AppBase {
         dialogue_bgheight: res.height
       })
     })
-    query.exec(res => { })
+    query.exec(res => {})
 
 
     query.select('.page_s').boundingClientRect(res => {
@@ -141,7 +147,7 @@ class Content extends AppBase {
         aa: 730 - 75 - 32
       })
     })
-    query.exec(res => { })
+    query.exec(res => {})
     let imgvalue = wx.getStorageSync("imgvalue");
     this.Base.setMyData({
       imgvalue
@@ -192,7 +198,7 @@ class Content extends AppBase {
             success: (res) => {
               // 选择成功后，调用后端接口进行PDF转DOCX
               wx.uploadFile({
-                url: 'https://gpt.cllsm.top:4080/convert',  // 修改为你的后端接口地址
+                url: 'https://gpt.cllsm.top:4080/convert', // 修改为你的后端接口地址
                 filePath: res.tempFiles[0].path,
                 name: 'file',
                 success: (res) => {
@@ -212,7 +218,7 @@ class Content extends AppBase {
                   var filePath = result;
 
                   wx.downloadFile({
-                    url: `https://gpt.cllsm.top:4080${filePath}`,  // 修改为你的后端接口地址
+                    url: `https://gpt.cllsm.top:4080${filePath}`, // 修改为你的后端接口地址
                     success: (res) => {
                       that.hideLoadings()
                       // 打开文档
@@ -235,21 +241,24 @@ class Content extends AppBase {
                       });
                       wx.showModal({
                         title: '提示',
-                        content: '下载链接已复制，如打开失败可粘贴链接到浏览器直接下载',
-                        showCancel:false,
-                        confirmText:"确认复制链接",
-                        success (res) {
+                        content: '确认复制下载链接，如打开失败可粘贴链接到浏览器直接下载',
+                        showCancel: false,
+                        confirmText: "复制链接",
+                        success(res) {
                           if (res.confirm) {
                             wx.setClipboardData({
                               data: `https://gpt.cllsm.top:4080${filePath}`,
-                              success (res) {
+                              success(res) {
                                 wx.showToast({
                                   title: '下载链接已复制',
                                   icon: 'none'
                                 })
                               }
                             })
-                          } 
+                          }
+                        },
+                        fail: function (res) {
+                          console.log(res, "是啊")
                         }
                       })
 
@@ -304,6 +313,123 @@ class Content extends AppBase {
         // 在这里处理错误
       });
 
+  }
+  bntjpg() {
+    var that = this;
+    var wechatApi = new WechatApi();
+    this.showLoadings()
+    that.checkscore()
+      .then((score) => {
+        if (score <= 0) {
+          console.log("积分不足")
+          that.hideLoadings()
+          wx.showModal({
+            title: '提示',
+            content: '您所剩的积分不足，请获取积分，当前积分' + score,
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                that.showvideoAd()
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        } else {
+          wx.chooseMessageFile({
+            count: 1,
+            type: 'file',
+            success: (res) => {
+              // 选择成功后，调用后端接口进行PDF转DOCX
+              wx.uploadFile({
+                url: 'https://gpt.cllsm.top:4080/converttojpg', // 修改为你的后端接口地址
+                filePath: res.tempFiles[0].path,
+                name: 'file',
+                success: (res) => {
+                  console.log(res)
+                  // 转换成功后，获取返回的DOCX文件并保存到本地
+                  that.Base.setMyData({
+                    filePath: JSON.parse(res.data).zip_filename
+                  })
+                  var filePath = that.Base.getMyData().filePath
+                  wx.downloadFile({
+                    url: `https://gpt.cllsm.top:4080/downloadzip/${filePath}`, // 修改为你的后端接口地址
+                    success: (res) => {
+                      that.hideLoadings()
+                      wx.showModal({
+                        title: '提示',
+                        content: '确认复制下载链接，如打开失败可粘贴链接到浏览器直接下载',
+                        showCancel: false,
+                        confirmText: "复制链接",
+                        success(res) {
+                          if (res.confirm) {
+                            wx.setClipboardData({
+                              data: `https://gpt.cllsm.top:4080/downloadzip/${filePath}`,
+                              success(res) {
+                                wx.showToast({
+                                  title: '下载链接已复制',
+                                  icon: 'none'
+                                })
+                              }
+                            })
+                          }
+                        },
+                        fail: function (res) {
+                          console.log(res, "是啊")
+                        }
+                      })
+
+
+
+                      // 保存文件
+                      wx.saveFile({
+                        tempFilePath: res.tempFilePath,
+                        success: (res) => {
+                          wx.showToast({
+                            title: '文件保存成功',
+                            icon: 'success',
+                          });
+                        },
+                      });
+                      wechatApi.reducescore({
+                        openid: that.Base.getMyData().UserInfo.openid,
+                      }, (res) => {
+                        that.onShow();
+                        console.log(res)
+                      })
+                    },
+                    fail: function (res) {
+                      that.onShow()
+                      wx.showToast({
+                        title: '转换失败',
+                        icon: 'success',
+                      });
+                    }
+                  });
+                },
+                fail: function (res) {
+                  that.onShow()
+                  wx.showToast({
+                    title: '转换失败',
+                    icon: 'success',
+                  });
+                }
+              })
+
+
+
+
+            },
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        that.hideLoadings()
+        that.Base.toast("转换失败请稍后重试！");
+        // 在这里处理错误
+      });
   }
   About() {
     wx.navigateTo({
@@ -456,6 +582,51 @@ class Content extends AppBase {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+  remove_background() {
+    var that = this;
+
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      maxDuration: 30,
+      camera: 'back',
+      success(res) {
+        console.log(res)
+        console.log(res.tempFiles[0].tempFilePath)
+        // 将图像数据转换为base64编码字符串
+        const base64Image = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath, 'base64');
+        // 发送POST请求
+        wx.request({
+          url: 'https://gpt.cllsm.top:4080/removebackground',
+          method: 'POST',
+          data: {
+            image: base64Image
+          },
+          header: {
+            'content-type': 'application/json'
+          },
+          success: function (res) {
+            // 请求成功，获取抠图结果
+            const resultData = res.data.result;
+            const originalFilename = res.data.original_filename;
+            const resultFilename = res.data.result_filename;
+            // TODO: 处理抠图结果
+          },
+          fail: function (res) {
+            // 请求失败
+            console.log('请求失败', res);
+          }
+        });
+
+
+      },
+      fail(err){
+        console.log(err)
+      }
+    })
+
+  }
 }
 var content = new Content();
 var body = content.generateBodyJson();
@@ -476,4 +647,6 @@ body.ReduceHeight = content.ReduceHeight;
 body.showvideoAd = content.showvideoAd;
 body.checkscore = content.checkscore;
 body.bntswitchover = content.bntswitchover;
+body.bntjpg = content.bntjpg;
+body.remove_background = content.remove_background;
 Page(body)

@@ -102,7 +102,7 @@ Page{
   width: 90rpx;
 }
 .loadings_bg{
-  position: fixed;
+
   height: 100vh;
   background-color: #00000070;
   width: 100vw;
@@ -239,4 +239,8 @@ Page{
   margin-bottom: 10rpx;
 }
 .pobottom{
+}
+.message-box-list{
+  align-content: center;
+  flex-direction:column;
 }

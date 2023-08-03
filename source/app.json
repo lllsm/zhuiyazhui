@@ -58,7 +58,7 @@
             },
             {
               "pagePath": "pages/pdftodocx/pdftodocx",
-              "text": "PdfToDocx",
+              "text": "助力办公",
               "iconPath": "./images/icons/bot.png",
               "selectedIconPath": "./images/icons/bots.png"
           },

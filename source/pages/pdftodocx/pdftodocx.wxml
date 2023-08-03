@@ -65,22 +65,55 @@
     </view>
     <view></view>
   </view>
-  <view style="position: fixed; width: 100%; height: 100%;  background-image: {{memberinfo.bg_id != null ?  'url('+ uploadpath+memberinfo.bg_id+')'  : 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' }}; background-size: cover; background-position: center;overflow: hidden;">
-    <scroll-view scroll-y class="message-box-list" id="scrollView" style="width: 100%;height: 1300rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
-      <view  class="loadings_bg">
-        <view class="upuser flex-column flex-centers">
+  <view style="position: fixed; width: 100%; height: 100%;   background-image: {{memberinfo.bg_id != null ?  'url('+ uploadpath+memberinfo.bg_id+')'  : 'linear-gradient(to bottom, #f4f7fc, #f4f7fc)' }}; background-size: cover; background-position: center;overflow: hidden;">
+    <scroll-view scroll-y class="message-box-list flex-column flex-centers" id="scrollView" style="width: 100%;height: 1300rpx;padding-top:{{margintop+40}}px;" enable-passive scroll-top="{{scrollTop}}">
+
+
+      <view class="flex-column flex-centers">
+        <view class="upuser flex-column flex-centers" style="margin-top:150rpx">
           <view class="flex-row flex-center grxxitem border-box2 flex-xiandeng">
             <view class="flex-row flex-center">
-              <image src="https://college.cllsm.top/uploads/20230731/317acb6b257e40e2df5d44d8132287df.png"  class="icon-60" style='margin: 10rpx;'></image>
-              <image src="https://college.cllsm.top/uploads/20230731/6b8f4ac9db5a6bc16156c1c9cffa70b3.png" bindtap="bindpic" wx:if='{{memberinfo.avatarUrl!=""}}' class="icon-60" style='margin: 10rpx;'></image>
-              <image src="https://college.cllsm.top/uploads/20230731/e83d747be26aefbd5bedaa268cce3ca7.png"  class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230731/317acb6b257e40e2df5d44d8132287df.png" class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230731/6b8f4ac9db5a6bc16156c1c9cffa70b3.png" class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230731/e83d747be26aefbd5bedaa268cce3ca7.png" class="icon-60" style='margin: 10rpx;'></image>
 
             </view>
           </view>
-          <view class="h6 upuser grxxitem border-box2 margin-top-30" bindtap='okbnt' style=" margin-bottom: 30px; color: #fff; ">点击选择文件，如文件过大的请耐心等待</view>
-
+          <view class="h6 upuser grxxitem border-box2 margin-top-40" bindtap='okbnt' style="color: #fff; ">点击选择文件，如文件过大的请耐心等待</view>
         </view>
+        <view class="upuser flex-column flex-centers margin-top-30">
+          <view class="flex-row flex-center grxxitem border-box2 flex-xiandeng">
+            <view class="flex-row flex-center">
+              <image src="https://college.cllsm.top/uploads/20230731/317acb6b257e40e2df5d44d8132287df.png" class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230731/6b8f4ac9db5a6bc16156c1c9cffa70b3.png" class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230802/3a0deda9f2014e3ca9bd9317f45dd467.png" class="icon-60" style='margin: 10rpx;'></image>
+
+            </view>
+          </view>
+          <view class="h6 upuser grxxitem border-box2 margin-top-40" bindtap='bntjpg' style="color: #fff; ">点击选择文件，如文件过大的请耐心等待</view>
+        </view>
+
+
+
+        <!-- <view class="upuser flex-column flex-centers margin-top-30">
+          <view class="flex-row flex-center grxxitem border-box2 flex-xiandeng">
+            <view class="flex-row flex-center">
+              <image src="https://college.cllsm.top/uploads/20230731/317acb6b257e40e2df5d44d8132287df.png" class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230731/6b8f4ac9db5a6bc16156c1c9cffa70b3.png" class="icon-60" style='margin: 10rpx;'></image>
+              <image src="https://college.cllsm.top/uploads/20230802/3a0deda9f2014e3ca9bd9317f45dd467.png" class="icon-60" style='margin: 10rpx;'></image>
+
+            </view>
+          </view>
+          <view class="h6 upuser grxxitem border-box2 margin-top-40" bindtap='remove_background' style="color: #fff; ">点击选择文件，如文件过大的请耐心等待</view>
+        </view> -->
+
       </view>
+
+
+
+
+
+
       <!-- 列表内容 -->
       <view style="height: 210rpx;"></view>
     </scroll-view>

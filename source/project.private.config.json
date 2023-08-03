@@ -154,6 +154,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/pdftodocx/pdftodocx",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
