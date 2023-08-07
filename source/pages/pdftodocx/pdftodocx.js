@@ -584,6 +584,7 @@ class Content extends AppBase {
   }
   remove_background() {
     var that = this;
+    this.showLoadings()
 
     wx.chooseMedia({
       count: 1,
@@ -592,6 +593,7 @@ class Content extends AppBase {
       maxDuration: 30,
       camera: 'back',
       success(res) {
+        
         console.log(res)
         console.log(res.tempFiles[0].tempFilePath)
         // 将图像数据转换为base64编码字符串
@@ -599,7 +601,7 @@ class Content extends AppBase {
         // 发送POST请求
         wx.request({
           url: 'https://gpt.cllsm.top:4080/removebackground',
-          method: 'POST',
+          method: 'GET',
           data: {
             image: base64Image
           },
@@ -607,15 +609,34 @@ class Content extends AppBase {
             'content-type': 'application/json'
           },
           success: function (res) {
+            that.hideLoadings()
             // 请求成功，获取抠图结果
-            const resultData = res.data.result;
-            const originalFilename = res.data.original_filename;
-            const resultFilename = res.data.result_filename;
+            const path = res.data.path;
+
+            if(res.data.path){
+              wx.setClipboardData({
+                data: `https://gpt.cllsm.top:4080/image/${path}`,
+                success(res) {
+                  wx.showToast({
+                    title: '下载链接已复制',
+                    icon: 'none'
+                  })
+                }
+              })
+              wechatApi.reducescore({
+                openid: that.Base.getMyData().UserInfo.openid,
+              }, (res) => {
+                that.onShow();
+                console.log(res)
+              })
+            }
+
             // TODO: 处理抠图结果
           },
           fail: function (res) {
             // 请求失败
             console.log('请求失败', res);
+            that.hideLoadings()
           }
         });
 

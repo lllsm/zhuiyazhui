@@ -95,17 +95,19 @@
 
 
 
-        <!-- <view class="upuser flex-column flex-centers margin-top-30">
+        <view class="upuser flex-column flex-centers margin-top-30">
           <view class="flex-row flex-center grxxitem border-box2 flex-xiandeng">
             <view class="flex-row flex-center">
-              <image src="https://college.cllsm.top/uploads/20230731/317acb6b257e40e2df5d44d8132287df.png" class="icon-60" style='margin: 10rpx;'></image>
-              <image src="https://college.cllsm.top/uploads/20230731/6b8f4ac9db5a6bc16156c1c9cffa70b3.png" class="icon-60" style='margin: 10rpx;'></image>
-              <image src="https://college.cllsm.top/uploads/20230802/3a0deda9f2014e3ca9bd9317f45dd467.png" class="icon-60" style='margin: 10rpx;'></image>
+              <view class="flex-row flex-centers">
+                <view style="color: #f1cd5b; " class="h4" >一键</view>
+                <!-- <view style="color: rgba(0, 162, 231, 0.3)">{{' To '}}</view> -->
+                <view style="color: aquamarine;" class="h4">抠图</view>
+              </view>
 
             </view>
           </view>
           <view class="h6 upuser grxxitem border-box2 margin-top-40" bindtap='remove_background' style="color: #fff; ">点击选择文件，如文件过大的请耐心等待</view>
-        </view> -->
+        </view>
 
       </view>
 
