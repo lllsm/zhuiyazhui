@@ -47,7 +47,8 @@ class Content extends AppBase {
       answertime: "",
       isupdate: false,
       textareaHeight: 90,
-      switchover: true
+      switchover: true,
+      returnbgpng:null
     })
     const {
       height,
@@ -584,6 +585,7 @@ class Content extends AppBase {
   }
   remove_background() {
     var that = this;
+    var wechatApi = new WechatApi();
     this.showLoadings()
 
     wx.chooseMedia({
@@ -614,6 +616,9 @@ class Content extends AppBase {
             const path = res.data.path;
 
             if(res.data.path){
+              that.Base.setMyData({
+                returnbgpng:`https://gpt.cllsm.top:4080/image/${path}`
+              })
               wx.setClipboardData({
                 data: `https://gpt.cllsm.top:4080/image/${path}`,
                 success(res) {

@@ -97,16 +97,18 @@
 
         <view class="upuser flex-column flex-centers margin-top-30">
           <view class="flex-row flex-center grxxitem border-box2 flex-xiandeng">
-            <view class="flex-row flex-center">
-              <view class="flex-row flex-centers">
+            <view class="flex-column flex-center flex-centers" >
+              <view class="flex-row flex-centers" bindtap='remove_background'>
                 <view style="color: #f1cd5b; " class="h4" >一键</view>
-                <!-- <view style="color: rgba(0, 162, 231, 0.3)">{{' To '}}</view> -->
                 <view style="color: aquamarine;" class="h4">抠图</view>
               </view>
+              <view style="color: #f1cd5b; " class="h5 margin-top-10" >长按图片保存</view>
+              <image wx:if="{{returnbgpng!=null}}" show-menu-by-longpress class="returnbgpng" style="width: 300rpx; height: 500rpx;" mode="aspectFill" src="{{returnbgpng}}"></image>
+
 
             </view>
           </view>
-          <view class="h6 upuser grxxitem border-box2 margin-top-40" bindtap='remove_background' style="color: #fff; ">点击选择文件，如文件过大的请耐心等待</view>
+          <view class="h6 upuser grxxitem border-box2 margin-top-40" bindtap='remove_background' style="color: #fff; ">点击选择图片，如文件过大的请耐心等待</view>
         </view>
 
       </view>
