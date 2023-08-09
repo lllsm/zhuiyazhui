@@ -161,6 +161,34 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/pdftodocx/pdftodocx",
+          "query": "undefined=undefined",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/imagematting/imagematting",
+          "query": "undefined=undefined",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/animification/animification",
+          "query": "undefined=undefined",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/bot/bot",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

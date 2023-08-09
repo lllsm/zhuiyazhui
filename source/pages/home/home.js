@@ -17,6 +17,7 @@ class Content extends AppBase {
       class_key:"",
       remind: '加载中',
       angle: 0,
+      timeData: {},
     });
     const { height, top } = wx.getMenuButtonBoundingClientRect();
     this.Base.setMyData({
@@ -44,6 +45,9 @@ class Content extends AppBase {
       this.Base.setMyData({
         informationlist:informationlist.data
       })
+    })
+    that.Base.setMyData({
+      time:new Date('2023-12-25 00:00:00').getTime() - new Date().getTime()
     })
 
   
@@ -191,6 +195,11 @@ class Content extends AppBase {
       url: '/pages/video/video',
      })
   }
+  onChange(e) {
+    this.setData({
+      timeData: e.detail,
+    });
+  }
 }
 var content = new Content();
 var body = content.generateBodyJson();
@@ -207,4 +216,5 @@ body.bin_indexbanner = content.bin_indexbanner;
 body.btn_newsdetails= content.btn_newsdetails;
 body.onShareTimeline = content.onShareTimeline;
 body.btnvideo = content.btnvideo;
+body.onChange = content.onChange;
 Page(body)

@@ -1,0 +1,35 @@
+<!--pages/imagematting/imagematting.wxml-->
+<view class="title_s">点击选择抠图方式:</view>
+<view class="flex-row flex-xiandeng">
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="A">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='A'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h5 {{type=='A'? 'txt-orange' : 'txt-gray'}}">通用抠图</view>
+  </view>
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="B">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='B'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h5 {{type=='B'? 'txt-orange' : 'txt-gray'}}">人像抠图</view>
+  </view>
+</view>
+
+<view class="title_s">原图:</view>
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;">
+  <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
+</view>
+<view class="title_s">成品:</view>
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;">
+  <image wx:if="{{returnbgpng!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{returnbgpng}}"></image>
+</view>
+
+<view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
+  <view style="color: rgba(0, 162, 231, 0.8)">当前积分</view>
+  <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
+</view>
+
+
+<view class="flex-row flex-column pobottom">
+  <button bindtap='remove_background' class="border-none clear-button radius-40 button_mian tcbtns txt-gray">选择图片</button>
+</view>

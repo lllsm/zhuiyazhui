@@ -1,10 +1,10 @@
 
 
 Page{
-  background-color: #f4f7fc;
+  background-color: #f6f7f9;
 }
 .college_item{
-  background-color: #ffffff;
+  background-color: #f6f7f9;
   margin: 20rpx;
   border-radius: 15rpx;
 }
@@ -91,4 +91,44 @@ Page{
 .van-notice-bar{
   margin-left: 20rpx;
   margin-right: 20rpx;
+}
+.upuser{
+  background: rgba(255, 255, 255, 0.5);
+  width: 70%;
+  padding: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40rpx;
+  color: #000000;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+  backdrop-filter: blur(7rpx);
+  /* box-shadow: 0 0 160rpx rgba(0, 0, 0, 0.2); */
+}
+.grxxitem{
+  width: 100%;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.BoxItem{
+  border-color: #333;
+  background-color: rgba(255, 255, 255, 1);
+  width: 250rpx;
+  padding: 10rpx;
+  border-radius: 18rpx;
+  box-shadow: 0 0rpx 20rpx #ebedf0;
+  margin: 20rpx;
+  backdrop-filter: blur(7rpx);
+}
+.item {
+  color: #fff;
+  font-size: 28rpx;
+  text-align: center;
+  background-color: #ee0a24;
+  border-radius: 20rpx;
+  margin-left: 10rpx;
+  padding: 8rpx;
 }

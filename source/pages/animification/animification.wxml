@@ -1,0 +1,61 @@
+<!--pages/animification/animification.wxml-->
+<!--pages/imagematting/imagematting.wxml-->
+<view class="title_s">点击选择抠图方式:</view>
+<view class="flex-row flex-xiandeng">
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="Manga_style">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='Manga_style'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h6 {{type=='Manga_style'? 'txt-orange' : 'txt-gray'}}">AI绘画 卡通模型-日漫</view>
+  </view>
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="3D_style">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='3D_style'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h6 {{type=='3D_style'? 'txt-orange' : 'txt-gray'}}">AI绘画 卡通模型-3D</view>
+  </view>
+</view>
+<view class="flex-row flex-xiandeng">
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="Sketch_style">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='Sketch_style'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h6 {{type=='Sketch_style'? 'txt-orange' : 'txt-gray'}}">AI绘画 卡通模型-素描</view>
+  </view>
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="Artistic_style">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='Artistic_style'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h6 {{type=='Artistic_style'? 'txt-orange' : 'txt-gray'}}">AI绘画 卡通模型-艺术</view>
+  </view>
+</view>
+<view class="flex-row flex-xiandeng">
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="Sketching_style">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='Sketching_style'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h6 {{type=='Sketching_style'? 'txt-orange' : 'txt-gray'}}">AI绘画 卡通模型-手绘</view>
+  </view>
+</view>
+
+<view class="title_s">原图:</view>
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;">
+  <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
+</view>
+<view class="title_s">成品:</view>
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;">
+  <image wx:if="{{returnbgpng!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{returnbgpng}}"></image>
+</view>
+
+
+<view style="height:200rpx"></view>
+
+
+<view class="flex-row flex-column pobottom">
+  <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
+  <view style="color: rgba(0, 162, 231, 0.8)">当前积分</view>
+  <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
+  <view style="color: rgba(0, 162, 231, 0.8)">,点击增加积分</view>
+</view>
+  <button bindtap='remove_background' class="border-none clear-button radius-40 button_mian tcbtns txt-gray">选择图片</button>
+</view>

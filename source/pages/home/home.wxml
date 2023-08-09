@@ -20,7 +20,80 @@
       <image src='{{uploadpath}}{{item.image}}' mode="aspectFill" class="" style="margin-right: 10rpx; width:100%;height:100%; border-radius: 30rpx; " bindtap="bin_indexbanner" data-item="{{item}}"></image>
     </swiper-item>
   </swiper>
-  <van-notice-bar mode="closeable" text="{{ instinfo.merchant}}" />
+  <van-notice-bar mode="closeable" wrapable text="{{ instinfo.merchant}}" />
+  <view class="flex-row flex-center margin-bottom-20 margin-top-20 margin-left-30">
+    <view class="h6 txt-bold">距离服务器到期还剩:</view>
+    <van-count-down use-slot time="{{ time }}" bind:change="onChange">
+      <view class="flex-row">
+        <text class="item">{{ timeData.days }}天</text>
+        <text class="item">{{ timeData.hours }}时</text>
+        <text class="item">{{ timeData.minutes }}分</text>
+        <text class="item">{{ timeData.seconds }}秒</text>
+      </view>
+    </van-count-down>
+  </view>
+
+  <view class="margin-left-30 margin-right-30 radius-20" ><ad unit-id="adunit-c7c85d104b6e7b22"></ad></view>
+  <view class="box margin-20 flex-row flex-center flex-xiandeng">
+    <view class="BoxItem border-box2 flex-row flex-center" bindtap="navtoPage" data-page='video'>
+      <image  style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 flex-shrink " src="https://college.cllsm.top/uploads/20230809/c65ca0fbf1f11234c3c58711b8cc1b19.png" />
+      <view class="margin-left-15 flex-shrink">
+        <view class="h6 txt-bold nowrap margin-bottom-5">短视频去水印</view>
+        <view class="h7 text-2 nowrap type-text-1 ">N款平台官方直解</view>
+      </view>
+    </view>
+
+    <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='pdftodocx'>
+      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 flex-shrink" src="https://college.cllsm.top/uploads/20230809/a8e0d27db99c9e4baf32c205b9cec9ca.png" />
+      <view class="margin-left-15 flex-shrink">
+        <view class="h6 txt-bold nowrap margin-bottom-5">助力办公</view>
+        <view class="h7 text-2 nowrap type-text-1 ">Pdf转Docx · jpg</view>
+      </view>
+    </view>
+    <!-- <view class="BoxItem" style="display: flex;justify-content: flex-end; align-items: center;">
+      <view class="margin-right-15">
+        <view class="h6 txt-bold nowrap margin-bottom-5" style="text-align: right;">短视频去水印</view>
+        <view class="h7 text-2 nowrap type-text-1 " style="text-align: right;">N款平台官方直解</view>
+      </view>
+      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 margin-right-5" src="../../images/icons/logo.png" />
+    </view> -->
+
+    <view>
+
+    </view>
+  </view>
+
+  <view class="box margin-20 flex-row flex-center flex-xiandeng">
+    <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='imagematting'>
+      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 flex-shrink" src="https://college.cllsm.top/uploads/20230809/5c83b4e815d6ae63b57d59b376593f18.png" />
+      <view class="margin-left-15 flex-shrink">
+        <view class="h6 txt-bold nowrap margin-bottom-5">一键抠图</view>
+        <view class="h7 text-2 nowrap type-text-1 ">高质量抠图简单操作</view>
+      </view>
+    </view>
+
+    <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='animification'>
+      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 flex-shrink" src="https://college.cllsm.top/uploads/20230809/c5a0834ef795f4097fd4e5ac67995dff.png" />
+      <view class="margin-left-15 flex-shrink">
+        <view class="h6 txt-bold nowrap margin-bottom-5">AI图像动漫化</view>
+        <view class="h7 text-2 nowrap type-text-1 ">图像一键动漫化</view>
+      </view>
+    </view>
+    <!-- <view class="BoxItem" style="display: flex;justify-content: flex-end; align-items: center;">
+      <view class="margin-right-15">
+        <view class="h6 txt-bold nowrap margin-bottom-5" style="text-align: right;">短视频去水印</view>
+        <view class="h7 text-2 nowrap type-text-1 " style="text-align: right;">N款平台官方直解</view>
+      </view>
+      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 margin-right-5" src="../../images/icons/logo.png" />
+    </view> -->
+
+    <view>
+
+    </view>
+  </view>
+
+
+
 
 
 
@@ -44,7 +117,7 @@
     </view>
   </view>
 
-  <view class="college_item" wx:if="{{instinfo.switch==0}}">
+  <!-- <view class="college_item" wx:if="{{instinfo.switch==0}}">
     <van-cell is-link title="视频去水印" link-type="navigateTo" value="进入" url="/pages/video/video" />
     <view class="flex-row padding-20 flex-center" bindtap="btnvideo" style="z-index: 9999999;">
       <view class="margin-left-20 flex-center " style="width: 100%;">
@@ -54,7 +127,13 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
+
+
+
+
+
+
   <!-- <ad unit-id="adunit-c7c85d104b6e7b22"></ad> -->
 
 </view>

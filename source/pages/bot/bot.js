@@ -500,37 +500,161 @@ class Content extends AppBase {
 
 
   requestData() {
-    var msgbot = {
-      "prompt": '写一篇作文我的爸爸，500字',
-      "options": {},
-      "systemMessage": "You are 追鸭追, A large language model based on chatGPT3.5. Follow the user's instructions carefully. Respond using markdown."
+    var that = this;
+    var wechatApi = new WechatApi();
+    let msg = this.Base.getMyData().messages;
+    if (msg == "") {
+      this.Base.toast("要填内容哦");
+      return
     }
-    wx.request({
-      url: 'http://198.44.185.221:1002/api/chat-process', // 流媒体地址
-      data: msgbot,
-      method: "POST",
-      Range: 'bytes=300',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      responseType: 'arraybuffer', // 指定响应数据类型为 ArrayBuffer
-      success: function (res) {
-        // console.log(res.data)
-        // 将 ArrayBuffer 转换成文本
-        var text = new TextDecoder('utf-8').decode(res.data)
-        // 将文本转换成数组
-        // console.log(text)
-        const lines = text.split('\n');
-        const lastLine = lines[lines.length - 1];
-        // console.log(JSON.parse(lastLine))
-        // 获取响应流
-        // let msg = res.data.toString('utf-8')
-        // const str = '第一行\n第二行\n最后一行';
-        // const lines = msg.split('\n');
-        // const lastLine = lines[lines.length - 1];
-        // console.log(JSON.parse(lastLine))
+    this.showLoadings()
+    var msgbot = [{"content": msg,"role": "user"}];
+    var dialogue = {
+      question: '',
+      answer: "",
+      questiontime: this.getTime()
+    };
+    this.ismsg(msg)
+    .then((label) => {
+      if (label !== 100) {
+        that.msgseccheck(label)
+        that.Base.setMyData({
+          messages: ""
+        })
+        return
+      } else {
+        that.checkscore()
+          .then((score) => {
+            console.log(score, "=============================")
+            if (score <= 0) {
+              console.log("积分不足")
+              that.hideLoadings()
+              wx.showModal({
+                title: '提示',
+                content: '您所剩的积分不足，请获取积分，当前积分' + score,
+                showCancel: false,
+                success(res) {
+                  if (res.confirm) {
+                    that.showvideoAd()
+                    console.log('用户点击确定')
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            } else {
+              dialogue.question=msg
+              that.Base.setMyData({
+                questiontime: this.getTime()
+              })
+              that.Base.getMyData().msglist.push(msgbot[0])
+              wx.setStorageSync("msglist", that.Base.getMyData().msglist)
+              var college = new CollegeApi();
+              college.aibot({
+                messages: encodeURIComponent(JSON.stringify(msgbot))
+              }, (data) => {
+                if (data.data) {
+                  console.log(data.data)
+                  that.Base.setMyData({
+                    answertime: that.getTime()
+                  })
+                  that.hideLoadings()
+                  clearInterval(that.Base.getMyData().intervalId);
+                  that.Base.setMyData({
+                    scrollTop: 10000 * 2 * 5000,
+                    prompt: data.data.message.content,
+                  })
+                  var prompt = that.Base.getMyData().prompt;
+                  this.ismsg(prompt)
+                  .then((label) => {
+                    if (label != 100) {
+                      that.msgseccheck(label)
+                      that.Base.setMyData({
+                        prompt: "你好，经扫描回答内容，该内容涉及国家法律法规禁止的内容，违反相关法律法规和平台规范，为维护绿色健康的平台生态，坚持正确价值导向"
+                      })
+                    }
+                    dialogue.answer = data.data.message.content;
+                    dialogue.answertime = that.getTime();
+                    console.log(dialogue)
+                    that.Base.getMyData().dialoguelist.push(dialogue)
+                    wx.setStorageSync("dialoguelist", that.Base.getMyData().dialoguelist)
+                    that.Base.getMyData().msglist.push(data.data.message)
+                    wx.setStorageSync("msglist", that.Base.getMyData().msglist)
+                    var collegeapi = new CollegeApi();
+                    collegeapi.addbotmsg({
+                      botmsg: that.Base.getMyData().prompt,
+                      usermsg: that.Base.getMyData().messages,
+                    }, (res) => {
+                      that.Base.setMyData({
+                        messages: ""
+                      })
+                    })
+                    wechatApi.reducescore({
+                      openid: that.Base.getMyData().UserInfo.openid,
+                    }, (res) => {
+                      that.onShow();
+                      console.log(res)
+                    })
+                    that.onMyShow();
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    that.Base.toast("提交失败请稍后重试！");
+                    // 在这里处理错误
+                  });
+
+                  that.onMyShow();
+          
+                  // if (that.Base.getMyData().msglist.length == 9) {
+                  //   that.Base.getMyData().msglist.push(assistantmsg)
+                  //   wx.setStorageSync("msglist", that.Base.getMyData().msglist)
+                  // } else if (that.Base.getMyData().msglist.length >= 10) {
+                  //   that.Base.getMyData().msglist.push(assistantmsg)
+                  //   var newData = that.Base.getMyData().msglist.slice(2);
+                  //   wx.setStorageSync("msglist", newData)
+                  // } else {
+                  // }
+                } else {
+                  that.Base.setMyData({
+                    loadings: false
+                  })
+                  clearInterval(that.Base.getMyData().intervalId);
+                  that.Base.toast("提交失败请稍后重试！");
+                }
+                wx.hideLoading();
+              })
+
+
+
+
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            that.Base.setMyData({
+              loadings: true
+            })
+            that.hideLoadings()
+            that.Base.toast("提交失败请稍后重试！");
+            // 在这里处理错误
+          });
+
       }
     })
+    .catch((error) => {
+      console.log(error);
+      that.Base.setMyData({
+        loadings: true
+      })
+      that.hideLoadings()
+      that.Base.toast("提交失败请稍后重试！");
+      // 在这里处理错误
+    });
+
+
+
+
+
   }
 
 

@@ -209,8 +209,8 @@ view,navigator,input,text,textarea{
 }
 .nowrap{
   word-break:keep-all;           /* 不换行 */
-white-space:nowrap;          /* 不换行 */
-overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+  white-space:nowrap;           /* 不换行 */
+  overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
 }
 .h1{
   font-size: 120rpx !important;
@@ -552,6 +552,9 @@ button[disabled][type=primary] {
 }
 .margin-right-12{
   margin-right:12rpx;
+}
+.margin-right-15{
+  margin-right:15rpx;
 }
 .margin-right-20{
   margin-right:20rpx;

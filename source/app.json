@@ -1,9 +1,9 @@
 {
     "pages": [
+        "pages/home/home",
         "pages/pdftodocx/pdftodocx",
         "pages/bot/bot",
         "pages/video/video",
-        "pages/home/home",
         "pages/wode/wode",
         "pages/about/about",
         "pages/privacypolicy/privacypolicy",
@@ -13,7 +13,9 @@
         "pages/videos/videos",
         "pages/userbg/userbg",
         "pages/discounts/discounts",
-        "pages/imglist/imglist"
+        "pages/imglist/imglist",
+        "pages/imagematting/imagematting",
+        "pages/animification/animification"
     ],
     "usingComponents": {
       "van-button":"@vant/weapp/button/index",
@@ -33,7 +35,8 @@
       "van-stepper": "@vant/weapp/stepper/index",
       "van-empty": "@vant/weapp/empty/index",
       "van-cell": "@vant/weapp/cell/index",
-      "van-cell-group": "@vant/weapp/cell-group/index"
+      "van-cell-group": "@vant/weapp/cell-group/index",
+      "van-count-down": "@vant/weapp/count-down/index"
    },
     "permission": {
         "scope.userLocation": {
@@ -57,8 +60,8 @@
                 "selectedIconPath": "./images/icons/home.png"
             },
             {
-              "pagePath": "pages/pdftodocx/pdftodocx",
-              "text": "助力办公",
+              "pagePath": "pages/bot/bot",
+              "text": "Aibot",
               "iconPath": "./images/icons/bot.png",
               "selectedIconPath": "./images/icons/bots.png"
           },

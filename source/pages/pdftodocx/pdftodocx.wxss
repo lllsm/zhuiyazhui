@@ -147,8 +147,21 @@ Page{
   backdrop-filter: blur(7rpx);
   /* box-shadow: 0 0 160rpx rgba(0, 0, 0, 0.2); */
 }
+.upusers{
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40rpx;
+  color: #000000;
+  backdrop-filter: blur(7rpx);
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+}
 .grxxitem{
-  width: 100%;
+  /* width: 100%; */
   margin-right: 20rpx;
   margin-left: 20rpx;
   padding: 10px;

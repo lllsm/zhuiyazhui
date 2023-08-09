@@ -1,0 +1,42 @@
+/* pages/imagematting/imagematting.wxss */
+.text_s {
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 10rpx 30rpx;   */
+  border-radius: 10rpx;
+  /* background-color: #999; */
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  /* margin-top: 20rpx; */
+  margin-bottom: 20rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  background-color: #FFFFFF;
+  /* max-height:200rpx; */
+  /* min-height: 90rpx; */
+  /* width: 250rpx; */
+  text-align: center;
+  /* height: 80rpx; */
+  /* box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important; */
+}
+.title_s{
+  display: flex;
+  justify-content: center;
+  color: rgba(69, 90, 100, 0.6);
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  margin-bottom: 30rpx;
+}
+.pobottom {
+  margin: 0rpx 30rpx;
+  position: fixed;
+  bottom: 40rpx;
+  left: 0;
+  z-index: 10;
+}
+.tcbtns {
+  width: 690rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  /* color: #f6f7f9; */
+  text-align: center;
+}
