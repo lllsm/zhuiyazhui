@@ -29,6 +29,25 @@
     <view class="margin-left-10 margin-right-10 h6 {{type=='Artistic_style'? 'txt-orange' : 'txt-gray'}}">AI绘画 卡通模型-艺术</view>
   </view>
 </view>
+
+<view class="flex-row flex-xiandeng">
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="Illustration_style">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='Illustration_style'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h6 {{type=='Illustration_style'? 'txt-orange' : 'txt-gray'}}">AI绘画 卡通模型-插画</view>
+  </view>
+  <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="Cartoon_style">
+    <view class="margin-left-10">
+      <van-icon name="smile-o" size="50rpx" color="{{type=='Cartoon_style'? 'orange' : '#84817E'}}" />
+    </view>
+    <view class="margin-left-10 margin-right-10 h6 {{type=='Cartoon_style'? 'txt-orange' : 'txt-gray'}}">AI绘画 卡通模型-漫画</view>
+  </view>
+</view>
+
+
+
+
 <view class="flex-row flex-xiandeng">
   <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="Sketching_style">
     <view class="margin-left-10">
