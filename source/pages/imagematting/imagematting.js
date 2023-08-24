@@ -72,8 +72,6 @@ class Content extends AppBase {
         }
       })
     }
-
-
   }
   onMyShow() {
     var that = this;
