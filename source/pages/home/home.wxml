@@ -36,18 +36,18 @@
   <view class="margin-left-30 margin-right-30 radius-20" ><ad unit-id="adunit-c7c85d104b6e7b22"></ad></view>
   <view class="box margin-20 flex-row flex-center flex-xiandeng">
     <view class="BoxItem border-box2 flex-row flex-center" bindtap="navtoPage" data-page='video'>
-      <image  style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 flex-shrink " src="https://college.cllsm.top/uploads/20230809/c65ca0fbf1f11234c3c58711b8cc1b19.png" />
-      <view class="margin-left-15 flex-shrink">
-        <view class="h6 txt-bold nowrap margin-bottom-5">短视频去水印</view>
-        <view class="h7 text-2 nowrap type-text-1 ">N款平台官方直解</view>
+      <image class="icon-40 flex-shrink " src="https://college.cllsm.top/uploads/20230809/c65ca0fbf1f11234c3c58711b8cc1b19.png" />
+      <view class="margin-left-15">
+        <view class="h6 txt-bold  margin-bottom-5">短视频去水印</view>
+        <view class="h7 text-2  type-text-1 ">N款平台官方直解</view>
       </view>
     </view>
 
     <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='pdftodocx'>
-      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 flex-shrink" src="https://college.cllsm.top/uploads/20230809/a8e0d27db99c9e4baf32c205b9cec9ca.png" />
-      <view class="margin-left-15 flex-shrink">
-        <view class="h6 txt-bold nowrap margin-bottom-5">助力办公</view>
-        <view class="h7 text-2 nowrap type-text-1 ">Pdf转Docx · jpg</view>
+      <image class="icon-40 flex-shrink" src="https://college.cllsm.top/uploads/20230809/a8e0d27db99c9e4baf32c205b9cec9ca.png" />
+      <view class="margin-left-15">
+        <view class="h6 txt-bold  margin-bottom-5">助力办公</view>
+        <view class="h7 text-2  type-text-1 ">Pdf转Docx · jpg</view>
       </view>
     </view>
     <!-- <view class="BoxItem" style="display: flex;justify-content: flex-end; align-items: center;">
@@ -65,18 +65,18 @@
 
   <view class="box margin-20 flex-row flex-center flex-xiandeng">
     <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='imagematting'>
-      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 flex-shrink" src="https://college.cllsm.top/uploads/20230809/5c83b4e815d6ae63b57d59b376593f18.png" />
-      <view class="margin-left-15 flex-shrink">
-        <view class="h6 txt-bold nowrap margin-bottom-5">一键抠图</view>
-        <view class="h7 text-2 nowrap type-text-1 ">高质量抠图简单操作</view>
+      <image class="icon-40 flex-shrink" src="https://college.cllsm.top/uploads/20230809/5c83b4e815d6ae63b57d59b376593f18.png" />
+      <view class="margin-left-15">
+        <view class="h6 txt-bold margin-bottom-5">一键抠图</view>
+        <view class="h7 text-2  type-text-1 ">高质量抠图简单操作</view>
       </view>
     </view>
 
     <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='animification'>
-      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 flex-shrink" src="https://college.cllsm.top/uploads/20230809/c5a0834ef795f4097fd4e5ac67995dff.png" />
-      <view class="margin-left-15 flex-shrink">
-        <view class="h6 txt-bold nowrap margin-bottom-5">AI图像动漫化</view>
-        <view class="h7 text-2 nowrap type-text-1 ">图像一键动漫化</view>
+      <image class="icon-40 flex-shrink" src="https://college.cllsm.top/uploads/20230809/c5a0834ef795f4097fd4e5ac67995dff.png" />
+      <view class="margin-left-15">
+        <view class="h6 txt-bold  margin-bottom-5">AI图像动漫化</view>
+        <view class="h7 text-2  type-text-1 ">图像一键动漫化</view>
       </view>
     </view>
     <!-- <view class="BoxItem" style="display: flex;justify-content: flex-end; align-items: center;">

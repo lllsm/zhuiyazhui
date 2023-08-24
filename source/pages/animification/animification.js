@@ -98,7 +98,7 @@ class Content extends AppBase {
     var that = this;
     var wechatApi = new WechatApi();
     wx.showLoading({
-      title: '抠图中',
+      title: '绘画中',
     })
     that.checkscore()
     .then((score) => {
@@ -134,6 +134,9 @@ class Content extends AppBase {
             // 将图像数据转换为base64编码字符串
             const base64Image = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath, 'base64');
             // 发送POST请求
+            wx.showLoading({
+              title: '绘画中',
+            })
             wx.request({
               url: 'https://gpt.cllsm.top:4080/imageconversion',
               method: 'POST',
@@ -174,8 +177,8 @@ class Content extends AppBase {
               },
               fail: function (res) {
                 // 请求失败
-                console.log('请求失败', res);
                 wx.hideLoading()
+                console.log('请求失败', res);
               }
             });
     
@@ -183,6 +186,7 @@ class Content extends AppBase {
           },
           fail(err){
             console.log(err)
+            wx.hideLoading()
           }
         })
       }

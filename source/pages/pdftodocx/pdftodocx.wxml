@@ -128,13 +128,13 @@
 
     <van-transition name="fade-up" show="{{ !switchover }}">
       <view wx:if="{{!switchover}}">
-        <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
+        <!-- <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
           <view style="color: rgba(0, 162, 231, 0.8)">当前积分</view>
           <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
         </view>
         <view class="flex-row flex-column pobottom">
           <button bindtap='showvideoAd' class="border-none clear-button radius-40 button_mian tcbtns">点击增加积分</button>
-        </view>
+        </view> -->
 
       </view>
     </van-transition>

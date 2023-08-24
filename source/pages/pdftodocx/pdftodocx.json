@@ -5,5 +5,5 @@
     "towxml":"/towxml/towxml",
     "van-transition": "@vant/weapp/transition/index"
   },
-  "navigationBarTitleText": "BotAi"
+  "navigationBarTitleText": "PdfToDocx"
 }

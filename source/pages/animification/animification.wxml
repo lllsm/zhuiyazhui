@@ -1,6 +1,6 @@
 <!--pages/animification/animification.wxml-->
 <!--pages/imagematting/imagematting.wxml-->
-<view class="title_s">点击选择抠图方式:</view>
+<view class="title_s">点击选择选择模型:</view>
 <view class="flex-row flex-xiandeng">
   <view class="text_s border-box2 flex-row flex-centers" bindtap="bintype" data-type="Manga_style">
     <view class="margin-left-10">
@@ -39,11 +39,11 @@
 </view>
 
 <view class="title_s">原图:</view>
-<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;">
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.2);">
   <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
 </view>
 <view class="title_s">成品:</view>
-<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;">
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.2);">
   <image wx:if="{{returnbgpng!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{returnbgpng}}"></image>
 </view>
 

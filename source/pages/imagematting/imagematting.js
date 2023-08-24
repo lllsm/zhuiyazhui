@@ -134,6 +134,9 @@ class Content extends AppBase {
             // 将图像数据转换为base64编码字符串
             const base64Image = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath, 'base64');
             // 发送POST请求
+            wx.showLoading({
+              title: '抠图中',
+            })
             wx.request({
               url: 'https://gpt.cllsm.top:4080/removebackground',
               method: 'POST',
@@ -149,6 +152,7 @@ class Content extends AppBase {
                 // 请求成功，获取抠图结果
                 const path = res.data.path;
                 if(res.data.path){
+
                   that.Base.setMyData({
                     returnbgpng:`https://gpt.cllsm.top:4080/image/${path}`
                   })

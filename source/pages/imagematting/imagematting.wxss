@@ -16,6 +16,7 @@
   text-align: center;
   /* height: 80rpx; */
   /* box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px -1px, rgba(0, 0, 0, 0.1) 0px -1px 2px -1px !important; */
+
 }
 .title_s{
   display: flex;

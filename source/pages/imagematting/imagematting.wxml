@@ -16,11 +16,11 @@
 </view>
 
 <view class="title_s">原图:</view>
-<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;">
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);">
   <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
 </view>
 <view class="title_s">成品:</view>
-<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;">
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);">
   <image wx:if="{{returnbgpng!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{returnbgpng}}"></image>
 </view>
 
