@@ -57,9 +57,25 @@
   </view>
 </view>
 
+
+<view class="title_s">效果展示:</view>
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);" bindtap='remove_background'>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" src="https://college.cllsm.top/uploads/20230825/45ed497320d3ae14df15a53e2e7abcfc.jpg"></image>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" wx:if="{{type=='Manga_style'}}" src="https://college.cllsm.top/uploads/20230825/106f47c6d05de7fc627cf68ca6775221.jpg"></image>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" wx:if="{{type=='3D_style'}}" src="https://college.cllsm.top/uploads/20230825/bc61b8f8bc6f6e6e7ffa570cca4b6f45.jpg"></image>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" wx:if="{{type=='Sketch_style'}}" src="https://college.cllsm.top/uploads/20230825/bdc86553739b24bd092dc0c0af802473.jpg"></image>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" wx:if="{{type=='Artistic_style'}}" src="https://college.cllsm.top/uploads/20230825/2ddae83fed6c7143f8741bb78049ba73.jpg"></image>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" wx:if="{{type=='Illustration_style'}}" src="https://college.cllsm.top/uploads/20230825/b9a3f1deab95065b0437930ee5cf1ad1.jpg"></image>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" wx:if="{{type=='Cartoon_style'}}" src="https://college.cllsm.top/uploads/20230825/5a3d50386a0aa53415e9e310ae951b00.jpg"></image>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" wx:if="{{type=='Sketching_style'}}" src="https://college.cllsm.top/uploads/20230825/165991fbad0c3d04a75c5cb899b8f43c.jpg"></image>
+</view>
+
+
+
 <view class="title_s">原图:</view>
-<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.2);">
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.2);" bindtap='remove_background'>
   <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
+  <image wx:if="{{originaljpg==null}}" show-menu-by-longpress class="returnbgpng icon-60" mode="aspectFill" src="../../images/icons/cli.png"></image>
 </view>
 <view class="title_s">成品:</view>
 <view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.2);">
@@ -72,9 +88,9 @@
 
 <view class="flex-row flex-column pobottom">
   <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
-  <view style="color: rgba(0, 162, 231, 0.8)">当前积分</view>
-  <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
-  <view style="color: rgba(0, 162, 231, 0.8)">,点击增加积分</view>
-</view>
+    <view style="color: rgba(0, 162, 231, 0.8)">当前积分</view>
+    <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
+    <view style="color: rgba(0, 162, 231, 0.8)">,点击增加积分</view>
+  </view>
   <button bindtap='remove_background' class="border-none clear-button radius-40 button_mian tcbtns txt-gray">选择图片</button>
 </view>

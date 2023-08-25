@@ -14,10 +14,16 @@
     <view class="margin-left-10 margin-right-10 h5 {{type=='B'? 'txt-orange' : 'txt-gray'}}">人像抠图</view>
   </view>
 </view>
+<view class="title_s">效果展示:</view>
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);" bindtap='remove_background'>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" src="https://college.cllsm.top/uploads/20230825/45ed497320d3ae14df15a53e2e7abcfc.jpg"></image>
+  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" src="https://college.cllsm.top/uploads/20230825/c17a019d129974f75adae37da7b2193f.png"></image>
+</view>
 
 <view class="title_s">原图:</view>
-<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);">
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);" bindtap='remove_background'>
   <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
+  <image wx:if="{{originaljpg==null}}" show-menu-by-longpress class="returnbgpng icon-60" mode="aspectFill" src="../../images/icons/cli.png"></image>
 </view>
 <view class="title_s">成品:</view>
 <view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);">
@@ -27,9 +33,11 @@
 <view class="padding-top-10 flex-row flex-centers" catchtap="showvideoAd" style="text-align: center;">
   <view style="color: rgba(0, 162, 231, 0.8)">当前积分</view>
   <view class="margin-left-10" style="color: {{memberinfo.score>10? 'aquamarine': 'red'}};">{{memberinfo.score}}</view>
+  <view style="color: rgba(0, 162, 231, 0.8);margin-left: 10rpx;"> 点击增加</view>
 </view>
 
 
+<view style="height: 200rpx;"></view>
 <view class="flex-row flex-column pobottom">
   <button bindtap='remove_background' class="border-none clear-button radius-40 button_mian tcbtns txt-gray">选择图片</button>
 </view>
