@@ -189,6 +189,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/photo/photo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

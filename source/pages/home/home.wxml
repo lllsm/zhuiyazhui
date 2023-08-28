@@ -72,7 +72,7 @@
       </view>
     </view>
 
-    <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='animification'>
+    <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='animification' wx:if="{{instinfo.switch==0}}">
       <image class="icon-40 flex-shrink" src="https://college.cllsm.top/uploads/20230809/c5a0834ef795f4097fd4e5ac67995dff.png" />
       <view class="margin-left-15">
         <view class="h6 txt-bold  margin-bottom-5">AI图像动漫化</view>

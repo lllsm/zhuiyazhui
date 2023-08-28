@@ -15,7 +15,8 @@
         "pages/discounts/discounts",
         "pages/imglist/imglist",
         "pages/imagematting/imagematting",
-        "pages/animification/animification"
+        "pages/animification/animification",
+        "pages/photo/photo"
     ],
     "usingComponents": {
       "van-button":"@vant/weapp/button/index",
@@ -36,7 +37,12 @@
       "van-empty": "@vant/weapp/empty/index",
       "van-cell": "@vant/weapp/cell/index",
       "van-cell-group": "@vant/weapp/cell-group/index",
-      "van-count-down": "@vant/weapp/count-down/index"
+      "van-count-down": "@vant/weapp/count-down/index",
+      "van-icon": "@vant/weapp/icon/index",
+      "van-row": "@vant/weapp/row/index",
+      "van-col": "@vant/weapp/col/index",
+      "van-collapse": "@vant/weapp/collapse/index",
+      "van-collapse-item": "@vant/weapp/collapse-item/index"
    },
     "permission": {
         "scope.userLocation": {
