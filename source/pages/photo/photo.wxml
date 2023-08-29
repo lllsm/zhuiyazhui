@@ -56,8 +56,8 @@
       <van-tab title="服饰" name="2">
         <scroll-view scroll-y>
           <view class="clothes">
-            <view class="block" wx:for="{{clothes}}" wx:key="_id">
-              <image src="{{uploadpath}}{{item.clothes_images}}" bindtap="selectClothes" data-url="{{uploadpath}}{{item.clothes_images}}" style="width: 100%; height: 100%;"></image>
+            <view class="block" wx:for="{{clothes}}" wx:key="_id" style="overflow: hidden;">
+              <image style="width: 100%; height: 100%; overflow: hidden;" src="{{uploadpath}}{{item.clothes_images}}" bindtap="selectClothes" data-url="{{uploadpath}}{{item.clothes_images}}"></image>
             </view>
           </view>
         </scroll-view>
@@ -66,8 +66,8 @@
       <van-tab title="发型" name="3">
         <scroll-view scroll-y>
           <view class="hair">
-            <view class="block" wx:for="{{hairs}}" wx:key="_id">
-              <image src="{{uploadpath}}{{item.hair_images}}" bindtap="selectHairs" data-url="{{uploadpath}}{{item.hair_images}}" style="width: 100%; height: 100%;"></image>
+            <view class="block" wx:for="{{hairs}}" wx:key="_id" style="overflow: hidden;">
+              <image src="{{uploadpath}}{{item.hair_images}}" bindtap="selectHairs" data-url="{{uploadpath}}{{item.hair_images}}" style="width: 100%; height: 100%; overflow: hidden;"></image>
             </view>
           </view>
         </scroll-view>
@@ -79,3 +79,6 @@
     </view>
   </view>
 </view>
+
+
+<!-- <image src="{{composite_image}}"   style="width: 295px;height: 400px;"></image> -->
