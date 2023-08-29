@@ -2,7 +2,7 @@
 
 <movable-area class="movable-area">
   <movable-view animation="{{true}}" class="movable-view" direction='vertical'>
-    <image mode="aspectFit" src="../../images/icons/sz.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
+    <image mode="aspectFit" src="https://college.cllsm.top/uploads/20230829/21b2cf1f14c40d5accedbf62d20f1d1d.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
   </movable-view>
 </movable-area>
 

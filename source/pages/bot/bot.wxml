@@ -2,7 +2,7 @@
 
 <movable-area class="movable-area">
   <movable-view animation="{{true}}" class="movable-view" direction='vertical'>
-    <image mode="aspectFit" src="../../images/icons/sz.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
+    <image mode="aspectFit" src="https://college.cllsm.top/uploads/20230829/21b2cf1f14c40d5accedbf62d20f1d1d.png" bindtap="navtoPage" data-page='userbg' class="icon-50 under2"></image>
   </movable-view>
 </movable-area>
 
@@ -179,7 +179,7 @@
         </view>
         <view class="dialogue flex-row flex-centers flex-liangbian">
           <view style="overflow: hidden;" class="flex-shrink">
-            <image bindtap="bntcol" class="icon-25 flex-shrink" src="../../images/icons/del.png" />
+            <image bindtap="bntcol" class="icon-25 flex-shrink" src="https://college.cllsm.top/uploads/20230829/2eebc6807c7edb88b58d22e0b3e1510c.png" />
           </view>
           <view class="flex-center flex-row flex-centers " style="width: 100%;">
             <input maxlength="-1" placeholder="请输入你要提问的内容" class="text_s border-box2" bindinput="inpurl" bindblur="ReduceHeight" value="{{messages}}"></input>

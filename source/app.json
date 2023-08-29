@@ -16,7 +16,10 @@
         "pages/imglist/imglist",
         "pages/imagematting/imagematting",
         "pages/animification/animification",
-        "pages/photo/photo"
+        "pages/photo/photo",
+        "pages/selectimg/selectimg",
+        "pages/sizelist/sizelist",
+        "pages/camera/camera"
     ],
     "usingComponents": {
       "van-button":"@vant/weapp/button/index",

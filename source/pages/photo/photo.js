@@ -5,6 +5,10 @@ var WxParse = require('../../wxParse/wxParse');
 import {
   WechatApi
 } from '../../apis/wechat.api';
+import {CollegeApi} from "../../apis/college.api.js";
+import {
+  MemberApi
+} from "../../apis/member.api.js";
 const hexRgb = require('./hex-rgb')
 let canOnePointMove = false
 const app = getApp();
@@ -29,63 +33,64 @@ class Content extends AppBase {
   onLoad(options) {
     this.Base.Page = this;
     //options.id=5;
+    var that = this;
     super.onLoad(options);
-        // 在页面onLoad回调事件中创建插屏广告实例
-        if (wx.createInterstitialAd) {
-          interstitialAd = wx.createInterstitialAd({
-            adUnitId: 'adunit-90c6231e75da2c65'
+    // 在页面onLoad回调事件中创建插屏广告实例
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-90c6231e75da2c65'
+      })
+      interstitialAd.onLoad(() => {})
+      interstitialAd.onError((err) => {})
+      interstitialAd.onClose(() => {})
+    }
+    // 在适合的场景显示插屏广告
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
+    // 在页面onLoad回调事件中创建激励视频广告实例
+    if (wx.createRewardedVideoAd) {
+      videoAd = wx.createRewardedVideoAd({
+        adUnitId: 'adunit-ca124a881e9783bf'
+      })
+      videoAd.onLoad(() => {
+        console.log('激励视频 广告加载成功')
+      })
+      videoAd.onError((err) => {
+        console.log('激励视频 广告加载失败')
+        rewardedVideoAd.load()
+          .then(() => rewardedVideoAd.show())
+          .catch(err => {
+            console.log('激励视频 广告显示失败')
           })
-          interstitialAd.onLoad(() => {})
-          interstitialAd.onError((err) => {})
-          interstitialAd.onClose(() => {})
+      })
+      videoAd.onClose((res) => {
+        if (res && res.isEnded) {
+          this.Base.toast("积分发放成功！")
+          var memberapi = new MemberApi();
+          memberapi.updatescore({}, (updatescore) => {
+            console.log(updatescore)
+            that.onMyShow()
+            that.onShow();
+          })
+          that.onMyShow()
+
+        } else {
+          this.Base.toast("播放中途退出，积分发放失败！")
+          // 播放中途退出，不下发游戏奖励
         }
-        // 在适合的场景显示插屏广告
-        if (interstitialAd) {
-          interstitialAd.show().catch((err) => {
-            console.error(err)
-          })
-        }
-        // 在页面onLoad回调事件中创建激励视频广告实例
-        if (wx.createRewardedVideoAd) {
-          videoAd = wx.createRewardedVideoAd({
-            adUnitId: 'adunit-ca124a881e9783bf'
-          })
-          videoAd.onLoad(() => {
-            console.log('激励视频 广告加载成功')
-          })
-          videoAd.onError((err) => {
-            console.log('激励视频 广告加载失败')
-            rewardedVideoAd.load()
-              .then(() => rewardedVideoAd.show())
-              .catch(err => {
-                console.log('激励视频 广告显示失败')
-              })
-          })
-          videoAd.onClose((res) => {
-            if (res && res.isEnded) {
-              this.Base.toast("积分发放成功！")
-              var memberapi = new MemberApi();
-              memberapi.updatescore({}, (updatescore) => {
-                console.log(updatescore)
-                that.onMyShow()
-                that.onShow();
-              })
-              that.onMyShow()
-    
-            } else {
-              this.Base.toast("播放中途退出，积分发放失败！")
-              // 播放中途退出，不下发游戏奖励
-            }
-          })
-        }
+      })
+    }
     this.Base.setMyData({
       imageData: {
         height: 431,
         width: 295,
         name: '一寸',
-        tmpOriginImgSrc: 'https://college.cllsm.top/uploads/20230825/c17a019d129974f75adae37da7b2193f.png'
+        tmpOriginImgSrc: ''
       },
-      filePath: 'https://college.cllsm.top/uploads/20230825/c17a019d129974f75adae37da7b2193f.png',
+      filePath: '',
       showScale: 480 / 295,
       rpxRatio: 1, //此值为你的屏幕CSS像素宽度/750，单位rpx实际像素
       showColorPicker: false,
@@ -151,11 +156,16 @@ class Content extends AppBase {
         rotate: 0,
       }
     })
+    if(this.Base.options.imageData){
+      this.Base.setMyData({
+        imageData:JSON.parse(this.Base.options.imageData)
+      })
+    }
+    that.setRpxRatio();
+    that.getClothes();
+    that.getHairs()
+    that.getImageData();
 
-    this.getImageData();
-    this.setRpxRatio();
-    this.getClothes();
-    this.getHairs()
   }
   onMyShow() {
     var that = this;
@@ -164,18 +174,10 @@ class Content extends AppBase {
   }
   // 接受参数 拿图片
   getImageData() {
-    const eventChannel = this.getOpenerEventChannel && this.getOpenerEventChannel()
-    eventChannel && eventChannel.on('sendImageData', (data) => {
-      const {
-        width,
-        imageDivisionResultFileId
-      } = data
-      console.log(data)
-      this.Base.setMyData({
-        imageData: data,
-        showScale: (480 / (+width)),
-        filePath: imageDivisionResultFileId
-      })
+    this.Base.setMyData({
+      imageData:  this.Base.getMyData().imageData,
+      showScale: (480 / (+this.Base.getMyData().imageData.width)),
+      filePath: this.Base.getMyData().imageData.tmpOriginImgSrc
     })
   }
 
@@ -297,8 +299,11 @@ class Content extends AppBase {
 
   // 获取衣服数据
   async getClothes() {
-    this.setData({
-      clothes: []
+    var collegeapi = new CollegeApi();
+    collegeapi.clotheslist({checkstate:""},(clotheslist)=>{
+      this.Base.setMyData({
+        clothes:clotheslist.data
+      })
     })
   }
 
@@ -315,8 +320,11 @@ class Content extends AppBase {
 
   // 获取发型数据
   async getHairs() {
-    this.setData({
-      hairs: []
+    var collegeapi = new CollegeApi();
+    collegeapi.hairlist({checkstate:""},(hairlist)=>{
+      this.Base.setMyData({
+        hairs:hairlist.data
+      })
     })
   }
 
@@ -369,6 +377,7 @@ class Content extends AppBase {
 
   // 图片合成
   async composeImage() {
+    var that = this;
     wx.showLoading({
       title: '制作中...',
     })
@@ -398,18 +407,32 @@ class Content extends AppBase {
     const peopleImg = {
       imgId: filePath,
       src: filePath,
+      imgbase:wx.getFileSystemManager().readFileSync(await that.downloadImg2(filePath), 'base64'),
       ...this.computedXY(baseImg, this.data)
     }
+    // wx.downloadFile({
+    //   url: 'https://gpt.cllsm.top:4080/image/4e5f8b61-8116-4ce7-a891-baea207044a6.png',　　　　　　　//需要下载的图片url
+    //   success: function (res) {　　　　
+    //     console.log(res)　　　　　　　　//成功后的回调函数
+    //   },
+    //   fail(e){
+    //     console.log(e)　　
+    //   }
+    // });
+    // console.log(that.downloadImg2('https://gpt.cllsm.top:4080/image/4e5f8b61-8116-4ce7-a891-baea207044a6.png'))
+    // return
     // 发饰图
     const hairImg = {
       imgId: hair.src,
       src: hair.src,
+      imgbase:hair.src ? wx.getFileSystemManager().readFileSync(await that.downloadImg2(hair.src), 'base64'): "",
       ...this.computedXY(baseImg, hair)
     }
     // 衣服图
     const clothImg = {
       imgId: cloth.src,
       src: cloth.src,
+      imgbase:cloth.src ? wx.getFileSystemManager().readFileSync(await that.downloadImg2(cloth.src), 'base64'): "",
       ...this.computedXY(baseImg, cloth)
     }
     console.log(baseImg, peopleImg, hairImg, clothImg)
@@ -425,100 +448,79 @@ class Content extends AppBase {
       title: '抠图中',
     })
     that.checkscore()
-    .then((score) => {
-      if (score <= 0) {
-        console.log("积分不足")
-        wx.hideLoading()
-        wx.showModal({
-          title: '提示',
-          content: '您所剩的积分不足，请获取积分，当前积分' + score,
-          showCancel: false,
-          success(res) {
-            if (res.confirm) {
-              that.showvideoAd()
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
-      } else {
-        wx.chooseMedia({
-          count: 1,
-          mediaType: ['image'],
-          sourceType: ['album', 'camera'],
-          maxDuration: 30,
-          camera: 'back',
-          success(res) {
-            console.log(res)
-            console.log(res.tempFiles[0].tempFilePath)
-            that.Base.setMyData({
-              originaljpg:res.tempFiles[0].tempFilePath
-            })
-            // 将图像数据转换为base64编码字符串
-            const base64Image = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath, 'base64');
-            // 发送POST请求
-            wx.showLoading({
-              title: '抠图中',
-            })
-            wx.request({
-              url: 'https://gpt.cllsm.top:4080/removebackground',
-              method: 'POST',
-              data: {
-                image: base64Image,
-                type_s:that.Base.getMyData().type
-              },
-              header: {
-                'content-type': 'application/json'
-              },
-              success: function (res) {
-                wx.hideLoading()
-                // 请求成功，获取抠图结果
-                const path = res.data.path;
-                if(res.data.path){
-
-                  that.Base.setMyData({
-                    returnbgpng:`https://gpt.cllsm.top:4080/image/${path}`
-                  })
-                  wx.setClipboardData({
-                    data: `https://gpt.cllsm.top:4080/image/${path}`,
-                    success(res) {
-                      wx.showToast({
-                        title: '下载链接已复制',
-                        icon: 'none'
-                      })
-                    }
-                  })
-                  wechatApi.reducescore({
-                    openid: that.Base.getMyData().UserInfo.openid,
-                  }, (res) => {
-                    that.onShow();
-                    console.log(res)
-                  })
-                }
-    
-                // TODO: 处理抠图结果
-              },
-              fail: function (res) {
-                // 请求失败
-                console.log('请求失败', res);
-                wx.hideLoading()
+      .then((score) => {
+        if (score <= 0) {
+          console.log("积分不足")
+          wx.hideLoading()
+          wx.showModal({
+            title: '提示',
+            content: '您所剩的积分不足，请获取积分，当前积分' + score,
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                that.showvideoAd()
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
               }
-            });
-    
-    
-          },
-          fail(err){
-            console.log(err)
-          }
-        })
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      that.Base.toast("转换失败请稍后重试！");
-      // 在这里处理错误
-    });
+            }
+          })
+        } else {
+          // 发送POST请求
+          wx.showLoading({
+            title: '制作中',
+          })
+          wx.request({
+            url: 'https://gpt.cllsm.top:4080/composite',
+            method: 'POST',
+            data: {
+              data: JSON.stringify(data),
+              type_s: 'A'
+            },
+            header: {
+              'content-type': 'application/json'
+            },
+            success: function (res) {
+              wx.hideLoading()
+              // 请求成功，获取抠图结果
+              const path = res.data.composite_image;
+              if (res.data.composite_image) {
+                that.Base.setMyData({
+                  composite_image: `https://gpt.cllsm.top:4080/image/${path}`
+                })
+                wx.setClipboardData({
+                  data: `https://gpt.cllsm.top:4080/image/${path}`,
+                  success(res) {
+                    wx.showToast({
+                      title: '下载链接已复制',
+                      icon: 'none'
+                    })
+                  }
+                })
+                wechatApi.reducescore({
+                  openid: that.Base.getMyData().UserInfo.openid,
+                }, (res) => {
+                  that.onShow();
+                  console.log(res)
+                })
+              }
+
+              // TODO: 处理抠图结果
+            },
+            fail: function (res) {
+              // 请求失败
+              console.log('请求失败', res);
+              wx.hideLoading()
+            }
+          });
+
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        that.Base.toast("转换失败请稍后重试！");
+        // 在这里处理错误
+      });
 
 
 
@@ -707,6 +709,25 @@ class Content extends AppBase {
       })
     });
   }
+  downloadImg2(url){　
+    return new Promise((resolve, reject) => {
+      wx.downloadFile({
+        url, //仅为示例，并非真实的资源
+        success(res) {
+          // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+          if (res.statusCode === 200) {
+            console.log(res)
+            resolve(res.tempFilePath)
+          } else {
+            reject(res)
+          }
+        },
+        fail(error) {
+          reject(error)
+        }
+      })
+    })
+  }
 }
 var content = new Content();
 var body = content.generateBodyJson();
@@ -723,9 +744,13 @@ body.touchend = content.touchend;
 body.toggleBg = content.toggleBg;
 body.clickTab = content.clickTab;
 body.composeImage = content.composeImage;
-body.computedXY  = content.computedXY;
+body.computedXY = content.computedXY;
 body.showvideoAd = content.showvideoAd;
 body.checkscore = content.checkscore;
 body.onChangeColor = content.onChangeColor;
 body.closeColorPicker = content.closeColorPicker;
+body.downloadImg = content.downloadImg;
+body.downloadImg2 = content.downloadImg2;
+body.selectClothes = content.selectClothes;
+body.selectHairs = content.selectHairs;
 Page(body)
