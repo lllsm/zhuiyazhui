@@ -158,7 +158,7 @@ class Content extends AppBase {
     })
     if(this.Base.options.imageData){
       this.Base.setMyData({
-        imageData:JSON.parse(this.Base.options.imageData)
+        imageData:JSON.parse(decodeURIComponent(this.Base.options.imageData))
       })
     }
     that.setRpxRatio();
@@ -410,17 +410,6 @@ class Content extends AppBase {
       imgbase:wx.getFileSystemManager().readFileSync(await that.downloadImg2(filePath), 'base64'),
       ...this.computedXY(baseImg, this.data)
     }
-    // wx.downloadFile({
-    //   url: 'https://gpt.cllsm.top:4080/image/4e5f8b61-8116-4ce7-a891-baea207044a6.png',　　　　　　　//需要下载的图片url
-    //   success: function (res) {　　　　
-    //     console.log(res)　　　　　　　　//成功后的回调函数
-    //   },
-    //   fail(e){
-    //     console.log(e)　　
-    //   }
-    // });
-    // console.log(that.downloadImg2('https://gpt.cllsm.top:4080/image/4e5f8b61-8116-4ce7-a891-baea207044a6.png'))
-    // return
     // 发饰图
     const hairImg = {
       imgId: hair.src,
@@ -728,6 +717,41 @@ class Content extends AppBase {
       })
     })
   }
+  magnifyimg(){
+    this.Base.setMyData({
+      scale:this.Base.getMyData().scale+0.05
+    })
+  }
+  reduceimg(){
+    this.Base.setMyData({
+      scale:this.Base.getMyData().scale-0.05
+    })
+  }
+  displacementImg(e){
+    console.log(e.currentTarget.id)
+    var type = e.currentTarget.id;
+    if(type=='top'){
+      this.Base.setMyData({
+        top:this.Base.getMyData().top-1
+      })
+    }
+    if(type=='bottom'){
+      this.Base.setMyData({
+        top:this.Base.getMyData().top+1
+      })
+    }
+    if(type=='left'){
+      this.Base.setMyData({
+        left:this.Base.getMyData().left-1
+      })
+    }
+    if(type=='right'){
+      this.Base.setMyData({
+        left:this.Base.getMyData().left+1
+      })
+    }
+
+  }
 }
 var content = new Content();
 var body = content.generateBodyJson();
@@ -753,4 +777,7 @@ body.downloadImg = content.downloadImg;
 body.downloadImg2 = content.downloadImg2;
 body.selectClothes = content.selectClothes;
 body.selectHairs = content.selectHairs;
+body.magnifyimg = content.magnifyimg;
+body.reduceimg= content.reduceimg;
+body.displacementImg =content.displacementImg;
 Page(body)

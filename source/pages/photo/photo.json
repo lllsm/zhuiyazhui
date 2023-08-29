@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "color-picker": "../../components/color-picker/color-picker"
-  }
+  },
+  "navigationBarTitleText": "照片编辑"
 }

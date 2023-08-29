@@ -1,6 +1,19 @@
 <!--pages/photo/photo.wxml-->
 <view class="container">
   <view class="photo-edit-content">
+    <van-notice-bar mode="closeable" wrapable text="{{'手指触摸拖动，以及放大，缩小'}}" />
+    <view class="flex-row flex-centers">
+      <view class="flex-row flex-centers">
+      <view bindtap="magnifyimg" class="border-box2 button_mian icon-40">大</view>
+      <view bindtap="reduceimg" class="border-box2 button_mian icon-40">小</view>
+    </view>
+    <view class="flex-row flex-centers">
+      <view bindtap="displacementImg" class="border-box2 button_mian icon-40" id="top">上</view>
+      <view bindtap="displacementImg" class="border-box2 button_mian icon-40" id="bottom">下</view>
+      <view bindtap="displacementImg" class="border-box2 button_mian icon-40" id="left">左</view>
+      <view bindtap="displacementImg" class="border-box2 button_mian icon-40" id="right">右</view>
+    </view>
+    </view>
     <view class="canvas-view" style="background-color: {{photoBg}};width: {{imageData.width * showScale}}rpx;height: {{imageData.height * showScale}}rpx;">
       <image style="width: {{width * showScale}}rpx; height: {{height * showScale}}rpx; left: {{left * showScale}}rpx; top: {{top * showScale}}rpx; transform: translate(-50%, -50%) scale({{ scale }}) rotate({{ rotate }}deg);" class="people-photo" src="{{filePath}}" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend"></image>
 
