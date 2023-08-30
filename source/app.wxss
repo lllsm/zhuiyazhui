@@ -861,3 +861,19 @@ w-100{
   border-radius: 40rpx;
   color: #000000;
 }
+.tcbtns {
+  width: 90%;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-weight: bold;
+  color: #ac6905;
+  text-align: center;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  font-size: 32rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3rpx solid rgba(255, 255, 255, 1);
+}

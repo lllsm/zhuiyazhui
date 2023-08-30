@@ -84,6 +84,7 @@ class Content extends AppBase {
       })
     }
     this.Base.setMyData({
+      switchover: true,
       imageData: {
         height: 431,
         width: 295,
@@ -752,6 +753,11 @@ class Content extends AppBase {
     }
 
   }
+  bntswitchover() {
+    this.Base.setMyData({
+      switchover: !this.Base.getMyData().switchover
+    })
+  }
 }
 var content = new Content();
 var body = content.generateBodyJson();
@@ -780,4 +786,5 @@ body.selectHairs = content.selectHairs;
 body.magnifyimg = content.magnifyimg;
 body.reduceimg= content.reduceimg;
 body.displacementImg =content.displacementImg;
+body.bntswitchover = content.bntswitchover;
 Page(body)

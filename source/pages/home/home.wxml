@@ -93,7 +93,7 @@
   </view>
 
 
-  <view class="box margin-20 flex-row flex-center flex-xiandeng">
+  <view class="box margin-20 flex-row flex-center flex-xiandeng"> 
     <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='sizelist'>
       <image class="icon-40 flex-shrink" src="https://college.cllsm.top/uploads/20230809/5c83b4e815d6ae63b57d59b376593f18.png" />
       <view class="margin-left-15">

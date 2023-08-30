@@ -91,11 +91,5 @@ Page {
   width: 100%;
 }
 
-.tcbtns {
-  height: 60rpx;
-  width: 100rpx;
-  border-radius: 40rpx;
-  color: #FFFFFF;
-  text-align: center;
-}
+
  

@@ -2,18 +2,24 @@
 <view class="container">
   <view class="photo-edit-content">
     <van-notice-bar mode="closeable" wrapable text="{{'手指触摸拖动，以及放大，缩小'}}" />
-    <view class="flex-row flex-centers">
+    <view class="flex-row flex-centers  margin-top-20">
+      <view style="color: #07c160;">当前移动对象是：</view>
+      <!-- <view style="color: rgba(0, 162, 231, 0.3)">{{' 当前移动对象是 '}}</view> -->
+      <view style="color: #07c160;">人物</view>
+    </view>
+    <view class="flex-row flex-centers margin-top-20 margin-bottom-20">
       <view class="flex-row flex-centers">
-      <view bindtap="magnifyimg" class="border-box2 button_mian icon-40">大</view>
-      <view bindtap="reduceimg" class="border-box2 button_mian icon-40">小</view>
+        <van-button bindtap="magnifyimg" plain type="primary" class="margin-right-10" size="mini">大</van-button>
+        <van-button bindtap="reduceimg" plain type="primary" class="margin-right-10" size="mini">小</van-button>
+      </view>
+      <view class="flex-row flex-centers">
+        <van-button bindtap="displacementImg" plain type="primary" class="margin-right-10" size="mini" id="top">上</van-button>
+        <van-button bindtap="displacementImg" plain type="primary" class="margin-right-10" size="mini" id="bottom">下</van-button>
+        <van-button bindtap="displacementImg" plain type="primary" class="margin-right-10" size="mini" id="left">左</van-button>
+        <van-button bindtap="displacementImg" plain type="primary" class="margin-right-10" size="mini" id="right">右</van-button>
+      </view>
     </view>
-    <view class="flex-row flex-centers">
-      <view bindtap="displacementImg" class="border-box2 button_mian icon-40" id="top">上</view>
-      <view bindtap="displacementImg" class="border-box2 button_mian icon-40" id="bottom">下</view>
-      <view bindtap="displacementImg" class="border-box2 button_mian icon-40" id="left">左</view>
-      <view bindtap="displacementImg" class="border-box2 button_mian icon-40" id="right">右</view>
-    </view>
-    </view>
+
     <view class="canvas-view" style="background-color: {{photoBg}};width: {{imageData.width * showScale}}rpx;height: {{imageData.height * showScale}}rpx;">
       <image style="width: {{width * showScale}}rpx; height: {{height * showScale}}rpx; left: {{left * showScale}}rpx; top: {{top * showScale}}rpx; transform: translate(-50%, -50%) scale({{ scale }}) rotate({{ rotate }}deg);" class="people-photo" src="{{filePath}}" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend"></image>
 
@@ -33,52 +39,79 @@
 
     </view>
   </view>
-  <view class="imgOpt">
-    <van-tabs active="{{ active }}" bind:click="clickTab" color="#2c2c2c">
-      <van-tab title="背景" name="1">
-        <view class="colors">
-          <view bindtap="toggleBg" data-color="white" class="color white {{bgc === 'white' ? 'active' : ''}}">
-            <view wx:if="{{bgc === 'white'}}" class="icon_select"></view>
-          </view>
-          <view bindtap="toggleBg" data-color="blue" class="color blue {{bgc === 'blue' ? 'active' : ''}}">
-            <view wx:if="{{bgc === 'blue'}}" class="icon_select"></view>
-          </view>
-          <view bindtap="toggleBg" data-color="red" class="color red {{bgc === 'red' ? 'active' : ''}}">
-            <view wx:if="{{bgc === 'red'}}" class="icon_select"></view>
-          </view>
-          <view bindtap="toggleBg" data-color="custom" class="color custom {{bgc === 'custom' ? 'active' : ''}}" style="display: flex; align-items: center; justify-content: center;">
-            <!-- <view class="text" style="font-size: 12px;"><text>自定义</text></view> -->
-            <view class="custom-bg" style="background-color: {{colorData.pickerData.hex}};width: 100%;height: 100%;font-size: 12px;color: #fff; margin:0 auto;line-height: 12vw;text-align: center;">自定义</view>
-          </view>
-        </view>
-      </van-tab>
-
-      <van-tab title="服饰" name="2">
-        <scroll-view scroll-y>
-          <view class="clothes">
-            <view class="block" wx:for="{{clothes}}" wx:key="_id" style="overflow: hidden;">
-              <image style="width: 100%; height: 100%; overflow: hidden;" src="{{uploadpath}}{{item.clothes_images}}" bindtap="selectClothes" data-url="{{uploadpath}}{{item.clothes_images}}"></image>
-            </view>
-          </view>
-        </scroll-view>
-      </van-tab>
-
-      <van-tab title="发型" name="3">
-        <scroll-view scroll-y>
-          <view class="hair">
-            <view class="block" wx:for="{{hairs}}" wx:key="_id" style="overflow: hidden;">
-              <image src="{{uploadpath}}{{item.hair_images}}" bindtap="selectHairs" data-url="{{uploadpath}}{{item.hair_images}}" style="width: 100%; height: 100%; overflow: hidden;"></image>
-            </view>
-          </view>
-        </scroll-view>
-      </van-tab>
-    </van-tabs>
-
-    <view class="download-view">
-      <button bindtap="composeImage" type="default">合成证件照</button>
-    </view>
-  </view>
 </view>
 
 
 <!-- <image src="{{composite_image}}"   style="width: 295px;height: 400px;"></image> -->
+
+<view class="dialogue_bg">
+  <view class="flex-row flex-centers">
+    <view class="switchover flex-row flex-centers" wx:if="{{switchover}}" bindtap="bntswitchover">
+      <image style="transform: scaleY(-1);" class="icon-44" src="../../images/icons/up.png" />
+    </view>
+    <view class="switchover flex-row flex-centers" wx:else bindtap="bntswitchover">
+      <image class="icon-44" src="../../images/icons/up.png" />
+    </view>
+  </view>
+
+
+  <van-transition name="fade-up" show="{{ switchover }}">
+    <view wx:if="{{switchover}}">
+      <view class="imgOpt" style="overflow: hidden;">
+        <van-tabs active="{{ active }}" bind:click="clickTab" color="#2c2c2c">
+          <van-tab title="背景" name="1">
+            <view class="colors">
+              <view bindtap="toggleBg" data-color="white" class="color white {{bgc === 'white' ? 'active' : ''}}">
+                <view wx:if="{{bgc === 'white'}}" class="icon_select"></view>
+              </view>
+              <view bindtap="toggleBg" data-color="blue" class="color blue {{bgc === 'blue' ? 'active' : ''}}">
+                <view wx:if="{{bgc === 'blue'}}" class="icon_select"></view>
+              </view>
+              <view bindtap="toggleBg" data-color="red" class="color red {{bgc === 'red' ? 'active' : ''}}">
+                <view wx:if="{{bgc === 'red'}}" class="icon_select"></view>
+              </view>
+              <view bindtap="toggleBg" data-color="custom" class="color custom {{bgc === 'custom' ? 'active' : ''}}" style="display: flex; align-items: center; justify-content: center;">
+                <!-- <view class="text" style="font-size: 12px;"><text>自定义</text></view> -->
+                <view class="custom-bg" style="background-color: {{colorData.pickerData.hex}};width: 100%;height: 100%;font-size: 12px;color: #fff; margin:0 auto;line-height: 12vw;text-align: center;">自定义</view>
+              </view>
+            </view>
+          </van-tab>
+
+          <van-tab title="服饰" name="2">
+            <scroll-view scroll-y>
+              <view class="clothes">
+                <view class="block" wx:for="{{clothes}}" wx:key="_id" style="overflow: hidden;">
+                  <image style="width: 100%; height: 100%; overflow: hidden;" src="{{uploadpath}}{{item.clothes_images}}" bindtap="selectClothes" data-url="{{uploadpath}}{{item.clothes_images}}"></image>
+                </view>
+                <view style="height: 300rpx;"></view>
+              </view>
+            </scroll-view>
+          </van-tab>
+
+          <van-tab title="发型" name="3">
+            <scroll-view scroll-y>
+              <view class="hair">
+                <view class="block" wx:for="{{hairs}}" wx:key="_id" style="overflow: hidden;">
+                  <image src="{{uploadpath}}{{item.hair_images}}" bindtap="selectHairs" data-url="{{uploadpath}}{{item.hair_images}}" style="width: 100%; height: 100%; overflow: hidden;"></image>
+                </view>
+                <view style="height: 300rpx;"></view>
+              </view>
+            </scroll-view>
+          </van-tab>
+        </van-tabs>
+      </view>
+    </view>
+  </van-transition>
+  <van-transition name="fade-up" show="{{ !switchover }}">
+    <view wx:if="{{!switchover}}">
+      <!-- <view class="download-view flex-centers">
+        <button bindtap="composeImage" type="default">合成证件照</button>
+      </view> -->
+      <view class="flex-row flex-column pobottom margin-bottom-20 margin-top-10">
+          <button bindtap='composeImage' class="border-none clear-button radius-40 button_mian tcbtns">合成证件照</button>
+        </view>
+    </view>
+  </van-transition>
+
+
+</view>

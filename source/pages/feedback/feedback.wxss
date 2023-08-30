@@ -57,14 +57,7 @@ page {
   z-index: 10;
 }
 
-.tcbtns {
-  width: 690rpx;
-  height: 80rpx;
-  background: #7C6DFE;
-  border-radius: 40rpx;
-  color: #FFFFFF;
-  text-align: center;
-}
+
 
 .imglist {
   margin: 20rpx 30rpx;

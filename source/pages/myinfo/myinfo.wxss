@@ -22,20 +22,14 @@
   margin-left: 18rpx;
 }
 .pobottom {
-  margin: 0rpx 30rpx;
+  /* margin: 0rpx 30rpx; */
   position: fixed;
   bottom: 40rpx;
   left: 0;
   z-index: 10;
+  width: 100%;
 }
-.tcbtns {
-  width: 690rpx;
-  height: 80rpx;
 
-  border-radius: 40rpx;
-  color: #FFFFFF;
-  text-align: center;
-}
 .touxiang {
   border-radius: 50%;
   overflow: hidden;

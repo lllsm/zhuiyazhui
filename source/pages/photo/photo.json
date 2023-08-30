@@ -1,6 +1,8 @@
 {
   "usingComponents": {
-    "color-picker": "../../components/color-picker/color-picker"
+    "color-picker": "../../components/color-picker/color-picker",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index"
   },
   "navigationBarTitleText": "照片编辑"
 }

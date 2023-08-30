@@ -5,9 +5,10 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
+
 .container {
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   /* margin-top: 10vh; */
   overflow: hidden;
   position: relative;
@@ -15,8 +16,8 @@ page {
 
 .imgOpt {
   width: 100%;
-  height: 100%;
-  background: #fff;
+  height: 400rpx;
+  background: #fff !important;
   /* position: relative; */
 }
 
@@ -96,10 +97,11 @@ page {
 
 
 .download-view {
-  margin: 0 auto;
-  width: 90%;
-  position: fixed;
-  bottom: 40px;
+  margin: 30rpx auto;
+  width: 100%;
+  /* position: fixed; */
+  /* bottom: 40px; */
+  /* background: #fff !important; */
 }
 
 
@@ -109,10 +111,9 @@ page {
   color: #fff !important;
   font-weight: normal;
   height: 50px;
+  width: 80%;
   line-height: 50px;
-  width: 100% !important;
   border-radius: 10px;
-  margin-left: 5vw;
 }
 
 /* color picker */
@@ -121,7 +122,7 @@ page {
   width: 690rpx;
   overflow: visible;
   z-index: 99;
-  top:30rpx;
+  top: 30rpx;
   border-radius: 30rpx;
   margin-left: 30rpx;
   margin-right: 30rpx;
@@ -201,12 +202,88 @@ page {
 }
 
 
+.height-control {
+  position: absolute;
+  transform: rotate(90deg);
+  transform-origin: top left;
+  left: -20rpx;
+  top: 0;
+  margin-right: 20rpx;
+  text-align: center;
+  box-sizing: border-box;
+  max-width: 600rpx;
+  transition: all 300ms ease-in-out;
+  border-left: 2rpx solid #999;
+  border-right: 2rpx solid #999;
+  will-change: width;
+}
+
+.height-control ._span {
+  position: relative;
+  background-color: #eee;
+  z-index: 1;
+}
 
 
+.height-control::before {
+  content: '';
+  width: 100%;
+  height: 2rpx;
+  background-color: rgb(15, 14, 14);
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
+
+.width-control {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 20rpx;
+  text-align: center;
+  box-sizing: border-box;
+  max-width: 600rpx;
+  transition: all 300ms ease-in-out;
+  border-left: 2rpx solid #999;
+  border-right: 2rpx solid #999;
+  will-change: width;
+}
+
+.width-control ._span {
+  position: relative;
+  background-color: #eee;
+  z-index: 1;
+}
 
 
+.width-control::before {
+  content: '';
+  width: 100%;
+  height: 2rpx;
+  background-color: #999;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
 
+.dialogue_bg {
+  position: fixed;
+  bottom: 0rpx;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 0rpx 40rpx;
+  width: 100vw;
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 1000;
+}
 
-
-
+.switchover {
+  height: 45rpx;
+  width: 200rpx;
+  background-color: rgba(255, 224, 72, 0.2);
+  backdrop-filter: blur(7rpx);
+  border-radius: 0rpx 0rpx 40rpx 40rpx;
+  margin-bottom: 5rpx;
+}
 

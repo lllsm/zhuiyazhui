@@ -48,7 +48,8 @@ class Content extends AppBase {
       isupdate: false,
       textareaHeight: 90,
       switchover: true,
-      returnbgpng:null
+      returnbgpng:null,
+      object:'A'
     })
     const {
       height,

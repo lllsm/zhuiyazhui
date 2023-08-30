@@ -52,6 +52,6 @@
   <view class="fxx"></view> -->
 </view>
 
-<view class="flex-row flex-column pobottom">
+<view class="flex-row flex-column pobottom flex-centers">
   <button bindtap='getUserProfile' class="border-none clear-button radius-40 button_mian tcbtns">确认修改</button>
 </view>

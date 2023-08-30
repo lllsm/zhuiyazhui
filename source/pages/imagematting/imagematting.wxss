@@ -34,10 +34,3 @@
   left: 0;
   z-index: 10;
 }
-.tcbtns {
-  width: 690rpx;
-  height: 80rpx;
-  border-radius: 40rpx;
-  /* color: #f6f7f9; */
-  text-align: center;
-}

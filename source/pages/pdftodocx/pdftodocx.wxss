@@ -196,21 +196,7 @@ Page{
   margin-top: 120%;
   /* background: red; */
  }
- .tcbtns {
-   width: 300rpx;
-  height: 80rpx;
-  border-radius: 40rpx;
-  color: #FFFFFF;
-  text-align: center;
-  margin-left: 30rpx;
-  margin-right: 30rpx;
-  font-size: 32rpx;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 3rpx solid  rgba(255, 255, 255,1);
-}
+
 .van-notice-bar{
   margin-left: 20rpx;
   margin-right: 20rpx;
@@ -243,14 +229,7 @@ Page{
   border-radius: 10rpx; */
   width: 80%;
 }
-.tcbtns {
-  width: 690rpx;
-  height: 80rpx;
-  border-radius: 40rpx;
-  color: #FFFFFF;
-  margin-top: 10rpx;
-  margin-bottom: 10rpx;
-}
+
 .pobottom{
 }
 .message-box-list{
