@@ -5,7 +5,7 @@ var WxParse = require('../../wxParse/wxParse');
 import {
   WechatApi
 } from '../../apis/wechat.api';
-import {CollegeApi} from "../../apis/college.api.js";
+import { CollegeApi } from "../../apis/college.api.js";
 import {
   MemberApi
 } from "../../apis/member.api.js";
@@ -40,9 +40,9 @@ class Content extends AppBase {
       interstitialAd = wx.createInterstitialAd({
         adUnitId: 'adunit-90c6231e75da2c65'
       })
-      interstitialAd.onLoad(() => {})
-      interstitialAd.onError((err) => {})
-      interstitialAd.onClose(() => {})
+      interstitialAd.onLoad(() => { })
+      interstitialAd.onError((err) => { })
+      interstitialAd.onClose(() => { })
     }
     // 在适合的场景显示插屏广告
     if (interstitialAd) {
@@ -84,6 +84,7 @@ class Content extends AppBase {
       })
     }
     this.Base.setMyData({
+      object: "A",
       switchover: true,
       imageData: {
         height: 431,
@@ -157,9 +158,9 @@ class Content extends AppBase {
         rotate: 0,
       }
     })
-    if(this.Base.options.imageData){
+    if (this.Base.options.imageData) {
       this.Base.setMyData({
-        imageData:JSON.parse(decodeURIComponent(this.Base.options.imageData))
+        imageData: JSON.parse(decodeURIComponent(this.Base.options.imageData))
       })
     }
     that.setRpxRatio();
@@ -176,7 +177,7 @@ class Content extends AppBase {
   // 接受参数 拿图片
   getImageData() {
     this.Base.setMyData({
-      imageData:  this.Base.getMyData().imageData,
+      imageData: this.Base.getMyData().imageData,
       showScale: (480 / (+this.Base.getMyData().imageData.width)),
       filePath: this.Base.getMyData().imageData.tmpOriginImgSrc
     })
@@ -230,6 +231,20 @@ class Content extends AppBase {
 
   touchstart(e) {
     var that = this
+    console.log(e, '__________________')
+    if (e.currentTarget.dataset.dataname == "cloth") {
+      this.Base.setMyData({
+        object: 'B'
+      })
+    } else if (e.currentTarget.dataset.dataname == "hair") {
+      this.Base.setMyData({
+        object: 'C'
+      })
+    } else {
+      this.Base.setMyData({
+        object: 'A'
+      })
+    }
     if (e.touches.length < 2) {
       canOnePointMove = true
       onePoint.x = e.touches[0].pageX * 2
@@ -301,9 +316,9 @@ class Content extends AppBase {
   // 获取衣服数据
   async getClothes() {
     var collegeapi = new CollegeApi();
-    collegeapi.clotheslist({checkstate:""},(clotheslist)=>{
+    collegeapi.clotheslist({ checkstate: "" }, (clotheslist) => {
       this.Base.setMyData({
-        clothes:clotheslist.data
+        clothes: clotheslist.data
       })
     })
   }
@@ -322,9 +337,9 @@ class Content extends AppBase {
   // 获取发型数据
   async getHairs() {
     var collegeapi = new CollegeApi();
-    collegeapi.hairlist({checkstate:""},(hairlist)=>{
+    collegeapi.hairlist({ checkstate: "" }, (hairlist) => {
       this.Base.setMyData({
-        hairs:hairlist.data
+        hairs: hairlist.data
       })
     })
   }
@@ -352,7 +367,7 @@ class Content extends AppBase {
       blue: '#438edb',
       white: '#ffffff',
       transparent: 'transparent'
-    } [bgc]
+    }[bgc]
     this.setData({
       bgc,
       photoBg,
@@ -408,21 +423,21 @@ class Content extends AppBase {
     const peopleImg = {
       imgId: filePath,
       src: filePath,
-      imgbase:wx.getFileSystemManager().readFileSync(await that.downloadImg2(filePath), 'base64'),
+      imgbase: wx.getFileSystemManager().readFileSync(await that.downloadImg2(filePath), 'base64'),
       ...this.computedXY(baseImg, this.data)
     }
     // 发饰图
     const hairImg = {
       imgId: hair.src,
       src: hair.src,
-      imgbase:hair.src ? wx.getFileSystemManager().readFileSync(await that.downloadImg2(hair.src), 'base64'): "",
+      imgbase: hair.src ? wx.getFileSystemManager().readFileSync(await that.downloadImg2(hair.src), 'base64') : "",
       ...this.computedXY(baseImg, hair)
     }
     // 衣服图
     const clothImg = {
       imgId: cloth.src,
       src: cloth.src,
-      imgbase:cloth.src ? wx.getFileSystemManager().readFileSync(await that.downloadImg2(cloth.src), 'base64'): "",
+      imgbase: cloth.src ? wx.getFileSystemManager().readFileSync(await that.downloadImg2(cloth.src), 'base64') : "",
       ...this.computedXY(baseImg, cloth)
     }
     console.log(baseImg, peopleImg, hairImg, clothImg)
@@ -633,7 +648,7 @@ class Content extends AppBase {
                 reject(new Error('错误'))
               } else {
                 wx.openSetting({
-                  success() {},
+                  success() { },
                   fail(res) {
                     wx.showToast({
                       title: '失败，写入相册权限未授权',
@@ -699,7 +714,7 @@ class Content extends AppBase {
       })
     });
   }
-  downloadImg2(url){　
+  downloadImg2(url) {
     return new Promise((resolve, reject) => {
       wx.downloadFile({
         url, //仅为示例，并非真实的资源
@@ -718,39 +733,99 @@ class Content extends AppBase {
       })
     })
   }
-  magnifyimg(){
-    this.Base.setMyData({
-      scale:this.Base.getMyData().scale+0.05
-    })
+  magnifyimg() {
+    var e = this.Base.getMyData().object;
+    if (e == "B") {
+      let cloth = this.Base.getMyData().cloth;
+      cloth.scale= cloth.scale + 0.05
+      this.Base.setMyData({cloth})
+    } else if (e == 'C') {
+      let hair = this.Base.getMyData().hair;
+      hair.scale= hair.scale + 0.05
+      this.Base.setMyData({hair})
+    } else {
+      this.Base.setMyData({
+        scale: this.Base.getMyData().scale + 0.05
+      })
+    }
+
   }
-  reduceimg(){
-    this.Base.setMyData({
-      scale:this.Base.getMyData().scale-0.05
-    })
+  reduceimg() {
+    var e = this.Base.getMyData().object;
+    if (e == "B") {
+      let cloth = this.Base.getMyData().cloth;
+      cloth.scale= cloth.scale - 0.05
+      this.Base.setMyData({cloth})
+    } else if (e == 'C') {
+      let hair = this.Base.getMyData().hair;
+      hair.scale= hair.scale - 0.05
+      this.Base.setMyData({hair})
+    } else {
+      this.Base.setMyData({
+        scale: this.Base.getMyData().scale - 0.05
+      })
+    }
   }
-  displacementImg(e){
-    console.log(e.currentTarget.id)
-    var type = e.currentTarget.id;
-    if(type=='top'){
-      this.Base.setMyData({
-        top:this.Base.getMyData().top-1
-      })
+  displacementImg(data) {
+    var e = this.Base.getMyData().object;
+    console.log(data.currentTarget.id)
+    var type = data.currentTarget.id;
+    if (e == "B") {
+      let cloth = this.Base.getMyData().cloth;
+      if (type == 'top') {
+        cloth.top= cloth.top - 1
+      }
+      if (type == 'bottom') {
+        cloth.top= cloth.top + 1
+      }
+      if (type == 'left') {
+        cloth.left= cloth.left - 1
+      }
+      if (type == 'right') {
+        cloth.left= cloth.left + 1
+      }
+      this.Base.setMyData({cloth})
+    } else if (e == 'C') {
+      let hair = this.Base.getMyData().hair;
+      if (type == 'top') {
+        hair.top= hair.top - 1
+      }
+      if (type == 'bottom') {
+        hair.top= hair.top + 1
+      }
+      if (type == 'left') {
+        hair.left= hair.left - 1
+      }
+      if (type == 'right') {
+        hair.left= hair.left + 1
+      }
+      this.Base.setMyData({hair})
+    } else {
+      if (type == 'top') {
+        this.Base.setMyData({
+          top: this.Base.getMyData().top - 1
+        })
+      }
+      if (type == 'bottom') {
+        this.Base.setMyData({
+          top: this.Base.getMyData().top + 1
+        })
+      }
+      if (type == 'left') {
+        this.Base.setMyData({
+          left: this.Base.getMyData().left - 1
+        })
+      }
+      if (type == 'right') {
+        this.Base.setMyData({
+          left: this.Base.getMyData().left + 1
+        })
+      }
     }
-    if(type=='bottom'){
-      this.Base.setMyData({
-        top:this.Base.getMyData().top+1
-      })
-    }
-    if(type=='left'){
-      this.Base.setMyData({
-        left:this.Base.getMyData().left-1
-      })
-    }
-    if(type=='right'){
-      this.Base.setMyData({
-        left:this.Base.getMyData().left+1
-      })
-    }
+
+
+
+
 
   }
   bntswitchover() {
@@ -784,7 +859,7 @@ body.downloadImg2 = content.downloadImg2;
 body.selectClothes = content.selectClothes;
 body.selectHairs = content.selectHairs;
 body.magnifyimg = content.magnifyimg;
-body.reduceimg= content.reduceimg;
-body.displacementImg =content.displacementImg;
+body.reduceimg = content.reduceimg;
+body.displacementImg = content.displacementImg;
 body.bntswitchover = content.bntswitchover;
 Page(body)

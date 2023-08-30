@@ -1,11 +1,11 @@
 <!--pages/photo/photo.wxml-->
 <view class="container">
   <view class="photo-edit-content">
-    <van-notice-bar mode="closeable" wrapable text="{{'手指触摸拖动，以及放大，缩小'}}" />
+    <van-notice-bar mode="closeable" wrapable text="{{'手指触摸拖动以及放大，缩小，点击选中操作对象'}}" />
     <view class="flex-row flex-centers  margin-top-20">
-      <view style="color: #07c160;">当前移动对象是：</view>
+      <view style="color: #07c160;">当前操作对象是：</view>
       <!-- <view style="color: rgba(0, 162, 231, 0.3)">{{' 当前移动对象是 '}}</view> -->
-      <view style="color: #07c160;">人物</view>
+      <view style="color: #07c160;">{{object=='A' ? '人物' : object=='B'? '衣物' : '头发'}}</view>
     </view>
     <view class="flex-row flex-centers margin-top-20 margin-bottom-20">
       <view class="flex-row flex-centers">
@@ -21,7 +21,7 @@
     </view>
 
     <view class="canvas-view" style="background-color: {{photoBg}};width: {{imageData.width * showScale}}rpx;height: {{imageData.height * showScale}}rpx;">
-      <image style="width: {{width * showScale}}rpx; height: {{height * showScale}}rpx; left: {{left * showScale}}rpx; top: {{top * showScale}}rpx; transform: translate(-50%, -50%) scale({{ scale }}) rotate({{ rotate }}deg);" class="people-photo" src="{{filePath}}" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend"></image>
+      <image style="width: {{width * showScale}}rpx; height: {{height * showScale}}rpx; left: {{left * showScale}}rpx; top: {{top * showScale}}rpx; transform: translate(-50%, -50%) scale({{ scale }}) rotate({{ rotate }}deg);" class="people-photo" src="{{filePath}}"  bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend"></image>
 
       <image wx-if="{{cloth.show && cloth.src}}" style="z-index:1;width: {{cloth.width * showScale}}rpx; height: {{cloth.height * showScale}}rpx; left: {{cloth.left * showScale}}rpx; top: {{cloth.top * showScale}}rpx; transform: translate(-50%, -50%) scale({{cloth.scale }}) rotate({{cloth.rotate }}deg);" class="people-photo" src="{{cloth.src}}" data-dataname="cloth" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend">
       </image>
