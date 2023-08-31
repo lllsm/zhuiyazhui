@@ -30,7 +30,12 @@ class Content extends AppBase {
     });
     const sizeDetail = JSON.parse(decodeURIComponent(this.Base.options.data))
     this.setData({
-      detail: sizeDetail
+      detail: {
+        width:sizeDetail.pxWidth,
+        height:sizeDetail.pxHeight,
+        name:sizeDetail.name
+      },
+      sizeDetail
     })
     const data = {
       "swiperDatas": [{

@@ -9,7 +9,7 @@ export class ApiConfig {
     return "http://127.0.0.1/api/";
   }
   static GetApiBotUrl() {
-    return "https://api.gptbot.cc/v1";
+    return "https://gpt.cllsm.top:4080/";
   }
   static Getjutuike(){
     return "https://api.jutuike.com/union/";

@@ -5,265 +5,295 @@ import { InstApi } from '../../apis/inst.api';
 
 var instApi=new InstApi();
 *******/
-import { ApiConfig } from 'apiconfig';
-export class InstApi{
+import {
+  ApiConfig
+} from 'apiconfig';
+export class InstApi {
 
 
+  imagequality(json, callback, showLoading = true) {
+    if (showLoading)
+      ApiConfig.ShowLoading();
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+      url: ApiConfig.GetApiBotUrl() + 'imagequality',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
 
+        if (showLoading)
+          ApiConfig.CloseLoading();
+      }
+    })
+  }
 
   videos(json, callback, showLoading = true) {
 
     if (showLoading)
-        ApiConfig.ShowLoading();
+      ApiConfig.ShowLoading();
 
     var header = ApiConfig.GetHeader();
     console.log(header);
     console.log(json);
     wx.request({
-        url: ApiConfig.GetApiVideoUrl(),
-        data: json,
-        method: 'POST',
-        dataType: 'json',
-        header: header,
-        success: function (res) {
-            if (callback != null) {
-                callback(res.data);
-            }
-        },
-        fail: function (res) {
-            console.log(res);
-            callback(false);
-        },
-        complete: function (res) {
-            console.log(res);
-        
-            if (showLoading)
-                ApiConfig.CloseLoading();
+      url: ApiConfig.GetApiVideoUrl(),
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
         }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
+
+        if (showLoading)
+          ApiConfig.CloseLoading();
+      }
     })
-}
+  }
 
-    aboutus(json, callback, showLoading = true) {
+  aboutus(json, callback, showLoading = true) {
 
-        if (showLoading)
-            ApiConfig.ShowLoading();
+    if (showLoading)
+      ApiConfig.ShowLoading();
 
-        var header = ApiConfig.GetHeader();
-        console.log(header);
-        console.log(json);
-        wx.request({
-            url: ApiConfig.GetApiUrl() + 'inst/aboutus',
-            data: json,
-            method: 'POST',
-            dataType: 'json',
-            header: header,
-            success: function (res) {
-                if (callback != null) {
-                    callback(res.data);
-                }
-            },
-            fail: function (res) {
-                console.log(res);
-                callback(false);
-            },
-            complete: function (res) {
-                console.log(res);
-            
-                if (showLoading)
-                    ApiConfig.CloseLoading();
-            }
-        })
-    }
-
-    aboutuslist(json, callback, showLoading = true) {
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+      url: ApiConfig.GetApiUrl() + 'inst/aboutus',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
 
         if (showLoading)
-            ApiConfig.ShowLoading();
+          ApiConfig.CloseLoading();
+      }
+    })
+  }
 
-        var header = ApiConfig.GetHeader();
-        console.log(header);
-        console.log(json);
-        wx.request({
-            url: ApiConfig.GetApiUrl() + 'inst/aboutuslist',
-            data: json,
-            method: 'POST',
-            dataType: 'json',
-            header: header,
-            success: function (res) {
-                if (callback != null) {
-                    callback(res.data);
-                }
-            },
-            fail: function (res) {
-                console.log(res);
-                callback(false);
-            },
-            complete: function (res) {
-                console.log(res);
-            
-                if (showLoading)
-                    ApiConfig.CloseLoading();
-            }
-        })
-    }
+  aboutuslist(json, callback, showLoading = true) {
 
-    indexbanner(json, callback, showLoading = true) {
+    if (showLoading)
+      ApiConfig.ShowLoading();
 
-        if (showLoading)
-            ApiConfig.ShowLoading();
-
-        var header = ApiConfig.GetHeader();
-        console.log(header);
-        console.log(json);
-        wx.request({
-            url: ApiConfig.GetApiUrl() + 'inst/indexbanner',
-            data: json,
-            method: 'POST',
-            dataType: 'json',
-            header: header,
-            success: function (res) {
-                if (callback != null) {
-                    callback(res.data);
-                }
-            },
-            fail: function (res) {
-                console.log(res);
-                callback(false);
-            },
-            complete: function (res) {
-                console.log(res);
-            
-                if (showLoading)
-                    ApiConfig.CloseLoading();
-            }
-        })
-    }
-
-    info(json, callback, showLoading = true) {
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+      url: ApiConfig.GetApiUrl() + 'inst/aboutuslist',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
 
         if (showLoading)
-            ApiConfig.ShowLoading();
+          ApiConfig.CloseLoading();
+      }
+    })
+  }
 
-        var header = ApiConfig.GetHeader();
-        console.log(header);
-        console.log(json);
-        wx.request({
-            url: ApiConfig.GetApiUrl() + 'inst/info',
-            data: json,
-            method: 'POST',
-            dataType: 'json',
-            header: header,
-            success: function (res) {
-                if (callback != null) {
-                    callback(res.data);
-                }
-            },
-            fail: function (res) {
-                console.log(res);
-                callback(false);
-            },
-            complete: function (res) {
-                console.log(res);
-            
-                if (showLoading)
-                    ApiConfig.CloseLoading();
-            }
-        })
-    }
+  indexbanner(json, callback, showLoading = true) {
 
-    policy(json, callback, showLoading = true) {
+    if (showLoading)
+      ApiConfig.ShowLoading();
 
-        if (showLoading)
-            ApiConfig.ShowLoading();
-
-        var header = ApiConfig.GetHeader();
-        console.log(header);
-        console.log(json);
-        wx.request({
-            url: ApiConfig.GetApiUrl() + 'inst/policy',
-            data: json,
-            method: 'POST',
-            dataType: 'json',
-            header: header,
-            success: function (res) {
-                if (callback != null) {
-                    callback(res.data);
-                }
-            },
-            fail: function (res) {
-                console.log(res);
-                callback(false);
-            },
-            complete: function (res) {
-                console.log(res);
-            
-                if (showLoading)
-                    ApiConfig.CloseLoading();
-            }
-        })
-    }
-
-    policylist(json, callback, showLoading = true) {
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+      url: ApiConfig.GetApiUrl() + 'inst/indexbanner',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
 
         if (showLoading)
-            ApiConfig.ShowLoading();
+          ApiConfig.CloseLoading();
+      }
+    })
+  }
 
-        var header = ApiConfig.GetHeader();
-        console.log(header);
-        console.log(json);
-        wx.request({
-            url: ApiConfig.GetApiUrl() + 'inst/policylist',
-            data: json,
-            method: 'POST',
-            dataType: 'json',
-            header: header,
-            success: function (res) {
-                if (callback != null) {
-                    callback(res.data);
-                }
-            },
-            fail: function (res) {
-                console.log(res);
-                callback(false);
-            },
-            complete: function (res) {
-                console.log(res);
-            
-                if (showLoading)
-                    ApiConfig.CloseLoading();
-            }
-        })
-    }
+  info(json, callback, showLoading = true) {
 
-    resources(json, callback, showLoading = true) {
+    if (showLoading)
+      ApiConfig.ShowLoading();
+
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+      url: ApiConfig.GetApiUrl() + 'inst/info',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
 
         if (showLoading)
-            ApiConfig.ShowLoading();
+          ApiConfig.CloseLoading();
+      }
+    })
+  }
 
-        var header = ApiConfig.GetHeader();
-        console.log(header);
-        console.log(json);
-        wx.request({
-            url: ApiConfig.GetApiUrl() + 'inst/resources',
-            data: json,
-            method: 'POST',
-            dataType: 'json',
-            header: header,
-            success: function (res) {
-                if (callback != null) {
-                    callback(res.data);
-                }
-            },
-            fail: function (res) {
-                console.log(res);
-                callback(false);
-            },
-            complete: function (res) {
-                console.log(res);
-            
-                if (showLoading)
-                    ApiConfig.CloseLoading();
-            }
-        })
-    }
+  policy(json, callback, showLoading = true) {
+
+    if (showLoading)
+      ApiConfig.ShowLoading();
+
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+      url: ApiConfig.GetApiUrl() + 'inst/policy',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
+
+        if (showLoading)
+          ApiConfig.CloseLoading();
+      }
+    })
+  }
+
+  policylist(json, callback, showLoading = true) {
+
+    if (showLoading)
+      ApiConfig.ShowLoading();
+
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+      url: ApiConfig.GetApiUrl() + 'inst/policylist',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
+
+        if (showLoading)
+          ApiConfig.CloseLoading();
+      }
+    })
+  }
+
+  resources(json, callback, showLoading = true) {
+
+    if (showLoading)
+      ApiConfig.ShowLoading();
+
+    var header = ApiConfig.GetHeader();
+    console.log(header);
+    console.log(json);
+    wx.request({
+      url: ApiConfig.GetApiUrl() + 'inst/resources',
+      data: json,
+      method: 'POST',
+      dataType: 'json',
+      header: header,
+      success: function (res) {
+        if (callback != null) {
+          callback(res.data);
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        callback(false);
+      },
+      complete: function (res) {
+        console.log(res);
+
+        if (showLoading)
+          ApiConfig.CloseLoading();
+      }
+    })
+  }
 }

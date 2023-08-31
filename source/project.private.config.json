@@ -192,13 +192,6 @@
         },
         {
           "name": "",
-          "pathName": "pages/photo/photo",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
           "pathName": "pages/selectimg/selectimg",
           "query": "",
           "launchMode": "default",
@@ -220,15 +213,15 @@
         },
         {
           "name": "",
-          "pathName": "pages/photo/photo",
-          "query": "imageData=%7B%22_id%22%3A%2241ae62ef6218d8f308e5344b7ccac038%22%2C%22name%22%3A%22%E4%B8%80%E5%AF%B8%22%2C%22px%22%3A%22295*413%20px%22%2C%22size%22%3A%2225*35%20mm%22%2C%22width%22%3A295%2C%22height%22%3A413%2C%22category_id%22%3A%221%22%2C%22tmpOriginImgSrc%22%3A%22https%3A%2F%2Fgpt.cllsm.top%3A4080%2Fimage%2F55b1e374-86cb-4972-bf8e-bc99b52474c9.png%22%7D",
+          "pathName": "pages/sizelist/sizelist",
+          "query": "",
           "launchMode": "default",
           "scene": null
         },
         {
           "name": "",
           "pathName": "pages/photo/photo",
-          "query": "imageData=%7B%22_id%22%3A%22bf4a0bf26219abf7117796d0225b9dca%22%2C%22category_id%22%3A%221%22%2C%22name%22%3A%22%E5%B0%8F%E4%BA%8C%E5%AF%B8%22%2C%22width%22%3A413%2C%22height%22%3A531%2C%22px%22%3A%22413*531%20px%22%2C%22size%22%3A%2235*45%20mm%22%2C%22tmpOriginImgSrc%22%3A%22https%3A%2F%2Fgpt.cllsm.top%3A4080%2Fimage%2F72de70c4-e664-4a87-b203-bbed8de04bbf.png%22%7D",
+          "query": "imageData=%7B%22_id%22%3A%2241ae62ef6218d8f308e5344b7ccac038%22%2C%22name%22%3A%22%E4%B8%80%E5%AF%B8%22%2C%22px%22%3A%22295*413%20px%22%2C%22size%22%3A%2225*35%20mm%22%2C%22width%22%3A295%2C%22height%22%3A413%2C%22category_id%22%3A%221%22%2C%22tmpOriginImgSrc%22%3A%22https%3A%2F%2Fgpt.cllsm.top%3A4080%2Fimage%2F28f94822-d50b-474f-9da8-3ce01bb52c4a.png%22%7D",
           "launchMode": "default",
           "scene": null
         }

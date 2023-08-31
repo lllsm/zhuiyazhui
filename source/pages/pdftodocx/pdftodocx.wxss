@@ -80,7 +80,6 @@ Page{
   background: linear-gradient(90deg,#fbfa6a, #f1cd5b);
   color:#55524f;
   font-size: 20rpx;
-  width: 100rpx;
   /* padding-top: 20rpx;
   padding-bottom:20rpx; */
 }
@@ -231,6 +230,7 @@ Page{
 }
 
 .pobottom{
+  width: 100%;
 }
 .message-box-list{
   align-content: center;

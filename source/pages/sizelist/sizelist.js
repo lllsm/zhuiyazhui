@@ -23,6 +23,9 @@ class Content extends AppBase {
       title: "常用尺寸"
     })
     this.getSizeList()
+    this.Base.setMyData({
+      sizeList: this.Base.getMyData().photoSizeList
+    })
 
   }
   onMyShow() {
@@ -31,162 +34,500 @@ class Content extends AppBase {
   //获取数据
   getSizeList() {
     var aa = [{
-      "_id": "41ae62ef6218d8f308e5344b7ccac038",
+      "pxHeight": 413,
+      "mmHeight": 35,
+      "pxWidth": 295,
+      "mmWidth": 25,
+      "color": "red",
       "name": "一寸",
-      "px": "295*413 px",
-      "size": "25*35 mm",
-      "width": 295.0,
-      "height": 413.0,
-      "category_id": "1"
+      "_id": 3,
+      "sort": 3,
+      "status": 1,
+      "type": 1
     }, {
-      "_id": "bf4a0bf26218dbe91163d3902f378512",
-      "category_id": "2",
-      "name": "简历照片",
-      "height": 413.0,
-      "width": 295.0,
-      "px": "295*413 px",
-      "size": "25*35 mm"
-    }, {
-      "_id": "bf4a0bf26218dcf81163f7066cd32c21",
-      "category_id": "2",
-      "name": "教师资格证",
-      "height": 413.0,
-      "width": 295.0,
-      "px": "295*413 px",
-      "size": "25*35 mm"
-    }, {
-      "_id": "54ad1eea6218ddd912df9af32490ff8b",
-      "name": "二寸",
-      "width": 413.0,
-      "height": 579.0,
-      "category_id": "1",
-      "px": "413*579 px",
-      "size": "35*49 mm"
-    }, {
-      "_id": "41ae62ef6219ab1c08fba665696aa633",
+      "pxHeight": 378,
+      "mmHeight": 32,
+      "pxWidth": 260,
+      "mmWidth": 22,
+      "color": "red",
       "name": "小一寸",
-      "width": 260.0,
-      "height": 378.0,
-      "category_id": "1",
-      "size": "22*32 mm",
-      "px": "260*378 px"
+      "_id": 6,
+      "sort": 6,
+      "status": 1,
+      "type": 1
     }, {
-      "_id": "bf4a0bf26219abf7117796d0225b9dca",
-      "category_id": "1",
-      "name": "小二寸",
-      "width": 413.0,
-      "height": 531.0,
-      "px": "413*531 px",
-      "size": "35*45 mm"
-    }, {
-      "_id": "41ae62ef6219ad1b08fbed282f9fee85",
+      "pxHeight": 567,
+      "mmHeight": 48,
+      "pxWidth": 390,
+      "mmWidth": 33,
+      "color": "red",
       "name": "大一寸",
-      "px": "390*567 px",
-      "size": "33*48 mm",
-      "width": 390.0,
-      "height": 567.0,
-      "category_id": "1"
+      "_id": 9,
+      "sort": 9,
+      "status": 1,
+      "type": 1
     }, {
-      "_id": "5b049cc86219adcc0e54b5fb1251a0f1",
-      "px": "413*626 px",
-      "size": "35*53 mm",
-      "width": 413.0,
-      "category_id": "1",
-      "height": 626.0,
-      "name": "大二寸"
+      "pxHeight": 579,
+      "mmHeight": 49,
+      "pxWidth": 413,
+      "mmWidth": 35,
+      "color": "red",
+      "name": "二寸",
+      "_id": 12,
+      "sort": 12,
+      "status": 1,
+      "type": 1
     }, {
-      "_id": "54ad1eea6219aef012f4cf5f16618536",
-      "height": 413.0,
-      "name": "健康证",
-      "px": "295*413 px",
-      "size": "25*35 mm",
-      "width": 295.0,
-      "category_id": 2.0
+      "pxHeight": 531,
+      "mmHeight": 45,
+      "pxWidth": 413,
+      "mmWidth": 35,
+      "color": "red",
+      "name": "小二寸",
+      "_id": 15,
+      "sort": 15,
+      "status": 1,
+      "type": 1
     }, {
-      "_id": "5b049cc86219b0090e54e11a3ea1ba4f",
-      "category_id": "3",
-      "height": 630.0,
-      "name": "学籍网",
-      "px": "472*630 px",
-      "size": "80*107 mm",
-      "width": 472.0
+      "pxHeight": 991,
+      "mmHeight": 84,
+      "pxWidth": 649,
+      "mmWidth": 55,
+      "color": "red",
+      "name": "三寸",
+      "_id": 18,
+      "sort": 18,
+      "status": 1,
+      "type": 1
     }, {
-      "_id": "17e3426e6219b0ad10ba62d1132ba05a",
-      "category_id": "3",
-      "height": 640.0,
-      "name": "学信网",
-      "px": "480*640 px",
-      "size": "41*54 mm",
-      "width": 480.0
+      "pxHeight": 1499,
+      "mmHeight": 127,
+      "pxWidth": 1050,
+      "mmWidth": 89,
+      "color": "red",
+      "name": "五寸",
+      "_id": 21,
+      "sort": 21,
+      "status": 1,
+      "type": 1
     }, {
-      "_id": "17e3426e6219b11710ba6bc358704967",
-      "width": 390.0,
-      "category_id": "3",
-      "height": 567.0,
-      "name": "普通话水平测试",
-      "px": "390*567 px",
-      "size": "33*48 mm"
+      "pxHeight": 531,
+      "mmHeight": 45,
+      "pxWidth": 413,
+      "mmWidth": 35,
+      "color": "",
+      "name": "国考（二寸）",
+      "_id": 22,
+      "sort": 22,
+      "status": 1,
+      "type": 2
     }, {
-      "_id": "17e3426e6219b15110ba70e2017bfc3b",
-      "category_id": "3",
-      "height": 280.0,
-      "name": "计算机二级考试",
-      "px": "210*280 px",
-      "size": "18*24 mm",
-      "width": 210.0
+      "pxHeight": 192,
+      "mmHeight": 16,
+      "pxWidth": 144,
+      "mmWidth": 12,
+      "color": "",
+      "name": "英语四六级考试（144×192，0~10kb）",
+      "_id": 23,
+      "sort": 23,
+      "status": 1,
+      "type": 3
     }, {
-      "_id": "5b049cc86219b18e0e54fe057ff91aa0",
-      "category_id": "3",
-      "height": 567.0,
-      "name": "英语四六级考试",
-      "px": "390*567 px",
-      "size": "33*48 mm",
-      "width": 390.0
+      "pxHeight": 320,
+      "mmHeight": 27,
+      "pxWidth": 240,
+      "mmWidth": 20,
+      "color": "",
+      "name": "英语四六级考试（240×320，20~30kb）",
+      "_id": 24,
+      "sort": 24,
+      "status": 1,
+      "type": 3
     }, {
-      "_id": "efbc6d7162496303044b0f18423c27d3",
-      "size": "25*35 mm",
-      "width": 295.0,
-      "_openid": "oZmZA5aPkSxdoQDJkd8CjE2oHdUE",
-      "category_id": "4",
-      "height": 413.0,
-      "name": "我的一寸",
-      "px": "295*413 px"
+      "pxHeight": 567,
+      "mmHeight": 48,
+      "pxWidth": 390,
+      "mmWidth": 33,
+      "color": "",
+      "name": "普通话水平测试（大一寸，0~20kb）",
+      "_id": 25,
+      "sort": 25,
+      "status": 1,
+      "type": 3
     }, {
-      "_id": "d4107ab1624ba0ca04db8bd5089e6b3e",
-      "_openid": "oZmZA5SN4X1OKoGtn7_W0wAYqXp0",
-      "category_id": "4",
-      "height": 441.0,
-      "name": "1",
-      "px": "358*441 px",
-      "size": "30*37 mm",
-      "width": 358.0
+      "pxHeight": 320,
+      "mmHeight": 27,
+      "pxWidth": 240,
+      "mmWidth": 20,
+      "color": "",
+      "name": "英语四六级考试（240×320，0~20kb）",
+      "_id": 26,
+      "sort": 26,
+      "status": 1,
+      "type": 3
     }, {
-      "_id": "1fee1e97625d8edb00af257a4cf9c19c",
-      "category_id": "4",
-      "height": 200.0,
-      "name": "我的定制",
-      "px": "100*200 px",
-      "size": "8*16 mm",
-      "width": 100.0,
-      "_openid": "oZmZA5aPkSxdoQDJkd8CjE2oHdUE"
+      "pxHeight": 192,
+      "mmHeight": 16,
+      "pxWidth": 144,
+      "mmWidth": 12,
+      "color": "",
+      "name": "全国计算机等级考试（大一寸，144×192，25~200kb）",
+      "_id": 27,
+      "sort": 27,
+      "status": 1,
+      "type": 3
     }, {
-      "_id": "1cf827d062616923013ce04f46e8fca8",
-      "_openid": "oZmZA5aPkSxdoQDJkd8CjE2oHdUE",
-      "category_id": "4",
-      "height": 413.0,
-      "name": "111",
-      "px": "295*413 px",
-      "size": "25*35 mm",
-      "width": 295.0
+      "pxHeight": 567,
+      "mmHeight": 48,
+      "pxWidth": 390,
+      "mmWidth": 33,
+      "color": "",
+      "name": "中国护照（大一寸）",
+      "_id": 28,
+      "sort": 28,
+      "status": 1,
+      "type": 2
     }, {
-      "_id": "5464a2946261715f01db57684e1afd03",
-      "px": "295*413 px",
-      "size": "25*35 mm",
-      "width": 295.0,
-      "_openid": "oZmZA5aPkSxdoQDJkd8CjE2oHdUE",
-      "category_id": "4",
-      "height": 413.0,
-      "name": "22"
+      "pxHeight": 320,
+      "mmHeight": 27,
+      "pxWidth": 240,
+      "mmWidth": 20,
+      "color": "",
+      "name": "全国计算机等级考试（240×320）",
+      "_id": 29,
+      "sort": 29,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 763,
+      "mmHeight": 65,
+      "pxWidth": 545,
+      "mmWidth": 46,
+      "color": "",
+      "name": "高考报名（545×763）",
+      "_id": 30,
+      "sort": 30,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 413,
+      "mmHeight": 35,
+      "pxWidth": 295,
+      "mmWidth": 25,
+      "color": "",
+      "name": "中小学生教师资格证（一寸）",
+      "_id": 31,
+      "sort": 31,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 320,
+      "mmHeight": 27,
+      "pxWidth": 240,
+      "mmWidth": 20,
+      "color": "",
+      "name": "全国计算机等级考试（240×320）",
+      "_id": 32,
+      "sort": 32,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 175,
+      "mmHeight": 15,
+      "pxWidth": 125,
+      "mmWidth": 11,
+      "color": "",
+      "name": "小学登记报名",
+      "_id": 33,
+      "sort": 33,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 626,
+      "mmHeight": 53,
+      "pxWidth": 413,
+      "mmWidth": 35,
+      "color": "",
+      "name": "国家司法考试",
+      "_id": 34,
+      "sort": 34,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 320,
+      "mmHeight": 27,
+      "pxWidth": 240,
+      "mmWidth": 20,
+      "color": "",
+      "name": "初级会计职称考试（240×320）",
+      "_id": 35,
+      "sort": 35,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 378,
+      "mmHeight": 32,
+      "pxWidth": 260,
+      "mmWidth": 22,
+      "color": "",
+      "name": "驾驶证、驾照（无回执，小一寸）",
+      "_id": 36,
+      "sort": 36,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 441,
+      "mmHeight": 32,
+      "pxWidth": 358,
+      "mmWidth": 26,
+      "color": "",
+      "name": "身份证（无回执）",
+      "_id": 37,
+      "sort": 37,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 413,
+      "mmHeight": 35,
+      "pxWidth": 295,
+      "mmWidth": 25,
+      "color": "",
+      "name": "健康证（一寸）",
+      "_id": 38,
+      "sort": 38,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 413,
+      "mmHeight": 35,
+      "pxWidth": 295,
+      "mmWidth": 25,
+      "color": "",
+      "name": "社会工作者资格证（一寸）",
+      "_id": 39,
+      "sort": 39,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 300,
+      "mmHeight": 25,
+      "pxWidth": 215,
+      "mmWidth": 18,
+      "color": "",
+      "name": "二级建造师证（215×300）",
+      "_id": 40,
+      "sort": 40,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 576,
+      "mmHeight": 49,
+      "pxWidth": 400,
+      "mmWidth": 34,
+      "color": "",
+      "name": "成人自考（400×576）",
+      "_id": 41,
+      "sort": 41,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 192,
+      "mmHeight": 16,
+      "pxWidth": 144,
+      "mmWidth": 12,
+      "color": "",
+      "name": "普通话水平测试（144×192）",
+      "_id": 42,
+      "sort": 42,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 567,
+      "mmHeight": 48,
+      "pxWidth": 390,
+      "mmWidth": 33,
+      "color": "",
+      "name": "雅思考试（大一寸）",
+      "_id": 43,
+      "sort": 43,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 441,
+      "mmHeight": 32,
+      "pxWidth": 358,
+      "mmWidth": 26,
+      "color": "",
+      "name": "社保证（350dpi， 无回执，15~35kb）",
+      "_id": 44,
+      "sort": 44,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 567,
+      "mmHeight": 48,
+      "pxWidth": 390,
+      "mmWidth": 33,
+      "color": "",
+      "name": "在职研究生考试（大一寸）",
+      "_id": 45,
+      "sort": 45,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 385,
+      "mmHeight": 33,
+      "pxWidth": 285,
+      "mmWidth": 23,
+      "color": "",
+      "name": "导游证",
+      "_id": 46,
+      "sort": 46,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 160,
+      "mmHeight": 14,
+      "pxWidth": 160,
+      "mmWidth": 14,
+      "color": "",
+      "name": "大学个人档案（二寸）",
+      "_id": 47,
+      "sort": 47,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 210,
+      "mmHeight": 18,
+      "pxWidth": 150,
+      "mmWidth": 13,
+      "color": "",
+      "name": "校园卡",
+      "_id": 48,
+      "sort": 48,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 441,
+      "mmHeight": 32,
+      "pxWidth": 358,
+      "mmWidth": 26,
+      "color": "",
+      "name": "特岗教师",
+      "_id": 49,
+      "sort": 49,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 170,
+      "mmHeight": 14,
+      "pxWidth": 130,
+      "mmWidth": 11,
+      "color": "",
+      "name": "护士执业资格考试（130×170）",
+      "_id": 50,
+      "sort": 50,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 156,
+      "mmHeight": 13,
+      "pxWidth": 114,
+      "mmWidth": 10,
+      "color": "",
+      "name": "会计从业资格证（114×156，0~10kb）",
+      "_id": 51,
+      "sort": 51,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 567,
+      "mmHeight": 48,
+      "pxWidth": 390,
+      "mmWidth": 14,
+      "color": "",
+      "name": "硕士研究生考试（大一寸）",
+      "_id": 52,
+      "sort": 52,
+      "status": 1,
+      "type": 3
+    }, {
+      "pxHeight": 480,
+      "mmHeight": 41,
+      "pxWidth": 360,
+      "mmWidth": 30,
+      "color": "",
+      "name": "出入境申请表",
+      "_id": 53,
+      "sort": 53,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 600,
+      "mmHeight": 51,
+      "pxWidth": 400,
+      "mmWidth": 34,
+      "color": "red",
+      "name": "党员证（红底）",
+      "_id": 54,
+      "sort": 54,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 480,
+      "mmHeight": 41,
+      "pxWidth": 388,
+      "mmWidth": 33,
+      "color": "",
+      "name": "记者照片",
+      "_id": 55,
+      "sort": 55,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 567,
+      "mmHeight": 48,
+      "pxWidth": 390,
+      "mmWidth": 33,
+      "color": "",
+      "name": "义工证",
+      "_id": 56,
+      "sort": 56,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 441,
+      "mmHeight": 32,
+      "pxWidth": 358,
+      "mmWidth": 26,
+      "color": "",
+      "name": "二代身份证照",
+      "_id": 57,
+      "sort": 57,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 370,
+      "mmHeight": 31,
+      "pxWidth": 210,
+      "mmWidth": 18,
+      "color": "",
+      "name": "保险从业",
+      "_id": 58,
+      "sort": 58,
+      "status": 1,
+      "type": 2
+    }, {
+      "pxHeight": 441,
+      "mmHeight": 32,
+      "pxWidth": 358,
+      "mmWidth": 26,
+      "color": "",
+      "name": "全国中小学生学籍",
+      "_id": 59,
+      "sort": 59,
+      "status": 1,
+      "type": 3
     }];
 
     wx.hideLoading()
@@ -194,19 +535,28 @@ class Content extends AppBase {
       photoSizeList: aa
     });
   }
-  //点击切换 
-  clickTab(e) {
-    // this.setData({
-    //   photoSizeList: [],
-    //   category: e.detail.name
-    // });
-    // this.getSizeList()
-  }
+
   // 去尺寸详情
   goNextPage(e) {
     wx.navigateTo({
       url: '/pages/selectimg/selectimg?index=' + e.currentTarget.dataset.index + '&data=' + JSON.stringify(this.data.photoSizeList[e.currentTarget.dataset.index])
     })
+  }
+  clickTab(e) {
+    let type = e.detail.name || '0';
+    let list = this.Base.getMyData().photoSizeList;
+    let sizeList = list.filter(item => {
+      if (type == '0') {
+        return item
+      } else {
+        return item.type == type
+      }
+    })
+    console.log('filter', list)
+    this.Base.setMyData({
+      sizeList
+    })
+
   }
 }
 

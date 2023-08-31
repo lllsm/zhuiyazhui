@@ -93,27 +93,6 @@
   </view>
 
 
-  <view class="box margin-20 flex-row flex-center flex-xiandeng"> 
-    <view class="BoxItem flex-row flex-center" bindtap="navtoPage" data-page='sizelist'>
-      <image class="icon-40 flex-shrink" src="https://college.cllsm.top/uploads/20230809/5c83b4e815d6ae63b57d59b376593f18.png" />
-      <view class="margin-left-15">
-        <view class="h6 txt-bold margin-bottom-5">证件照</view>
-        <view class="h7 text-2  type-text-1 ">高质量证件照</view>
-      </view>
-    </view>
-    <!-- <view class="BoxItem" style="display: flex;justify-content: flex-end; align-items: center;">
-      <view class="margin-right-15">
-        <view class="h6 txt-bold nowrap margin-bottom-5" style="text-align: right;">短视频去水印</view>
-        <view class="h7 text-2 nowrap type-text-1 " style="text-align: right;">N款平台官方直解</view>
-      </view>
-      <image style="height:{{funcrowheight-5}}px;width:{{funcrowheight-5}}px;" class="icon-50 margin-right-5" src="../../images/icons/logo.png" />
-    </view> -->
-
-    <view>
-
-    </view>
-  </view>
-
 
 
 

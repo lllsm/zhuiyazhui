@@ -1,27 +1,43 @@
 <!--pages/photo/photo.wxml-->
 <view class="container">
   <view class="photo-edit-content">
-    <van-notice-bar mode="closeable" wrapable text="{{'手指触摸拖动以及放大，缩小，点击选中操作对象'}}" />
-    <view class="flex-row flex-centers  margin-top-20">
-      <view style="color: #07c160;">当前操作对象是：</view>
-      <!-- <view style="color: rgba(0, 162, 231, 0.3)">{{' 当前移动对象是 '}}</view> -->
-      <view style="color: #07c160;">{{object=='A' ? '人物' : object=='B'? '衣物' : '头发'}}</view>
+    <view style="width: 100%;z-index: 9999;" class="margin-bottom-20">
+      <van-notice-bar mode="closeable" text="{{'手指触摸拖动以及放大，缩小，点击选中操作对象'}}" />
     </view>
-    <view class="flex-row flex-centers margin-top-20 margin-bottom-20">
-      <view class="flex-row flex-centers">
-        <van-button bindtap="magnifyimg" plain type="primary" class="margin-right-10" size="mini">大</van-button>
-        <van-button bindtap="reduceimg" plain type="primary" class="margin-right-10" size="mini">小</van-button>
+    <view class="flex-row flex-centers">
+      <view style="color: #07c160; font-size: 26rpx;">当前操作对象是：</view>
+      <view style="color: #07c160; font-size: 26rpx;">{{object=='A' ? '人物' : object=='B'? '衣物' : '头发'}}</view>
+    </view>
+    <view class="flex-row flex-liangbian flex-center  margin-left-40 margin-right-40">
+      <view class="" bindtap="magnifyimg">
+        <image src="https://college.cllsm.top/uploads/20230831/c8febec4e8ac9efb8af49c6a09bcc6d9.png" class="icon-30" />
       </view>
-      <view class="flex-row flex-centers">
-        <van-button bindtap="displacementImg" plain type="primary" class="margin-right-10" size="mini" id="top">上</van-button>
-        <van-button bindtap="displacementImg" plain type="primary" class="margin-right-10" size="mini" id="bottom">下</van-button>
-        <van-button bindtap="displacementImg" plain type="primary" class="margin-right-10" size="mini" id="left">左</van-button>
-        <van-button bindtap="displacementImg" plain type="primary" class="margin-right-10" size="mini" id="right">右</van-button>
+      <view class="top_item flex-row flex-center">
+        <view class="" bindtap="displacementImg" id="top">
+          <!-- <van-icon name="arrow-up" color='#2699EC' size='50rpx' /> -->
+          <image src="https://college.cllsm.top/uploads/20230831/2c8b0533f62d451ebb068341b05968f6.png" class="icon-40" />
+        </view>
+      </view>
+      <view class="" bindtap="reduceimg">
+        <image src="https://college.cllsm.top/uploads/20230831/7f770195b3dfa792cff9b9345c6b6dee.png" class="icon-30" />
       </view>
     </view>
 
     <view class="canvas-view" style="background-color: {{photoBg}};width: {{imageData.width * showScale}}rpx;height: {{imageData.height * showScale}}rpx;">
-      <image style="width: {{width * showScale}}rpx; height: {{height * showScale}}rpx; left: {{left * showScale}}rpx; top: {{top * showScale}}rpx; transform: translate(-50%, -50%) scale({{ scale }}) rotate({{ rotate }}deg);" class="people-photo" src="{{filePath}}"  bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend"></image>
+      <view class="left_item">
+        <view class="" bindtap="displacementImg" id="left">
+          <!-- <van-icon name="arrow-left" color='#2699EC' size='50rpx' /> -->
+          <image src="https://college.cllsm.top/uploads/20230831/74197199139b9148fe1127605d5f04e5.png" class="icon-40" />
+        </view>
+      </view>
+      <view class="right_item">
+        <view class="" bindtap="displacementImg" id="right">
+          <!-- <van-icon name="arrow" color='#2699EC' size='50rpx' /> -->
+          <image src="https://college.cllsm.top/uploads/20230831/fdef892d114f1e61953370dfa4a74a6b.png" class="icon-40" />
+        </view>
+      </view>
+
+      <image style="width: {{width * showScale}}rpx; height: {{height * showScale}}rpx; left: {{left * showScale}}rpx; top: {{top * showScale}}rpx; transform: translate(-50%, -50%) scale({{ scale }}) rotate({{ rotate }}deg);" class="people-photo" src="{{filePath}}" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend"></image>
 
       <image wx-if="{{cloth.show && cloth.src}}" style="z-index:1;width: {{cloth.width * showScale}}rpx; height: {{cloth.height * showScale}}rpx; left: {{cloth.left * showScale}}rpx; top: {{cloth.top * showScale}}rpx; transform: translate(-50%, -50%) scale({{cloth.scale }}) rotate({{cloth.rotate }}deg);" class="people-photo" src="{{cloth.src}}" data-dataname="cloth" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend">
       </image>
@@ -30,6 +46,14 @@
       </image>
 
 
+    </view>
+    <view class="flex-column flex-centers">
+      <view class="bottom_item flex-row flex-center">
+        <view class="" bindtap="displacementImg" id="bottom">
+          <!-- <van-icon name="arrow-down" color='#2699EC' size='50rpx' /> -->
+          <image src="https://college.cllsm.top/uploads/20230831/a7bfa3d8b76c23788d79c6cfef9ebbf1.png" class="icon-40" />
+        </view>
+      </view>
     </view>
   </view>
   <view class="color-picker-view border-box2">
@@ -43,7 +67,6 @@
 
 
 <!-- <image src="{{composite_image}}"   style="width: 295px;height: 400px;"></image> -->
-
 <view class="dialogue_bg">
   <view class="flex-row flex-centers">
     <view class="switchover flex-row flex-centers" wx:if="{{switchover}}" bindtap="bntswitchover">
@@ -53,7 +76,7 @@
       <image class="icon-44" src="../../images/icons/up.png" />
     </view>
   </view>
-
+  <van-notice-bar mode="closeable" wx:if="{{ImgQuality<0.5}}" wrapable text="{{ '检测到你的照片属于低质量，模糊状态请开启智能高清优化'}}" />
 
   <van-transition name="fade-up" show="{{ switchover }}">
     <view wx:if="{{switchover}}">
@@ -108,8 +131,8 @@
         <button bindtap="composeImage" type="default">合成证件照</button>
       </view> -->
       <view class="flex-row flex-column pobottom margin-bottom-20 margin-top-10">
-          <button bindtap='composeImage' class="border-none clear-button radius-40 button_mian tcbtns">合成证件照</button>
-        </view>
+        <button bindtap='composeImage' class="border-none clear-button radius-40 button_mian tcbtns">合成证件照</button>
+      </view>
     </view>
   </van-transition>
 

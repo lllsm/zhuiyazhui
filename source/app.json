@@ -69,8 +69,8 @@
                 "selectedIconPath": "./images/icons/home.png"
             },
             {
-              "pagePath": "pages/bot/bot",
-              "text": "Aibot",
+              "pagePath": "pages/sizelist/sizelist",
+              "text": "证件照",
               "iconPath": "./images/icons/bot.png",
               "selectedIconPath": "./images/icons/bots.png"
           },

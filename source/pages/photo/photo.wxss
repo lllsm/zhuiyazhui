@@ -88,6 +88,22 @@ page {
   box-sizing: content-box;
   overflow: hidden;
 }
+.left_item{
+  position: fixed;
+  left: 1rpx;
+  top:500rpx;
+}
+.right_item{
+  position: fixed;
+  right: 1rpx;
+  top:500rpx;
+}
+.bottom_item{
+
+}
+.top_item{
+
+}
 
 .container .photo-edit-content .canvas-view .people-photo {
   position: absolute;
@@ -286,4 +302,22 @@ page {
   border-radius: 0rpx 0rpx 40rpx 40rpx;
   margin-bottom: 5rpx;
 }
+
+.van-notice-bar{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  border-radius: 40rpx;
+}
+.van-notice-bar--withicon {
+  backdrop-filter: blur(7rpx) !important;
+  /* background: rgba(255, 255, 255, 0.5) !important; */
+}
+
+
+
+
+
+
+
+
 

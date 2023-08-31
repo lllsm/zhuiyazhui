@@ -12,14 +12,14 @@
 	</view>
 
 	<view class="preEdit-content">
-		<view class="title">{{detail.name}}</view>
+		<view class="title">{{sizeDetail.name}}</view>
 		<view class="block">
 			<view>冲印尺寸</view>
-			<view>{{detail.size}}</view>
+			<view>{{sizeDetail.mmWidth+ "*" + sizeDetail.mmHeight}}</view>
 		</view>
 		<view class="block">
 			<view>像素尺寸</view>
-			<view>{{detail.px}}</view>
+			<view>{{sizeDetail.pxWidth+ "*" + sizeDetail.pxHeight}}</view>
 		</view>
 		<view class="block">
 			<view>颜色可选</view>

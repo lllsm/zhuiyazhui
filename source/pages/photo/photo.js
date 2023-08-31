@@ -9,6 +9,9 @@ import { CollegeApi } from "../../apis/college.api.js";
 import {
   MemberApi
 } from "../../apis/member.api.js";
+import {
+  InstApi
+} from "../../apis/inst.api.js";
 const hexRgb = require('./hex-rgb')
 let canOnePointMove = false
 const app = getApp();
@@ -171,6 +174,16 @@ class Content extends AppBase {
   }
   onMyShow() {
     var that = this;
+
+    var inst = new InstApi();
+    inst.imagequality({img:this.Base.getMyData().filePath},(data)=>{
+      console.log(data['模糊程度'])
+      if(data['模糊程度']){
+        this.Base.setMyData({
+        ImgQuality:data['模糊程度']
+        })
+      }
+    })
 
 
   }
