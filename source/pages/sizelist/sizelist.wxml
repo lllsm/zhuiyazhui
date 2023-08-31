@@ -1,4 +1,5 @@
 <!--pages/sizelist/sizelist.wxml-->
+
 <view class="top">
   <van-tabs active="{{ active }}" bind:click="clickTab" color="#2c2c2c">
     <van-tab title="全部" name="0"></van-tab>
@@ -7,6 +8,17 @@
     <van-tab title="学历/语言" name="3"></van-tab>
   </van-tabs>
 </view>
+
+<view style="display:flex; margin-top: 120rpx;" >
+  <!-- 扫描特效组件 -->
+  <view style="width:200rpx;height:200rpx;border:1px solid green;">
+    <view style="position:absolute;z-index:20;width:inherit;height:inherit;overflow: hidden;">
+      <view style="width:inherit;height:60px;animation: scan 5s ease-in-out infinite;"></view>
+    </view>
+  </view>
+</view>
+
+
 <view class="grid margin-left-30 margin-right-30 padding-bottom-30" style="margin-top: 120rpx;">
   <view class="list border-box2 padding-20" wx:for="{{sizeList}}" wx:for-index="idx" wx:key="name" data-index="{{idx}}" bindtap="goNextPage">
     <view class="flex-row flex-liangbian flex-center">
