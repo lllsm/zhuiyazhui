@@ -95,9 +95,10 @@ class Content extends AppBase {
   remove_background() {
     var that = this;
     var wechatApi = new WechatApi();
-    wx.showLoading({
-      title: '抠图中',
-    })
+    // wx.showLoading({
+    //   title: '抠图中',
+    // })
+    this.Base.toast("智能图像处理中")
     that.checkscore()
     .then((score) => {
       if (score <= 0) {

@@ -231,6 +231,7 @@ Page{
 
 .pobottom{
   width: 100%;
+  margin-bottom: 60rpx;
 }
 .message-box-list{
   align-content: center;

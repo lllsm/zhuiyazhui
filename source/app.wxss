@@ -877,3 +877,27 @@ w-100{
   align-items: center;
   border: 3rpx solid rgba(255, 255, 255, 1);
 }
+
+
+@keyframes scan {
+  0% {
+      /*最开始块从顶部往下移动，块的位置需要溢出容器，处于容器顶部上方，块的背景颜色从底部到顶部由绿色逐渐透明*/
+      margin-top: calc(0px - 400rpx); 
+      background:linear-gradient(#0000 0%, rgb(255, 255, 255) 100%);
+  }
+  49% {
+      /*动画进行到一半时间时，块必须移动到容器底部并溢出，完成从上到下扫描效果*/
+      margin-top: 400rpx;
+      background:linear-gradient(#0000 0%, rgb(255, 255, 255) 100%);
+  }
+  50% {
+      /*调转颜色方向，准备往回扫（从下往上）*/
+      margin-top: 400rpx;
+      background:linear-gradient(rgb(255, 255, 255)  0%, #0000 100%);
+  }
+  100% {
+      /*往回扫*/
+      margin-top: calc(0px - 400rpx); 
+      background:linear-gradient(rgb(255, 255, 255)  0%, #0000 100%);
+  }
+}

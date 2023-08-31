@@ -28,9 +28,11 @@
   margin-bottom: 30rpx;
 }
 .pobottom {
-  margin: 0rpx 30rpx;
   position: fixed;
   bottom: 40rpx;
   left: 0;
   z-index: 10;
+  width: 100%;
 }
+
+

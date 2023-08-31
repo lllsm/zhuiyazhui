@@ -16,14 +16,20 @@
 </view>
 <view class="title_s">效果展示:</view>
 <view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);" bindtap='remove_background'>
-  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" src="https://college.cllsm.top/uploads/20230825/45ed497320d3ae14df15a53e2e7abcfc.jpg"></image>
-  <image  show-menu-by-longpress class="returnbgpng " mode="aspectFill" src="https://college.cllsm.top/uploads/20230825/c17a019d129974f75adae37da7b2193f.png"></image>
+  <image show-menu-by-longpress class="returnbgpng " mode="aspectFill" src="https://college.cllsm.top/uploads/20230825/45ed497320d3ae14df15a53e2e7abcfc.jpg"></image>
+  <image show-menu-by-longpress class="returnbgpng " mode="aspectFill" src="https://college.cllsm.top/uploads/20230825/c17a019d129974f75adae37da7b2193f.png"></image>
 </view>
 
 <view class="title_s">原图:</view>
-<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);" bindtap='remove_background'>
+<view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1); " bindtap='remove_background' >
+  <!-- 扫描特效组件 -->
+  <view style="height:110%;width: 100%; position:relative;z-index:20;overflow: hidden;" wx:if="{{returnbgpng==null}}">
+      <view style="width:inherit;height:inherit;animation: scan 5s ease-in-out infinite; overflow: hidden;"></view>
+  </view>
   <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
-  <image wx:if="{{originaljpg==null}}" show-menu-by-longpress class="returnbgpng icon-60" mode="aspectFill" src="../../images/icons/cli.png"></image>
+  <image wx:if="{{originaljpg==null}}" show-menu-by-longpress class="returnbgpng icon-60 " style="position: absolute;" mode="aspectFill" src="../../images/icons/cli.png"></image>
+
+
 </view>
 <view class="title_s">成品:</view>
 <view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx;backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.1);">

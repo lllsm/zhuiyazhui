@@ -28,7 +28,7 @@
   margin-bottom: 30rpx;
 }
 .pobottom {
-  margin: 0rpx 30rpx;
+  width: 100%;
   position: fixed;
   bottom: 40rpx;
   left: 0;
