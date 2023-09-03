@@ -87,6 +87,7 @@ class Content extends AppBase {
       })
     }
     this.Base.setMyData({
+      active: 'A',
       object: "A",
       switchover: true,
       imageData: {
@@ -176,11 +177,14 @@ class Content extends AppBase {
     var that = this;
 
     var inst = new InstApi();
-    inst.imagequality({img:this.Base.getMyData().filePath},(data)=>{
+    inst.imagequality({ img: this.Base.getMyData().filePath }, (data) => {
       console.log(data['模糊程度'])
-      if(data['模糊程度']){
+      if (data['模糊程度']) {
         this.Base.setMyData({
-        ImgQuality:data['模糊程度']
+          ImgQuality: data['模糊程度'],
+        })
+        this.Base.setMyData({
+          active: "D",
         })
       }
     })
@@ -420,7 +424,8 @@ class Content extends AppBase {
       width,
       height
     } = this.data.imageData
-
+    // const size = (dataLength / 1024).toFixed(2)
+    var msg = `${width + ' * ' + height}`
 
     // 将颜色转为 rgba值
     const bgc = hexRgb(photoBg, {
@@ -501,13 +506,13 @@ class Content extends AppBase {
             success: function (res) {
               wx.hideLoading()
               // 请求成功，获取抠图结果
-              const path = res.data.composite_image;
+              const path = `https://gpt.cllsm.top:4080/image/${res.data.composite_image}`;
               if (res.data.composite_image) {
                 that.Base.setMyData({
-                  composite_image: `https://gpt.cllsm.top:4080/image/${path}`
+                  composite_image: path
                 })
                 wx.setClipboardData({
-                  data: `https://gpt.cllsm.top:4080/image/${path}`,
+                  data: path,
                   success(res) {
                     wx.showToast({
                       title: '下载链接已复制',
@@ -518,6 +523,11 @@ class Content extends AppBase {
                 wechatApi.reducescore({
                   openid: that.Base.getMyData().UserInfo.openid,
                 }, (res) => {
+                  that.saveImage(path)
+                  let imageData = that.Base.getMyData().imageData;
+                  wx.navigateTo({
+                    url: '/pages/photoshare/photoshare?width=' + imageData.width + '&tempFilePath=' + path + '&url=' + path + '&mmHeight=' + imageData.mmHeight + '&mmWidth=' + imageData.mmWidth + '&height=' + imageData.height,
+                  })
                   that.onShow();
                   console.log(res)
                 })
@@ -750,12 +760,12 @@ class Content extends AppBase {
     var e = this.Base.getMyData().object;
     if (e == "B") {
       let cloth = this.Base.getMyData().cloth;
-      cloth.scale= cloth.scale + 0.05
-      this.Base.setMyData({cloth})
+      cloth.scale = cloth.scale + 0.05
+      this.Base.setMyData({ cloth })
     } else if (e == 'C') {
       let hair = this.Base.getMyData().hair;
-      hair.scale= hair.scale + 0.05
-      this.Base.setMyData({hair})
+      hair.scale = hair.scale + 0.05
+      this.Base.setMyData({ hair })
     } else {
       this.Base.setMyData({
         scale: this.Base.getMyData().scale + 0.05
@@ -767,12 +777,12 @@ class Content extends AppBase {
     var e = this.Base.getMyData().object;
     if (e == "B") {
       let cloth = this.Base.getMyData().cloth;
-      cloth.scale= cloth.scale - 0.05
-      this.Base.setMyData({cloth})
+      cloth.scale = cloth.scale - 0.05
+      this.Base.setMyData({ cloth })
     } else if (e == 'C') {
       let hair = this.Base.getMyData().hair;
-      hair.scale= hair.scale - 0.05
-      this.Base.setMyData({hair})
+      hair.scale = hair.scale - 0.05
+      this.Base.setMyData({ hair })
     } else {
       this.Base.setMyData({
         scale: this.Base.getMyData().scale - 0.05
@@ -786,33 +796,33 @@ class Content extends AppBase {
     if (e == "B") {
       let cloth = this.Base.getMyData().cloth;
       if (type == 'top') {
-        cloth.top= cloth.top - 1
+        cloth.top = cloth.top - 1
       }
       if (type == 'bottom') {
-        cloth.top= cloth.top + 1
+        cloth.top = cloth.top + 1
       }
       if (type == 'left') {
-        cloth.left= cloth.left - 1
+        cloth.left = cloth.left - 1
       }
       if (type == 'right') {
-        cloth.left= cloth.left + 1
+        cloth.left = cloth.left + 1
       }
-      this.Base.setMyData({cloth})
+      this.Base.setMyData({ cloth })
     } else if (e == 'C') {
       let hair = this.Base.getMyData().hair;
       if (type == 'top') {
-        hair.top= hair.top - 1
+        hair.top = hair.top - 1
       }
       if (type == 'bottom') {
-        hair.top= hair.top + 1
+        hair.top = hair.top + 1
       }
       if (type == 'left') {
-        hair.left= hair.left - 1
+        hair.left = hair.left - 1
       }
       if (type == 'right') {
-        hair.left= hair.left + 1
+        hair.left = hair.left + 1
       }
-      this.Base.setMyData({hair})
+      this.Base.setMyData({ hair })
     } else {
       if (type == 'top') {
         this.Base.setMyData({
@@ -846,6 +856,31 @@ class Content extends AppBase {
       switchover: !this.Base.getMyData().switchover
     })
   }
+  ImgDispose(){
+    var inst = new InstApi();
+    inst.imgdispose({ img: this.Base.getMyData().filePath }, (data) => {
+      console.log(data)
+      if (data.path) {
+        this.Base.toast("高清优化成功")
+        this.Base.setMyData({
+          filePath3:this.Base.getMyData().filePath,
+          filePath2: 'https://gpt.cllsm.top:4080/image/'+data,
+        })
+      }
+    })
+  }
+  choiceImg(e){
+    console.log(e.currentTarget.dataset.type)
+    if(e.currentTarget.dataset.type == 'A'){
+      this.Base.setMyData({
+        filePath:this.Base.getMyData().filePath3,
+      })
+    }else{
+      this.Base.setMyData({
+        filePath:this.Base.getMyData().filePath2,
+      })
+    }
+  }
 }
 var content = new Content();
 var body = content.generateBodyJson();
@@ -875,4 +910,7 @@ body.magnifyimg = content.magnifyimg;
 body.reduceimg = content.reduceimg;
 body.displacementImg = content.displacementImg;
 body.bntswitchover = content.bntswitchover;
+body.saveImage = content.saveImage;
+body.ImgDispose = content.ImgDispose;
+body.choiceImg = content.choiceImg;
 Page(body)

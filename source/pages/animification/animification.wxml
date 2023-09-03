@@ -78,7 +78,7 @@
       <view style="width:inherit;height:inherit;animation: scan 5s ease-in-out infinite; overflow: hidden;"></view>
   </view>
   <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
-  <image wx:if="{{originaljpg==null}}" show-menu-by-longpress class="returnbgpng icon-60" style="position: absolute;" mode="aspectFill" src="../../images/icons/cli.png"></image>
+  <image wx:if="{{originaljpg==null}}" show-menu-by-longpress class="returnbgpng icon-60" style="position: fixed;" mode="aspectFill" src="../../images/icons/cli.png"></image>
 </view>
 <view class="title_s">成品:</view>
 <view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.2);">

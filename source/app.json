@@ -19,7 +19,8 @@
         "pages/photo/photo",
         "pages/selectimg/selectimg",
         "pages/sizelist/sizelist",
-        "pages/camera/camera"
+        "pages/camera/camera",
+        "pages/photoshare/photoshare"
     ],
     "usingComponents": {
       "van-button":"@vant/weapp/button/index",

@@ -1,0 +1,39 @@
+<!--pages/photoshare/photoshare.wxml-->
+<view class="container">
+  <view class="container-content flex-column flex-centers border-box2" 
+  style="backdrop-filter: blur(7rpx);background: rgba(250, 124, 21, 0.1);">
+    <view class="container-content-img">
+      <image bindtap="preView" mode="heightFix" src="{{url}}"></image>
+    </view>
+    <view class="flex-column flex-center" style="width: 400rpx;">
+      <view class="img-msg margin-top-10 flex-row flex-liangbian">
+        <view class="img-msg" style="color: #999;">
+          {{'图片格式：'}}
+        </view>
+        <view class="img-msg">
+          {{'JPG'}}
+        </view>
+      </view>
+      <view class="img-msg margin-top-10 flex-row flex-liangbian">
+        <view class="img-msg" style="color: #999;">
+          {{'冲印尺寸：'}}
+        </view>
+        <view class="img-msg">
+          {{mmWidth + '*' + mmHeight + 'MM'}}
+        </view>
+      </view>
+      <view class="img-msg margin-top-10 flex-row flex-liangbian">
+        <view class="img-msg" style="color: #999;">
+          {{'像素尺寸：'}}
+        </view>
+        <view class="img-msg">
+          {{width + '*' + height+ 'PX'}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bottom">
+    <van-button plain type="primary" class="margin-left-40" open-type="share">分享好友</van-button>
+    <van-button plain type="primary" bindtap="goHome" class="margin-right-40">返回首页</van-button>
+  </view>
+</view>

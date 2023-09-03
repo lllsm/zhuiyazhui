@@ -33,7 +33,9 @@ class Content extends AppBase {
       detail: {
         width:sizeDetail.pxWidth,
         height:sizeDetail.pxHeight,
-        name:sizeDetail.name
+        name:sizeDetail.name,
+        mmWidth:sizeDetail.mmWidth,
+        mmHeight:sizeDetail.mmHeight
       },
       sizeDetail
     })

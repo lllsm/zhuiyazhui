@@ -76,13 +76,13 @@
       <image class="icon-44" src="../../images/icons/up.png" />
     </view>
   </view>
-  <van-notice-bar mode="closeable" wx:if="{{ImgQuality<0.5}}" wrapable text="{{ '检测到你的照片属于低质量，模糊状态请开启智能高清优化'}}" />
+  <van-notice-bar mode="closeable" wx:if="{{ImgQuality>0.5}}" wrapable text="{{ '检测到你的照片属于低质量，模糊状态请开启智能高清优化'}}" />
 
   <van-transition name="fade-up" show="{{ switchover }}">
     <view wx:if="{{switchover}}">
       <view class="imgOpt" style="overflow: hidden;">
         <van-tabs active="{{ active }}" bind:click="clickTab" color="#2c2c2c">
-          <van-tab title="背景" name="1">
+          <van-tab title="背景" name="A">
             <view class="colors">
               <view bindtap="toggleBg" data-color="white" class="color white {{bgc === 'white' ? 'active' : ''}}">
                 <view wx:if="{{bgc === 'white'}}" class="icon_select"></view>
@@ -99,8 +99,7 @@
               </view>
             </view>
           </van-tab>
-
-          <van-tab title="服饰" name="2">
+          <van-tab title="服饰" name="B">
             <scroll-view scroll-y>
               <view class="clothes">
                 <view class="block" wx:for="{{clothes}}" wx:key="_id" style="overflow: hidden;">
@@ -110,8 +109,7 @@
               </view>
             </scroll-view>
           </van-tab>
-
-          <van-tab title="发型" name="3">
+          <van-tab title="发型" name="C">
             <scroll-view scroll-y>
               <view class="hair">
                 <view class="block" wx:for="{{hairs}}" wx:key="_id" style="overflow: hidden;">
@@ -120,6 +118,16 @@
                 <view style="height: 300rpx;"></view>
               </view>
             </scroll-view>
+          </van-tab>
+          <van-tab title="图像处理" name="D">
+            <view class="flex-row flex-column pobottom margin-bottom-20 margin-top-30">
+              <button bindtap='ImgDispose' class="border-none clear-button radius-40 button_mian tcbtns">智能高清处理</button>
+            </view>
+
+            <view class="flex-row flex-liangbian flex-center">
+              <van-button plain type="primary" class="margin-left-40" bindtap="choiceImg" data-type="A">使用原图像</van-button>
+              <van-button plain type="primary" class="margin-right-40" bindtap="choiceImg" data-type="B">优化后图像</van-button>
+            </view>
           </van-tab>
         </van-tabs>
       </view>

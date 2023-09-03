@@ -1,5 +1,5 @@
 <!--pages/imglist/imglist.wxml-->
-<view class="flex-liangbian flex-row">
+<view class="flex-liangbian flex-row" wx:if="{{instinfo.switch==0}}">
   <image class="" mode="aspectFit" src="../../images/icons/add.png" bindtap="addmsg" class="icon-50 under2"></image>
 </view>
 <view class="flex-row flex-center" class="search">
