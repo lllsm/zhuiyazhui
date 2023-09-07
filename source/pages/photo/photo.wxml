@@ -119,7 +119,7 @@
               </view>
             </scroll-view>
           </van-tab>
-          <van-tab title="图像处理" name="D">
+          <!-- <van-tab title="图像处理" name="D">
             <view class="flex-row flex-column pobottom margin-bottom-20 margin-top-30">
               <button bindtap='ImgDispose' class="border-none clear-button radius-40 button_mian tcbtns">智能高清处理</button>
             </view>
@@ -128,7 +128,7 @@
               <van-button plain type="primary" class="margin-left-40" bindtap="choiceImg" data-type="A">使用原图像</van-button>
               <van-button plain type="primary" class="margin-right-40" bindtap="choiceImg" data-type="B">优化后图像</van-button>
             </view>
-          </van-tab>
+          </van-tab> -->
         </van-tabs>
       </view>
     </view>

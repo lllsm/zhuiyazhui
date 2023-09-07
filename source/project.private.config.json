@@ -270,7 +270,7 @@
         {
           "name": "",
           "pathName": "pages/photo/photo",
-          "query": "imageData=%7B%22width%22%3A295%2C%22height%22%3A413%2C%22name%22%3A%22%E4%B8%80%E5%AF%B8%22%2C%22mmWidth%22%3A25%2C%22mmHeight%22%3A35%2C%22tmpOriginImgSrc%22%3A%22https%3A%2F%2Fgpt.cllsm.top%3A4080%2Fimage%2Fadf2eaa7-d73f-41c4-b578-c739d9a19294.png%22%7D",
+          "query": "imageData=%7B%22width%22%3A295%2C%22height%22%3A413%2C%22name%22%3A%22%E4%B8%80%E5%AF%B8%22%2C%22mmWidth%22%3A25%2C%22mmHeight%22%3A35%2C%22tmpOriginImgSrc%22%3A%22https%3A%2F%2Fgpt.cllsm.top%3A4080%2Fimage%2F78be2f84-bb0e-4612-83ba-f68e85f441e7.png%22%7D",
           "launchMode": "default",
           "scene": null
         }
@@ -278,5 +278,5 @@
     }
   },
   "projectname": "source",
-  "libVersion": "2.33.0"
+  "libVersion": "3.0.1"
 }

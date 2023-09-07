@@ -200,7 +200,7 @@ class Content extends AppBase {
             success: (res) => {
               // 选择成功后，调用后端接口进行PDF转DOCX
               wx.uploadFile({
-                url: 'https://gpt.cllsm.top:4080/convert', // 修改为你的后端接口地址
+                url: 'https://gpt.cllsm.top:4081/convert', // 修改为你的后端接口地址
                 filePath: res.tempFiles[0].path,
                 name: 'file',
                 success: (res) => {
@@ -220,7 +220,7 @@ class Content extends AppBase {
                   var filePath = result;
 
                   wx.downloadFile({
-                    url: `https://gpt.cllsm.top:4080${filePath}`, // 修改为你的后端接口地址
+                    url: `https://gpt.cllsm.top:4081${filePath}`, // 修改为你的后端接口地址
                     success: (res) => {
                       that.hideLoadings()
                       // 打开文档
@@ -249,7 +249,7 @@ class Content extends AppBase {
                         success(res) {
                           if (res.confirm) {
                             wx.setClipboardData({
-                              data: `https://gpt.cllsm.top:4080${filePath}`,
+                              data: `https://gpt.cllsm.top:4081${filePath}`,
                               success(res) {
                                 wx.showToast({
                                   title: '下载链接已复制',
@@ -345,7 +345,7 @@ class Content extends AppBase {
             success: (res) => {
               // 选择成功后，调用后端接口进行PDF转DOCX
               wx.uploadFile({
-                url: 'https://gpt.cllsm.top:4080/converttojpg', // 修改为你的后端接口地址
+                url: 'https://gpt.cllsm.top:4081/converttojpg', // 修改为你的后端接口地址
                 filePath: res.tempFiles[0].path,
                 name: 'file',
                 success: (res) => {
@@ -356,7 +356,7 @@ class Content extends AppBase {
                   })
                   var filePath = that.Base.getMyData().filePath
                   wx.downloadFile({
-                    url: `https://gpt.cllsm.top:4080/downloadzip/${filePath}`, // 修改为你的后端接口地址
+                    url: `https://gpt.cllsm.top:4081/downloadzip/${filePath}`, // 修改为你的后端接口地址
                     success: (res) => {
                       that.hideLoadings()
                       wx.showModal({
@@ -367,7 +367,7 @@ class Content extends AppBase {
                         success(res) {
                           if (res.confirm) {
                             wx.setClipboardData({
-                              data: `https://gpt.cllsm.top:4080/downloadzip/${filePath}`,
+                              data: `https://gpt.cllsm.top:4081/downloadzip/${filePath}`,
                               success(res) {
                                 wx.showToast({
                                   title: '下载链接已复制',

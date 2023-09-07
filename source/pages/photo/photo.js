@@ -177,17 +177,17 @@ class Content extends AppBase {
     var that = this;
 
     var inst = new InstApi();
-    inst.imagequality({ img: this.Base.getMyData().filePath }, (data) => {
-      console.log(data['模糊程度'])
-      if (data['模糊程度']) {
-        this.Base.setMyData({
-          ImgQuality: data['模糊程度'],
-        })
-        this.Base.setMyData({
-          active: "D",
-        })
-      }
-    })
+    // inst.imagequality({ img: this.Base.getMyData().filePath }, (data) => {
+    //   console.log(data['模糊程度'])
+    //   if (data['模糊程度']) {
+    //     this.Base.setMyData({
+    //       ImgQuality: data['模糊程度'],
+    //     })
+    //     this.Base.setMyData({
+    //       active: "D",
+    //     })
+    //   }
+    // })
 
 
   }
