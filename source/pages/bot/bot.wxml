@@ -47,7 +47,7 @@
 </view>
 
 
-<view wx:if="{{long}}" class="border-none clear-button radius-40  tcbtns stop" bindtap="stop">停止响应</view>
+<view wx:if="{{long}}" class="border-none clear-button radius-40 stop" bindtap="stop">停止响应</view>
 
 <view style="position: fixed;top:{{margintop+70}}px;width: 100%;z-index: 9999;">
   <van-notice-bar mode="closeable" text="{{ instinfo.merchant_secret}}" />
@@ -189,8 +189,8 @@
               <van-loading size="24px" vertical></van-loading>
             </view>
             <view style="overflow: hidden;" wx:else >
-              <image bindtap="requestData" class="icon-fs flex-shrink" src="../../images/icons/fs.png" />
-              <!-- <image bindtap="okbnt" class="icon-fs flex-shrink" src="../../images/icons/fs.png" /> -->
+              <!-- <image bindtap="requestData" class="icon-fs flex-shrink" src="../../images/icons/fs.png" /> -->
+              <image bindtap="okbnt" class="icon-fs flex-shrink" src="../../images/icons/fs.png" />
             </view>
           </view>
         </view>
@@ -201,8 +201,8 @@
         <view class="flex-center flex-row flex-liangbian inp_item">
           <input maxlength="-1" placeholder="请输入你要提问的内容" class="input_s" bindinput="inpurl" bindblur="ReduceHeight" value="{{messages}}"></input>
           <view bindtap="okbnt">
-            <!-- <image bindtap="okbnt" style="width: 60rpx; height: 55rpx;" src="../../images/icons/fasong.png" /> -->
-            <image bindtap="requestData" class="icon-fs flex-shrink" src="../../images/icons/fs.png" />
+            <image bindtap="okbnt" style="width: 60rpx; height: 55rpx;" src="../../images/icons/fasong.png" />
+            <!-- <image bindtap="requestData" class="icon-fs flex-shrink" src="../../images/icons/fs.png" /> -->
           </view>
         </view>
       </view>

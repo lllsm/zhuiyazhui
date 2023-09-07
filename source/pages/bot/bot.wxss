@@ -199,7 +199,7 @@ Page{
   position: fixed;
   bottom: 260rpx;
   z-index: 100000;
-  left: 25%;
+  /* left: 25%;s */
 }
 .towxml_answer{
   margin: 0;

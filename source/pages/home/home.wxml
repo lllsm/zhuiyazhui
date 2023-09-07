@@ -33,7 +33,22 @@
     </van-count-down>
   </view>
 
-  <view class="margin-left-30 margin-right-30 radius-20" ><ad unit-id="adunit-c7c85d104b6e7b22"></ad></view>
+  <view class="margin-left-30 margin-right-30 radius-20">
+    <ad unit-id="adunit-c7c85d104b6e7b22"></ad>
+  </view>
+
+  <view class="flex-row flex-centers" wx:if="{{instinfo.switch==0}}">
+    <view class=" white-block flex-row flex-centers margin-top-20 padding-20" style="width: 400rpx;border-radius: 20rpx;" bindtap="navtoPage" data-page='bot'>
+      <image class="icon-30 flex-shrink" src="../../images/icons/bots.png" />
+      <view class="margin-left-15">
+        <view class="h6 txt-bold margin-bottom-5">智能Ai</view>
+        <view class="h7 text-2  type-text-1 ">最火智能 Bot_Ai</view>
+      </view>
+    </view>
+
+  </view>
+
+
   <view class="box margin-20 flex-row flex-center flex-xiandeng">
     <view class="BoxItem border-box2 flex-row flex-center" bindtap="navtoPage" data-page='video'>
       <image class="icon-40 flex-shrink " src="https://college.cllsm.top/uploads/20230809/c65ca0fbf1f11234c3c58711b8cc1b19.png" />
