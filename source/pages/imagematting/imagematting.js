@@ -126,12 +126,12 @@ class Content extends AppBase {
           camera: 'back',
           success(res) {
             console.log(res)
-            console.log(res.tempFiles[0].tempFilePath)
-            that.Base.setMyData({
-              originaljpg:res.tempFiles[0].tempFilePath
-            })
             // 将图像数据转换为base64编码字符串
             const base64Image = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath, 'base64');
+            console.log(res.tempFiles[0].tempFilePath)
+            that.Base.setMyData({
+              originaljpg:'data:image/png;base64,'+ base64Image
+            })
             // 发送POST请求
             wx.showLoading({
               title: '抠图中',

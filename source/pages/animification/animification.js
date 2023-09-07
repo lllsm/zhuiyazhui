@@ -127,13 +127,14 @@ class Content extends AppBase {
           maxDuration: 30,
           camera: 'back',
           success(res) {
+            // 将图像数据转换为base64编码字符串
+            const base64Image = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath, 'base64');
             console.log(res)
             console.log(res.tempFiles[0].tempFilePath)
             that.Base.setMyData({
-              originaljpg:res.tempFiles[0].tempFilePath
+              originaljpg:'data:image/png;base64,'+ base64Image
             })
-            // 将图像数据转换为base64编码字符串
-            const base64Image = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath, 'base64');
+
             // 发送POST请求
             wx.showLoading({
               title: '绘画中',

@@ -74,11 +74,14 @@
 
 <view class="title_s">原图:</view>
 <view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.2);" bindtap='remove_background'>
-  <view style="height:110%;width: 100%; position:relative;z-index:20;overflow: hidden;" wx:if="{{returnbgpng==null}}">
+  <view class="returnbgpng" style="position:relative;background-image: {{ 'url('+ originaljpg+')'  }} ;width: 100%;height: 100%; background-size: cover; background-position: center;overflow: hidden; border-radius: 10rpx;" >
+    <!-- <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image> -->
+    <image wx:if="{{originaljpg==null}}" show-menu-by-longpress class="icon-60 " style="position:relative;top: 140rpx;" mode="aspectFill" src="../../images/icons/cli.png"></image>
+    <!-- 扫描特效组件 -->
+    <view style="height:110%;width: 100%; position:absolute;z-index:20;overflow: hidden;" wx:if="{{returnbgpng==null & originaljpg!=null}}">
       <view style="width:inherit;height:inherit;animation: scan 5s ease-in-out infinite; overflow: hidden;"></view>
+    </view>
   </view>
-  <image wx:if="{{originaljpg!=null}}" show-menu-by-longpress class="returnbgpng" mode="aspectFill" src="{{originaljpg}}"></image>
-  <image wx:if="{{originaljpg==null}}" show-menu-by-longpress class="returnbgpng icon-60" style="position: fixed;" mode="aspectFill" src="../../images/icons/cli.png"></image>
 </view>
 <view class="title_s">成品:</view>
 <view class="text_s border-box2 flex-row flex-centers" style="height: 400rpx; backdrop-filter: blur(7rpx); background: rgba(49, 49, 49, 0.2);">
