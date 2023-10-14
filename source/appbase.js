@@ -342,8 +342,6 @@ export class AppBase {
         //     // that.Base.getAddress();
         //   });
         // }
-
-
       })
 
       return false;
@@ -439,22 +437,16 @@ export class AppBase {
 
   getPhoneNo(e) {
     var that = this;
-
     var api = new WechatApi();
-
     e.detail.session_key = AppBase.UserInfo.session_key;
     e.detail.openid = AppBase.UserInfo.openid;
-
     api.decrypteddata(e.detail, (ret) => {
       console.log(ret, '最最最');
-
       that.phonenoCallback(ret.return.phoneNumber, e, ret.code);
       console.log(ret.return.phoneNumber, 'phoneNumber')
-
     });
   }
   phonenoCallback(mobile, e, result) {
-
     if (result == '0') {
       var memberapi = new MemberApi();
       memberapi.updateshouji({
@@ -1138,10 +1130,6 @@ export class AppBase {
     })
 
   }
-
-
-
-
   btnClickTo() {
     this.Base.setMyData({ popup: true });
 
